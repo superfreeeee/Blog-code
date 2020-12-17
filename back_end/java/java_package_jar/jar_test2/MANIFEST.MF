@@ -1,0 +1,2 @@
+Mainvest-Version: 1.0
+Main-Class: sample.main.Main

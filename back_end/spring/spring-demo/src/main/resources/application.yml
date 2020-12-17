@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_demo
+    username: root
+    password: 123456789
+  resources:
+    static-locations:
+#      - classpath: /META-INF/resources/
+#      - classpath: /static
+#      - classpath: /resources/
+#      - file: ${upload-path}
+
+upload-path: /tmp/files
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml

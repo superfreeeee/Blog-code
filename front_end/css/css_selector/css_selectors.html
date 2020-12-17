@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <h1>Title</h1>
+  <ul>
+    <li>item1</li>
+    <li>item2</li>
+    <li>item3</li>
+    <li>item4</li>
+  </ul>
+  <p>Paragraph 1</p>
+
+  <div class="wrapper">
+    <div class="list">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+    </div>
+  </div> -->
+
+  <!-- <div>
+    <div class="a">1</div>
+    <div class="a">2</div>
+    <div class="a">3</div>
+    <div class="a">4</div>
+  </div>
+
+  <div class="a">
+    <div class="b">1</div>
+  </div>
+
+  <div class="a">
+    <div>
+      <div class="b">2</div>
+    </div>
+  </div> -->
+
+
+  <!-- <div>
+    <p>p1</p>
+    <ul>
+      <li>li1</li>
+      <li>li2</li>
+      <li>li3</li>
+      <li>li4</li>
+    </ul>
+    <p>p2</p>
+    <ul>
+      <li>li5</li>
+      <li>li6</li>
+      <li>li7</li>
+      <li>li8</li>
+    </ul>
+    <p>p3</p>
+  </div> -->
+
+  <div class="subtitle">跳轉頁面一</div>
+  <a href="">link1</a>
+  <div class="subtitle">跳轉頁面二</div>
+  <a href="">link2</a>
+
+  <style>
+    .a + .a {
+      background-color: red;
+    }
+
+    ul > li:nth-child(2) {
+      background-color: red;
+    }
+
+    div > p:nth-child(2n+1) {
+      background-color: orange;
+    }
+
+    .subtitle::before {
+      content: "- ";
+    }
+
+    a::before {
+      content: "鏈結：";
+      color: lightgray;
+      font-size: 8px;
+    }
+  </style>
+</body>
+</html>

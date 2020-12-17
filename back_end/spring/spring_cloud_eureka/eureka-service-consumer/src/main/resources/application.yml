@@ -1,0 +1,13 @@
+server:
+  port: 8802 # 启动端口
+
+eureka:
+  instance:
+    appname: service-consumer # 实例名称
+  client:
+    service-url:
+      defaultZone: http://localhost:8800/eureka/ # 注册中心
+
+spring:
+  application:
+    name: service-consumer # 服务名称

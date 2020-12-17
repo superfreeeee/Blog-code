@@ -1,0 +1,15 @@
+A = a.txt
+OBJ = a.txt b.txt c.txt
+
+init: $(A)
+	cat $^
+
+clean:
+	rm $(OBJ)
+
+a.txt: b.txt c.txt
+	echo "target: $@\nfirst dependency: $<\nall dependencies: $^" > $@
+b.txt:
+	echo "target: $@" > $@
+c.txt:
+	echo "target: $@" > $@

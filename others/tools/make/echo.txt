@@ -1,0 +1,7 @@
+all: with_echo without_echo
+
+with_echo:
+	echo "make with_echo" # 123
+
+without_echo:
+	@echo "make without_echo"

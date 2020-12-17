@@ -1,0 +1,1 @@
+#define EXTERN extern

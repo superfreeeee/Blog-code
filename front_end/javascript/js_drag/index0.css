@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    background-color: gray;
+}
+
+.container {
+    background-color: #fff;
+    margin: 40px auto 0;
+    width: 800px;
+    height: 800px;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+}
+
+#box1 {
+    background-color: blue;
+}
+
+#box2 {
+    background-color: red;
+}
+
+#box3 {
+    background-color: green;
+}
+
+#box4 {
+    background-color: lightgray;
+}

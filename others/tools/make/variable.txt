@@ -1,0 +1,21 @@
+# 符号替换
+CC = gcc
+
+# 变量声明
+SRC = main.c
+BIN = main
+ALL_OBJ = $(SRC) $(BIN)
+
+context = "int main() {}"
+
+# 目标
+init: $(BIN)
+
+clean:
+	rm $(ALL_OBJ)
+
+$(BIN): $(SRC)
+	$(CC) $(SRC) -o $(BIN)
+
+$(SRC):
+	echo $(context) > $(SRC)

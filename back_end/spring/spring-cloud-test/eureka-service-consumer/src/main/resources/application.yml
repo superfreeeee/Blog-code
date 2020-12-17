@@ -1,0 +1,13 @@
+server:
+  port: 8802
+
+eureka:
+  instance:
+    appname: service-consumer
+  client:
+    service-url:
+      defaultZone: http://localhost:8800/eureka/
+
+spring:
+  application:
+    name: service-consumer

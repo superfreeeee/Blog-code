@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/superfree/Desktop/Blog/code/back_end/cpp/cpp_struct/library.cpp
+library.h
+/Users/superfree/Desktop/Blog/code/back_end/cpp/cpp_struct/library.h
+iostream
+-
+
+/Users/superfree/Desktop/Blog/code/back_end/cpp/cpp_struct/library.h
+

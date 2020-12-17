@@ -1,0 +1,6 @@
+
+
+upload-path: /blog/file
+
+server:
+  port: 8999

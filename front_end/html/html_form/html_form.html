@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test-form</title>
+</head>
+<body>
+  <form id="form" style="line-height: 30px; width: 350px;">
+    <fieldset>
+      <legend>Report</legend>
+      <label>name: <input type="text" name="name"/></label><br/>
+      <label>title: <input type="text" name="title"/></label><br/>
+      <label style="vertical-align: top;" for="desc">description:</label>
+      <textarea id="desc" name="description"></textarea><br/>
+      
+      <input type="submit">
+      <input type="reset">
+    </fieldset>
+  </form>
+
+  <script>
+    const formId = 'form'
+    const formData = {
+      name: '',
+      title: '',
+      description: ''
+    }
+    formRegister(formId, formData)
+
+    // console.log(document.forms)
+    // console.log(document.forms['form'])
+    // console.log(document.forms['form'].account)
+    const form = document.forms[formId]
+    form.addEventListener('submit', function(e) {
+      console.log('submit')
+      console.log(formData)
+      e.preventDefault()
+    })
+    form.addEventListener('reset', function(e) {
+      console.log('reset')
+      for(let key of Object.keys(formData)) {
+        formData[key] = ''
+      }
+      console.log(formData)
+    })
+
+    function formRegister(formId, formData) {
+      const form = document.forms[formId]
+      for(let key of Object.keys(formData)) {
+        form[key].value = formData[key]
+        form[key].addEventListener('input', function(e) {
+          formData[key] = e.target.value
+        })
+      }
+    }
+
+  </script>
+</body>
+</html>
