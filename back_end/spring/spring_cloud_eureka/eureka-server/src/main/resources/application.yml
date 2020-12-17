@@ -5,5 +5,7 @@ eureka:
   client:
     register-with-eureka: false # 不向 eureka 注册
     fetch-registry: false # 表明自己就是 eureka server
+    service-url:
+      defaultZone: http://localhost:8800/eureka/ # 注册中心
   instance:
     secure-port-enabled: false

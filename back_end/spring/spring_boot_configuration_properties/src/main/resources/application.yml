@@ -1,0 +1,14 @@
+my:
+  prop:
+    name: superfree
+    port: 8800
+    exclude-users:
+      - user1
+      - user2
+      - user3
+    server:
+      name: my-server
+      url: http://localhost:8801
+    client:
+      name: my-client
+      url: http://localhost:8802

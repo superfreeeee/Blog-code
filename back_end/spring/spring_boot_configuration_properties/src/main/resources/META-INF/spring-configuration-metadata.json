@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "my.prop",
+      "type": "com.example.demo.MyProperties",
+      "sourceType": "com.example.demo.MyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "my.prop.client",
+      "type": "com.example.demo.ClientProperties",
+      "sourceType": "com.example.demo.MyProperties"
+    },
+    {
+      "name": "my.prop.exclude-users",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.demo.MyProperties"
+    },
+    {
+      "name": "my.prop.name",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.MyProperties"
+    },
+    {
+      "name": "my.prop.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.demo.MyProperties"
+    },
+    {
+      "name": "my.prop.server",
+      "type": "com.example.demo.ServerProperties",
+      "sourceType": "com.example.demo.MyProperties"
+    }
+  ],
+  "hints": []
+}
