@@ -4,6 +4,7 @@ public class Main {
 
     private static void printInheritList(Class c) {
         Class pc;
+        // 递归检索父类，直到 null（Object.class.getSuperclass() 为 null）
         while ((pc = c.getSuperclass()) != null) {
             System.out.println(c.getName() + " extends " + pc.getName());
             c = pc;
