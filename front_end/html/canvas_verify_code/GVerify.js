@@ -41,7 +41,6 @@
     ctx.fillStyle = randomColor(180, 240)
     ctx.fillRect(0, 0, width, height)
 
-    console.log(`x range (${0}, ${width})`)
     /* 绘制验证码 */
     this.options.code = ''
     for (let i = 0; i < size; i++) {
@@ -56,9 +55,6 @@
       const x = randomInt(width / size * i, width / size * (i + 0.8))
       const y = height / 2
       const degree = randomInt(-30, 30)
-      console.log(
-        `x = ${x} from (${width / size * i}, ${width / size * (i + 0.8)}), y = ${y}, degree = ${degree}, txt = ${c}`
-      )
       /* 改变坐标系 */
       ctx.translate(x, y) // 原点
       ctx.rotate(degree * Math.PI / 180) // 旋转
@@ -90,6 +86,7 @@
   }
 
   GVerify.prototype.validate = function (code) {
+    console.log(`expected: ${this.options.code}, actual: ${code}`)
     return code === this.options.code
   }
 
