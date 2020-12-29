@@ -36,7 +36,7 @@ export function trigger (target, key, newValue) {
   const effects = depsMap.get(key)
   // 找到 target[key] 相关的所有 effect 回调
   if (effects) {
-    // 一一调用
+    // 每个都要调用一次
     effects.forEach(effect => effect())
   }
 }
@@ -45,7 +45,7 @@ export function trigger (target, key, newValue) {
 export function effect (fn) {
   const effect = createReactiveEffect(fn)
   // 首次调用时直接触发第一次响应式回调
-  return effect()
+  return effect() // 参考代码这一行写错了，简直天坑hhh
 }
 
 // effect 回调调用栈
