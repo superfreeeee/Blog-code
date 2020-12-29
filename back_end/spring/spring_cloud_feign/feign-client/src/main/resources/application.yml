@@ -14,5 +14,12 @@ spring:
   application:
     name: feign-client
 
+# feign 配置
 feign:
   client:
+    config:
+      default:
+        # 超时设置
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic

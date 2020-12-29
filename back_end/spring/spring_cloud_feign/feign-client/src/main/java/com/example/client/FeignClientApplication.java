@@ -6,7 +6,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
 
-@EnableFeignClients
+@EnableFeignClients // 扫描 FeignClient 并自动注入 Bean
 @EnableEurekaClient
 @SpringBootApplication
 public class FeignClientApplication {

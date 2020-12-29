@@ -1,4 +1,4 @@
-package com.example.feign;
+package com.example.service;
 
 public class Response {
 
