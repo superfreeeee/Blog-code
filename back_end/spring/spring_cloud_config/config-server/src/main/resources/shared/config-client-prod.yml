@@ -1,0 +1,8 @@
+server:
+  port: 8803
+
+data:
+  env: prod
+  user:
+    username: prod456
+    password: prod456

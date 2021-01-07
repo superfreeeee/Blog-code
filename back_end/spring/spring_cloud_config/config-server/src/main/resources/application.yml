@@ -1,0 +1,21 @@
+server:
+  port: 8801
+
+eureka:
+  instance:
+    appname: config-server
+  client:
+    service-url:
+      defaultZone: http://localhost:8800/eureka/
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    # config 配置
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+    active: native
