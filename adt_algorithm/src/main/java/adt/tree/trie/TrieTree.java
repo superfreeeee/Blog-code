@@ -2,17 +2,20 @@ package adt.tree.trie;
 
 import java.util.Map;
 
+/**
+ * 字典树
+ */
 public interface TrieTree {
 
     /**
-     * 加入字符串
+     * 加入单词
      *
      * @param word
      */
     void insert(String word);
 
     /**
-     * 给定字符串出现次数
+     * 给定单词出现次数
      *
      * @param word
      * @return
@@ -28,7 +31,7 @@ public interface TrieTree {
     int countPrefix(String prefix);
 
     /**
-     * 返回现有字符串个数
+     * 单词个数
      */
     int words();
 
@@ -40,7 +43,7 @@ public interface TrieTree {
     String commonPrefix();
 
     /**
-     * 给出所有字符串出现次数
+     * 词频统计(各单词出现次数)
      *
      * @return
      */

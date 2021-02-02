@@ -3,6 +3,7 @@ package adt.tree.trie;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +22,11 @@ public class TrieTreeTest {
         assertEquals(1, trieTree.countPrefix("fligh"));
         assertEquals(0, trieTree.countPrefix("flighe"));
         assertEquals("fl", trieTree.commonPrefix());
-        System.out.println(trieTree.wordsFrequency());
+
+        System.out.println("--- words frequency ---");
+        for (Map.Entry<String, Integer> entry : trieTree.wordsFrequency().entrySet()) {
+            System.out.println(entry);
+        }
     }
 
     @Test
