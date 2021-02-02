@@ -1,0 +1,35 @@
+@import "../cursor.css";
+@import "../border.css";
+@import "../shadow.css";
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.row {
+    margin-bottom: 16px;
+}
+
+
+.box {
+    display: grid;
+    place-content: center;
+}
+
+.small {
+    width: 50px;
+    height: 50px;
+}
+
+.middle {
+    width: 100px;
+    height: 100px;
+}
+
+.large {
+    width: 200px;
+    height: 200px;
+}
+

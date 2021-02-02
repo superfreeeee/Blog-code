@@ -1,5 +1,5 @@
 pub fn test_primitive() {
-    println!("----- test primitive -----");
+    println!("----- test_primitive -----");
 
     // integer
     println!("<<< integer >>>");
