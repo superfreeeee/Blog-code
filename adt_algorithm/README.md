@@ -120,23 +120,23 @@
 
 #### 1.1 InsertionSort 插入排序
 
-- [x] 基本实现
+- [x] 针对 `int[]` 实现
 
 #### 1.2 MergeSort 归并排序
 
-- [x] 基本实现
+- [x] 针对 `int[]` 实现
 
 #### 1.3 HeapSort 堆排序
 
-- [x] 基本实现
+- [x] 针对 `int[]` 实现
 
 #### 1.4 QuickSort 快速排序
 
-- [x] 基本实现
+- [x] 针对 `int[]` 实现
 
 #### 1.5 CountingSort 计数排序
 
-- [x] 基本实现
+- [x] 针对 `int[]` 实现
 
 #### 1.6 RadixSort 基数排序
 
@@ -156,6 +156,6 @@
 
 #### 3.1 LongestCommonPrefix 最长公共前缀
 
-- [ ] 基本实现
+- [x] 使用 TrieTree 实现
 
 ### 4. Number 数字算法

@@ -1,4 +1,4 @@
-package algorithm.sorting;
+package algorithm.select;
 
 import algorithm.select.SelectionKth;
 import org.junit.Test;
