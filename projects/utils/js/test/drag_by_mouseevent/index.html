@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag by MouseEvent</title>
+    <link rel="stylesheet" href="../../../css/test/helper.css" />
+  </head>
+  <body>
+    <div
+      class="large border row pointer"
+      onmousedown="test(event)"
+    ></div>
+    <div class="middle border box row">123</div>
+    <div
+      draggable="true"
+      class="middle border shadow box grab"
+      style="cursor: grab"
+      ondragstart="test2(event)"
+    >draggable</div>
+
+    <script src="../../drag_by_mouseevent.js"></script>
+    <script>
+      function test(e) {
+        console.log('mousedown')
+        drag(e)
+      }
+      function test2(e) {
+        console.log('test2 drag')
+        e.preventDefault()
+      }
+    </script>
+  </body>
+</html>

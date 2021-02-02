@@ -1,0 +1,15 @@
+{
+  "name": "functional_data_operation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "init": "yarn add @babel/core @babel/preset-env @babel/register -D",
+    "start": "node start.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10"
+  }
+}

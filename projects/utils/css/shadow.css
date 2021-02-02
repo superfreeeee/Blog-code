@@ -1,0 +1,9 @@
+/* shadow 相关（阴影效果） */
+
+.shadow {
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+}
+
+.simple-light-gray-shadow {
+    box-shadow: 0px 0px 2px 1px #d1d1d1;
+}

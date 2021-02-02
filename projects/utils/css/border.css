@@ -1,0 +1,9 @@
+/* border 相关（边界效果） */
+
+.border {
+    border: 1px solid #dadce0;
+}
+
+.thin-light-gray-border {
+    border: 1px solid #dadce0;
+}
