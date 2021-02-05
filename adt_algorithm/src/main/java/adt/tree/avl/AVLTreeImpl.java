@@ -1,174 +1,117 @@
 package adt.tree.avl;
 
-public class AVLTreeImpl<T> implements AVLTree<T> {
+import adt.tree.bst.BinarySearchTreeImpl;
 
-    private static class Node<T> {
-        int key;
-        T data;
-        Node<T> parent;
-        Node<T> left;
-        Node<T> right;
-    }
-
-    private Node<T> root;
-
-    @Override
-    public T search(int key) {
-        return null;
-    }
-
-    @Override
-    public T minimum() {
-        return null;
-    }
-
-    @Override
-    public T maximum() {
-        return null;
-    }
-
-    @Override
-    public T predecessor(int key) {
-        return null;
-    }
-
-    @Override
-    public T successor(int key) {
-        return null;
-    }
+public class AVLTreeImpl<T> extends BinarySearchTreeImpl<T> implements AVLTree<T> {
 
     @Override
     public void insert(int key, T data) {
-
+        Node<T> x = new Node<>(key, data);
+        insert(x);
+        balance(x);
     }
 
     @Override
     public T delete(int key) {
-        return null;
+        Node<T> z = search(root, key);
+        if (z == null) return null;
+        Node<T> x = delete(z);
+        balance(x);
+        return z.data;
     }
 
-    @Override
-    public int height() {
-        return 0;
+    // 平衡因子
+    private int factor = 1;
+
+    /**
+     * 计算平衡因子
+     *
+     * @param x
+     * @return
+     */
+    private int balanceFactor(Node<T> x) {
+        return height(x.left) - height(x.right);
     }
 
-    @Override
-    public boolean empty() {
-        return root == null;
+    /**
+     * 插入/删除后平衡
+     *
+     * @param x
+     */
+    private void balance(Node<T> x) {
+        while (x != null) {
+            int f;
+            if (Math.abs(f = balanceFactor(x)) > factor) {
+                // 不平衡
+                if (f > 0) {
+                    if (balanceFactor(x.left) < 0) {
+                        // LR
+                        leftRotate(x.left);
+                    }
+                    // LL
+                    rightRotate(x);
+                } else {
+                    if (balanceFactor(x.right) > 0) {
+                        // RL
+                        rightRotate(x);
+                    }
+                    // RR
+                    leftRotate(x);
+                }
+                break;
+            }
+            x = x.parent;
+        }
     }
 
-    @Override
-    public int nodes() {
-        return nodes(root);
+    /**
+     * 左旋转
+     *
+     * @param x
+     */
+//   x          y
+//  / \        / \
+// a   y  ->  x   c
+//    / \    / \
+//   b   c  a   b
+    private void leftRotate(Node<T> x) {
+        Node<T> y = x.right;
+        // x & b
+        x.right = y.left;
+        if (x.right != null) x.right.parent = x;
+        // y & x.parent
+        y.parent = x.parent;
+        if (x.parent == null) root = y;
+        else if (x == x.parent.left) x.parent.left = y;
+        else x.parent.right = y;
+        // x & y
+        y.left = x;
+        x.parent = y;
     }
 
-    private int nodes(Node node) {
-        if (node == null) return 0;
-        return nodes(node.left) + nodes(node.right) + 1;
+    /**
+     * 右旋转
+     *
+     * @param y
+     */
+//   x          y
+//  / \        / \
+// a   y  <-  x   c
+//    / \    / \
+//   b   c  a   b
+    private void rightRotate(Node<T> y) {
+        Node<T> x = y.left;
+        // y & b
+        y.left = x.right;
+        if (y.left != null) y.left.parent = y;
+        // y & x.parent
+        x.parent = y.parent;
+        if (y.parent == null) root = x;
+        else if (y == y.parent.left) y.parent.left = x;
+        else y.parent.right = x;
+        // x & y
+        x.right = y;
+        y.parent = x;
     }
 
-    @Override
-    public void preorder() {
-
-    }
-
-    @Override
-    public void inorder() {
-
-    }
-
-    @Override
-    public void postorder() {
-
-    }
-
-    @Override
-    public void layerOrder() {
-
-    }
-
-//    private int height(Node<T> node) {
-//        if (node == null) return 0;
-//        return Math.max(height(node.left), height(node.right)) + 1;
-//    }
-//
-//    /**
-//     * 插入元素并指定键
-//     *
-//     * @param key
-//     * @param t
-//     */
-//    @Override
-//    public void insert(int key, T t) {
-//        super.insert(key, t);
-//        Node<T> p = _search(root, key).parent;
-//        while (p != null) {
-//            if (Math.abs(height(p.left) - height(p.right)) > 1) {
-//                balance(p);
-//                return;
-//            }
-//            p = p.parent;
-//        }
-//    }
-//
-//    private void balance(Node<T> p) {
-//        if (height(p.left) > height(p.right)) {
-//            if (height(p.left.right) > height(p.left.left)) leftRotate(p.left);
-//            rightRotate(p);
-//        } else {
-//            if (height(p.right.left) > height(p.right.right)) rightRotate(p.right);
-//            leftRotate(p);
-//        }
-//    }
-//
-//    private void leftRotate(Node<T> y) {
-//        Node<T> x = y.right;
-//        // x - y.parent
-//        x.parent = y.parent;
-//        if (y.parent == null) root = x;
-//        else if (y == y.parent.left) y.parent.left = x;
-//        else y.parent.right = x;
-//        // y - x.left
-//        y.right = x.left;
-//        if (y.right != null) y.right.parent = y;
-//        // x - y
-//        x.left = y;
-//        y.parent = x;
-//    }
-//
-//    private void rightRotate(Node<T> y) {
-//        Node<T> x = y.left;
-//        // x - y.parent
-//        x.parent = y.parent;
-//        if (y.parent == null) root = x;
-//        else if (y == y.parent.left) y.parent.left = x;
-//        else y.parent.right = x;
-//        // y - x.right
-//        y.left = x.right;
-//        if (y.left != null) y.left.parent = y;
-//        // x - y
-//        x.right = y;
-//        y.parent = x;
-//    }
-//
-//    /**
-//     * 删除元素
-//     *
-//     * @param key
-//     */
-//    @Override
-//    public void delete(int key) {
-//        Node<T> cur = _search(root, key);
-//        if (cur == null) return;
-//        super.delete(key);
-//        if (height(cur.left) > height(cur.right) && cur.right != null) balance(cur.right.parent);
-//        cur = cur.parent;
-//        while (cur != null) {
-//            if (Math.abs(height(cur.left) - height(cur.right)) > 1) {
-//                balance(cur);
-//                return;
-//            }
-//            cur = cur.parent;
-//        }
-//    }
 }

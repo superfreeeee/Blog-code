@@ -47,4 +47,8 @@ public interface BinarySearchTree<T> extends Tree<T> {
      */
     T successor(int key);
 
+    /**
+     * 展示树形结构
+     */
+    void tree();
 }

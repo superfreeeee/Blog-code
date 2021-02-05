@@ -1,25 +1,35 @@
 package adt.tree.avl;
 
-import adt.tree.bst.BinarySearchTree;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class AVLTreeTest {
 
+    private void show(AVLTree<Integer> tree) {
+        tree.tree();
+        tree.inorder();
+        System.out.println();
+    }
+
     @Test
     public void test_avl() {
-        BinarySearchTree<Integer> t = new AVLTreeImpl<Integer>();
-        for (int i = 0; i < 10; i++) {
-            t.insert(i, i + 10);
-            System.out.println(t);
+        AVLTree<Integer> avlTree = new AVLTreeImpl<>();
+        for (int i = 10; i > 0; i--) {
+            System.out.println("--- insert: " + i + " ---");
+            avlTree.insert(i, i);
+            show(avlTree);
         }
-        System.out.println("start delete");
-        t.delete(3);
-        System.out.println(t);
-        t.delete(5);
-        System.out.println(t);
-        t.delete(6);
-        System.out.println(t);
+        System.out.println("--- delete: 2 ---");
+        assertEquals((Integer) 2, avlTree.delete(2));
+        show(avlTree);
+        System.out.println("--- delete: 9 ---");
+        assertEquals((Integer) 9, avlTree.delete(9));
+        show(avlTree);
+        System.out.println("--- delete: 11 ---");
+        assertEquals(null, avlTree.delete(11));
+        System.out.println("--- delete: 7 ---");
+        assertEquals((Integer) 7, avlTree.delete(7));
+        show(avlTree);
     }
 }

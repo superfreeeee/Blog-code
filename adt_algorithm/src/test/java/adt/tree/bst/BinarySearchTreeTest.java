@@ -12,7 +12,7 @@ public class BinarySearchTreeTest {
                 new int[]{1, 3, 5, 7, 9, 11, 13},
                 new Integer[]{10, 30, 50, 70, 90, 110, 130}
         );
-        System.out.println(bst);
+        bst.tree();
 
         // traversal
         System.out.println("--- traversal ---");
@@ -57,10 +57,10 @@ public class BinarySearchTreeTest {
         // delete
         System.out.println("--- delete ---");
         Integer d = bst.delete(3);
-        System.out.println(bst);
+        bst.tree();
         assertEquals((Integer) 30, d);
         d = bst.delete(9);
-        System.out.println(bst);
+        bst.tree();
         assertEquals((Integer) 90, d);
 
         // search & predecessor & successor after delete
@@ -94,7 +94,7 @@ public class BinarySearchTreeTest {
                 new int[]{1, 3, 5, 7, 9, 11, 13, 15, 17},
                 new Integer[]{1, 3, 5, 7, 9, 11, 13, 15, 17}
         );
-        System.out.println(bst);
+        bst.tree();
 
         // traversal
         System.out.println("--- traversal ---");
@@ -139,13 +139,13 @@ public class BinarySearchTreeTest {
         // delete
         System.out.println("--- delete ---");
         Integer d = bst.delete(3);
-        System.out.println(bst);
+        bst.tree();
         assertEquals((Integer) 3, d);
         d = bst.delete(9);
-        System.out.println(bst);
+        bst.tree();
         assertEquals((Integer) 9, d);
         d = bst.delete(11);
-        System.out.println(bst);
+        bst.tree();
         assertEquals((Integer) 11, d);
 
         // search & predecessor & successor after delete
@@ -168,7 +168,7 @@ public class BinarySearchTreeTest {
 
         // others info 2
         System.out.println("--- others info 2 ---");
-        assertEquals(4, bst.height());
+        assertEquals(3, bst.height());
         assertEquals(false, bst.empty());
         assertEquals(6, bst.nodes());
     }

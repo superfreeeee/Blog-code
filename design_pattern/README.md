@@ -6,8 +6,8 @@
 
 | 目的 | 创建型                                                       | 结构型                                                       | 行为型                                                       |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 类   | Factory Method 工厂方法                                      | Adapter 适配器                                               | Interpreter 编译器<br />Template Method 模版方法             |
-| 对象 | Abstract Factory 抽象工厂<br />Builder 建造者<br />Prototype 原型<br />Singleton 单例 | Adapter 适配器<br />Bridge 桥接<br />Composite 组合<br />Decorator 装饰器<br />Facade 外观<br />Flyweight 享元<br />Proxy 代理 | Chain of Responsibility 职责链<br />Command 命令<br />Iterator 迭代器<br />Mediator 中介者<br />Memento 备忘录<br />Observer 观察者<br />State 状态<br />Strategy 策略<br />Visitor 访问者 |
+| 类   | Factory Method 工厂方法                                      | Adapter 适配器                                               | Interpreter 解释器<br />Template Method 模版方法             |
+| 对象 | Abstract Factory 抽象工厂<br />Builder 生成器<br />Prototype 原型<br />Singleton 单例 | Adapter 适配器<br />Bridge 桥接<br />Composite 组合<br />Decorator 装饰器<br />Facade 外观<br />Flyweight 享元<br />Proxy 代理 | Chain of Responsibility 职责链<br />Command 命令<br />Iterator 迭代器<br />Mediator 中介者<br />Memento 备忘录<br />Observer 观察者<br />State 状态<br />Strategy 策略<br />Visitor 访问者 |
 
 ## 1. Creational Pattern 创建型设计模式
 
@@ -15,7 +15,7 @@
 
 ### 1.2 Abstract Factory 抽象工厂
 
-### 1.3 Builder 建造者
+### 1.3 Builder 生成器
 
 ### 1.4 Prototype 原型
 
@@ -39,7 +39,7 @@
 
 ## 3. Behavioral Pattern 行为型设计模式
 
-### 3.1 Interpreter 编译器
+### 3.1 Interpreter 解释器
 
 ### 3.2 Template Method 模版方法
 
@@ -58,5 +58,7 @@
 ### 3.9 State 状态
 
 ### 3.10 Strategy 策略
+
+- [x] Calculator 计算器
 
 ### 3.11 Visitor 访问者

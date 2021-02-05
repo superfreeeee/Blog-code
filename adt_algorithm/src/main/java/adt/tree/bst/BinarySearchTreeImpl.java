@@ -5,14 +5,14 @@ import java.util.Queue;
 
 public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
 
-    private static class Node<T> {
-        int key;
-        T data;
-        Node<T> parent;
-        Node<T> left;
-        Node<T> right;
+    protected static class Node<T> {
+        public int key;
+        public T data;
+        public Node<T> parent;
+        public Node<T> left;
+        public Node<T> right;
 
-        Node(int key, T data) {
+        public Node(int key, T data) {
             this.key = key;
             this.data = data;
         }
@@ -29,9 +29,17 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
         String simple() {
             return "{key=" + key + ", data=" + data + "}";
         }
+
+        void tree(String prefix) {
+            System.out.println(prefix + simple());
+            prefix = prefix + "  ";
+            if (left != null) left.tree(prefix);
+            else if (right != null) System.out.println(prefix + "null");
+            if (right != null) right.tree(prefix);
+        }
     }
 
-    private Node<T> root;
+    protected Node<T> root;
 
     public static <T> BinarySearchTreeImpl<T> from(int[] keys, T[] values) {
         int n = keys.length;
@@ -60,7 +68,7 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
         return node == null ? null : node.data;
     }
 
-    private Node<T> search(Node<T> node, int key) {
+    protected Node<T> search(Node<T> node, int key) {
         while (node != null && node.key != key) {
             node = (key < node.key ? node.left : node.right);
         }
@@ -144,65 +152,73 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
 
     @Override
     public void insert(int key, T data) {
-        Node<T> node = new Node<>(key, data);
-        if (root == null) {
-            root = node;
-            return;
-        }
-        Node<T> pre = root, cur = (key <= pre.key ? pre.left : pre.right);
+        insert(new Node<>(key, data));
+    }
+
+    protected void insert(Node<T> x) {
+        Node<T> pre = null, cur = root;
         while (cur != null) {
             pre = cur;
-            cur = (key <= pre.key ? pre.left : pre.right);
+            cur = (x.key <= pre.key ? pre.left : pre.right);
         }
-        node.parent = pre;
-        if (key <= pre.key) {
-            pre.left = node;
+        x.parent = pre;
+        if (pre == null) {
+            root = x;
+        } else if (x.key <= pre.key) {
+            pre.left = x;
         } else {
-            pre.right = node;
+            pre.right = x;
         }
     }
 
     @Override
     public T delete(int key) {
-        Node<T> target = search(root, key);
-        if (target == null) return null;
-        if (target.left == null) {
-            transparent(target, target.right);
-            return target.data;
-        } else if (target.right == null) {
-            transparent(target, target.left);
-            return target.data;
-        }
-        Node<T> cur = predecessor(target);
-        transparent(target, cur);
-        if (cur != target.left) {
-            cur.left = target.left;
-            if (cur.left != null) cur.left.parent = cur;
-        }
-        if (cur != target.right) {
-            cur.right = target.right;
-            if (cur.right != null) cur.right.parent = cur;
-        }
-        assert validate(root);
-        return target.data;
+        Node<T> z = search(root, key);
+        if (z == null) return null;
+        delete(z);
+        return z.data;
     }
 
-    private boolean validate(Node<T> node) {
-        if (node == null) return true;
-        if (node.left != null && node.left.parent != node ||
-                node.right != null && node.right.parent != node) return false;
-        return validate(node.left) && validate(node.right);
+    protected Node<T> delete(Node<T> z) {
+        Node<T> x;
+        if (z.left == null) {
+            x = z.right;
+            transplant(z, z.right);
+        } else if (z.right == null) {
+            x = z.left;
+            transplant(z, z.left);
+        } else {
+            // target 必有两子
+            Node<T> y = x = successor(z); // cur 为 target 后继
+            if (y.parent != z) {
+                if (y.right != null) x = y.right;
+                transplant(y, y.right); // 必无左子
+                y.right = z.right;
+                y.right.parent = y;
+            }
+            transplant(z, y);
+            y.left = z.left;
+            y.left.parent = y;
+        }
+        //  x        x
+        //   \  or  /
+        //    z    z
+        return x;
     }
 
-    private void transparent(Node<T> target, Node<T> cur) {
-        if (cur != null) {
-            if (cur == cur.parent.left) cur.parent.left = null;
-            else cur.parent.right = null;
-            cur.parent = target.parent;
+    /**
+     * 处理 u.parent 与 v 的链接
+     *
+     * @param u
+     * @param v
+     */
+    private void transplant(Node<T> u, Node<T> v) {
+        if (u == root) root = v;
+        else if (u == u.parent.left) u.parent.left = v;
+        else u.parent.right = v;
+        if (v != null) {
+            v.parent = u.parent;
         }
-        if (target == root) root = cur;
-        else if (target == target.parent.left) target.parent.left = cur;
-        else target.parent.right = cur;
     }
 
     @Override
@@ -210,7 +226,7 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
         return height(root);
     }
 
-    private int height(Node node) {
+    protected int height(Node node) {
         if (node == null) return 0;
         return Math.max(height(node.left), height(node.right)) + 1;
     }
@@ -288,4 +304,8 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
         return "BST: " + (root == null ? "empty" : root.toString());
     }
 
+    @Override
+    public void tree() {
+        root.tree("");
+    }
 }
