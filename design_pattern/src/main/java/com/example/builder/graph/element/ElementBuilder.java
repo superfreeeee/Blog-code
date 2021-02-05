@@ -1,8 +1,8 @@
-package com.example.builder.graph.canvas;
+package com.example.builder.graph.element;
 
 import com.example.builder.graph.GraphBuilder;
 
-public class CanvasBuilder implements GraphBuilder {
+public class ElementBuilder implements GraphBuilder {
     @Override
     public GraphBuilder init() {
         return null;

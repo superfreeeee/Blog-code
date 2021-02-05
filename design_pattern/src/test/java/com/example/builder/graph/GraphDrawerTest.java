@@ -1,6 +1,6 @@
 package com.example.builder.graph;
 
-import com.example.builder.graph.canvas.CanvasBuilder;
+import com.example.builder.graph.element.ElementBuilder;
 import com.example.builder.graph.svg.SVGBuilder;
 import org.junit.Test;
 
@@ -8,15 +8,23 @@ public class GraphDrawerTest {
 
     private GraphDrawer director = new GraphDrawer();
 
-    @Test
-    public void createSVG() {
-        String svg = director.create(new SVGBuilder());
-        System.out.println(svg);
+    private void testTemplate(GraphBuilder builder) {
+        String res = director.test(builder);
+        System.out.println("res: " + res);
+        builder.check();
+
+        res = director.createFace(builder);
+        System.out.println("face: " + res);
+        builder.check();
     }
 
     @Test
-    public void createCanvas() {
-        String canvas = director.create(new CanvasBuilder());
-        System.out.println(canvas);
+    public void createSVG() {
+        testTemplate(new SVGBuilder());
+    }
+
+    @Test
+    public void createElement() {
+        testTemplate(new ElementBuilder()); // Error 未实现
     }
 }
