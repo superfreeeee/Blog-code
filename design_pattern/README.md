@@ -17,6 +17,9 @@
 
 ### 1.3 Builder 生成器
 
+- [x] MazeBuilder 迷宫生成器
+- [x] GraphBuilder HTML 2d图形文本生成器
+
 ### 1.4 Prototype 原型
 
 ### 1.5 Singleton 单例
