@@ -13,7 +13,11 @@
 
 ### 1.1 Factory Method 工厂方法
 
+- [x] Classic 经典示例
+
 ### 1.2 Abstract Factory 抽象工厂
+
+- [x] Classic 经典示例
 
 ### 1.3 Builder 生成器
 

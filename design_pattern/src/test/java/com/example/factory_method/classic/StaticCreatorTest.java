@@ -7,10 +7,14 @@ import static org.junit.Assert.*;
 public class StaticCreatorTest {
 
     @Test
-    public void test() throws InstantiationException, IllegalAccessException {
-        Product product = StaticCreator.createProduct(ProductA.class);
+    public void test() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Product product = StaticCreator.createProductA();
         System.out.println(product);
-        product = StaticCreator.createProduct(ProductB.class);
+        product = StaticCreator.createProductB();
+        System.out.println(product);
+        product = StaticCreator.createProduct(ProductA.class);
+        System.out.println(product);
+        product = StaticCreator.createProduct("com.example.factory_method.classic.ProductB");
         System.out.println(product);
     }
 }
