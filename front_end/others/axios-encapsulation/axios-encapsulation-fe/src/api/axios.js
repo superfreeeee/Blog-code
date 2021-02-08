@@ -7,8 +7,10 @@ const instance = axios.create({
   timeout: 10000,
 })
 
+// 请求中队列
 const requests = []
 
+// 撤销请求
 const cancelRequest = (config) => {
   const target = `${config.url}&${config.method}`
   for (let idx in requests) {
@@ -19,6 +21,7 @@ const cancelRequest = (config) => {
   }
 }
 
+// 请求拦截器
 instance.interceptors.request.use(
   (config) => {
     config.headers = {
@@ -35,6 +38,7 @@ instance.interceptors.request.use(
   }
 )
 
+// 响应拦截器
 instance.interceptors.response.use(
   (response) => {
     cancelRequest(response.config)

@@ -2,7 +2,7 @@ import axios from './axios.js'
 
 const prefix = '/test'
 
-function queryParamToStr(obj) {
+function queryParamToStr(obj = {}) {
   const params = []
   for (let prop in obj) {
     params.push(`${prop}=${obj[prop]}`)
