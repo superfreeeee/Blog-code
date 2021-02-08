@@ -1,22 +1,20 @@
 package com.example.observer.classic;
 
-public class ConcreteObserver implements Observer {
+public class ConcreteObserver extends Observer {
 
-    private Subject subject;
-
-    private ConcreteObserver() {
+    private ConcreteObserver(Subject subject) {
+        super(subject);
     }
 
     public static ConcreteObserver init(Subject subject) {
-        ConcreteObserver observer = new ConcreteObserver();
-        observer.subject = subject;
+        ConcreteObserver observer = new ConcreteObserver(subject);
         subject.subscribe(observer);
         return observer;
     }
 
     @Override
     public void update() {
-        State state = subject.getState();
+        State state = getState();
         System.out.println(String.format("[Observer@%x update] getState: %s", this.hashCode(), state));
     }
 }
