@@ -62,6 +62,8 @@
 
 ### 3.8 Observer 观察者
 
+- [x] Classic 经典示例
+
 ### 3.9 State 状态
 
 ### 3.10 Strategy 策略
