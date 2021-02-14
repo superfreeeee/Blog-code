@@ -8,8 +8,8 @@ public class BinarySearchTreeTest {
 
     @Test
     public void test_1() {
-        BinarySearchTree<Integer> bst = BinarySearchTreeImpl.from(
-                new int[]{1, 3, 5, 7, 9, 11, 13},
+        BinarySearchTree<Integer, Integer> bst = BinarySearchTreeImpl.from(
+                new Integer[]{1, 3, 5, 7, 9, 11, 13},
                 new Integer[]{10, 30, 50, 70, 90, 110, 130}
         );
         bst.tree();
@@ -23,7 +23,7 @@ public class BinarySearchTreeTest {
         System.out.println("\npostorder:");
         bst.postorder();
         System.out.println("\nlayerOrder:");
-        bst.layerOrder();
+        bst.layerorder();
 
         // others info
         System.out.println("--- others info ---");
@@ -90,8 +90,8 @@ public class BinarySearchTreeTest {
 
     @Test
     public void test_2() {
-        BinarySearchTree<Integer> bst = BinarySearchTreeImpl.from(
-                new int[]{1, 3, 5, 7, 9, 11, 13, 15, 17},
+        BinarySearchTree<Integer, Integer> bst = BinarySearchTreeImpl.from(
+                new Integer[]{1, 3, 5, 7, 9, 11, 13, 15, 17},
                 new Integer[]{1, 3, 5, 7, 9, 11, 13, 15, 17}
         );
         bst.tree();
@@ -105,7 +105,7 @@ public class BinarySearchTreeTest {
         System.out.println("\npostorder:");
         bst.postorder();
         System.out.println("\nlayerOrder:");
-        bst.layerOrder();
+        bst.layerorder();
 
         // others info
         System.out.println("--- others info ---");

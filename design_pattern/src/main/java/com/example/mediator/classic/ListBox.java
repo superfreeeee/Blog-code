@@ -1,6 +1,5 @@
 package com.example.mediator.classic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListBox extends Widget {

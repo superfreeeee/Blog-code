@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class AVLTreeTest {
 
-    private void show(AVLTree<Integer> tree) {
+    private void show(AVLTree tree) {
         tree.tree();
         tree.inorder();
         System.out.println();
@@ -14,7 +14,7 @@ public class AVLTreeTest {
 
     @Test
     public void test_avl() {
-        AVLTree<Integer> avlTree = new AVLTreeImpl<>();
+        AVLTree<Integer, Integer> avlTree = new AVLTreeImpl<>();
         for (int i = 10; i > 0; i--) {
             System.out.println("--- insert: " + i + " ---");
             avlTree.insert(i, i);

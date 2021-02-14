@@ -5,7 +5,7 @@ package adt.tree;
  *
  * @param <T>
  */
-public interface Tree<T> {
+public interface Tree<K extends Comparable<K>, T> {
 
     /**
      * 插入节点
@@ -13,7 +13,7 @@ public interface Tree<T> {
      * @param key
      * @param data
      */
-    void insert(int key, T data);
+    void insert(K key, T data);
 
     /**
      * 删除节点
@@ -21,7 +21,7 @@ public interface Tree<T> {
      * @param key
      * @return
      */
-    T delete(int key);
+    T delete(K key);
 
     /**
      * 返回树高
@@ -62,5 +62,5 @@ public interface Tree<T> {
     /**
      * 层序遍历
      */
-    void layerOrder();
+    void layerorder();
 }

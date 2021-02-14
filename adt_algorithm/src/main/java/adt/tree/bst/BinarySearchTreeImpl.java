@@ -1,18 +1,19 @@
 package adt.tree.bst;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
+public class BinarySearchTreeImpl<K extends Comparable<K>, T> implements BinarySearchTree<K, T> {
 
-    protected static class Node<T> {
-        public int key;
+    protected static class Node<K, T> {
+        public K key;
         public T data;
-        public Node<T> parent;
-        public Node<T> left;
-        public Node<T> right;
+        public Node<K, T> parent;
+        public Node<K, T> left;
+        public Node<K, T> right;
 
-        public Node(int key, T data) {
+        public Node(K key, T data) {
             this.key = key;
             this.data = data;
         }
@@ -39,16 +40,17 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
         }
     }
 
-    protected Node<T> root;
+    protected Node<K, T> root;
 
-    public static <T> BinarySearchTreeImpl<T> from(int[] keys, T[] values) {
+    public static <K extends Comparable<K>, T> BinarySearchTreeImpl<K, T> from(K[] keys, T[] values) {
         int n = keys.length;
-        BinarySearchTreeImpl<T> bst = new BinarySearchTreeImpl<>();
+        Arrays.sort(keys);
+        BinarySearchTreeImpl<K, T> bst = new BinarySearchTreeImpl<>();
         bst.build(keys, values, 0, n - 1);
         return bst;
     }
 
-    private void build(int[] keys, T[] values, int l, int r) {
+    private void build(K[] keys, T[] values, int l, int r) {
         if (l + 1 == r) { // [l, r]
             insert(keys[l], values[l]);
             insert(keys[r], values[r]);
@@ -63,25 +65,26 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
     }
 
     @Override
-    public T search(int key) {
-        Node<T> node = search(root, key);
+    public T search(K key) {
+        Node<K, T> node = search(root, key);
         return node == null ? null : node.data;
     }
 
-    protected Node<T> search(Node<T> node, int key) {
-        while (node != null && node.key != key) {
-            node = (key < node.key ? node.left : node.right);
+    protected Node<K, T> search(Node<K, T> node, K key) {
+        int c;
+        while (node != null && (c = key.compareTo(node.key)) != 0) {
+            node = c < 0 ? node.left : node.right;
         }
         return node;
     }
 
     @Override
     public T minimum() {
-        Node<T> min = minimum(root);
+        Node<K, T> min = minimum(root);
         return min == null ? null : min.data;
     }
 
-    private Node<T> minimum(Node<T> node) {
+    private Node<K, T> minimum(Node<K, T> node) {
         if (node == null) return null;
         while (node.left != null) node = node.left;
         return node;
@@ -89,28 +92,28 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
 
     @Override
     public T maximum() {
-        Node<T> max = maximum(root);
+        Node<K, T> max = maximum(root);
         return max == null ? null : max.data;
     }
 
-    private Node<T> maximum(Node<T> node) {
+    private Node<K, T> maximum(Node<K, T> node) {
         if (node == null) return null;
         while (node.right != null) node = node.right;
         return node;
     }
 
     @Override
-    public T predecessor(int key) {
+    public T predecessor(K key) {
         if (root == null) return null; // 树为空
-        Node<T> node = searchClosest(root, key);
-        if (node.key < key) return node.data;
-        Node<T> pre = predecessor(node);
+        Node<K, T> node = searchClosest(root, key);
+        if (key.compareTo(node.key) > 0) return node.data;
+        Node<K, T> pre = predecessor(node);
         return pre == null ? null : pre.data;
     }
 
-    private Node<T> predecessor(Node<T> node) {
+    private Node<K, T> predecessor(Node<K, T> node) {
         if (node.left != null) {
-            Node<T> pre = maximum(node.left);
+            Node<K, T> pre = maximum(node.left);
             return pre;
         }
         while (node.parent != null && node == node.parent.left) {
@@ -120,27 +123,28 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
         return node.parent;
     }
 
-    private Node<T> searchClosest(Node<T> node, int key) {
-        Node<T> pre = null;
-        while (node != null && node.key != key) {
+    private Node<K, T> searchClosest(Node<K, T> node, K key) {
+        Node<K, T> pre = null;
+        int c;
+        while (node != null && (c = key.compareTo(node.key)) != 0) {
             pre = node;
-            node = (key < node.key ? node.left : node.right);
+            node = c < 0 ? node.left : node.right;
         }
         return node == null ? pre : node;
     }
 
     @Override
-    public T successor(int key) {
+    public T successor(K key) {
         if (root == null) return null;
-        Node<T> node = searchClosest(root, key);
-        if (node.key > key) return node.data;
-        Node<T> next = successor(node);
+        Node<K, T> node = searchClosest(root, key);
+        if (key.compareTo(node.key) < 0) return node.data;
+        Node<K, T> next = successor(node);
         return next == null ? null : next.data;
     }
 
-    private Node<T> successor(Node<T> node) {
+    private Node<K, T> successor(Node<K, T> node) {
         if (node.right != null) {
-            Node<T> next = minimum(node.right);
+            Node<K, T> next = minimum(node.right);
             return next;
         }
         while (node.parent != null && node == node.parent.right) {
@@ -151,20 +155,20 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
     }
 
     @Override
-    public void insert(int key, T data) {
+    public void insert(K key, T data) {
         insert(new Node<>(key, data));
     }
 
-    protected void insert(Node<T> x) {
-        Node<T> pre = null, cur = root;
+    protected void insert(Node<K, T> x) {
+        Node<K, T> pre = null, cur = root;
         while (cur != null) {
             pre = cur;
-            cur = (x.key <= pre.key ? pre.left : pre.right);
+            cur = (x.key.compareTo(pre.key) <= 0 ? pre.left : pre.right);
         }
         x.parent = pre;
         if (pre == null) {
             root = x;
-        } else if (x.key <= pre.key) {
+        } else if (x.key.compareTo(pre.key) <= 0) {
             pre.left = x;
         } else {
             pre.right = x;
@@ -172,15 +176,15 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
     }
 
     @Override
-    public T delete(int key) {
-        Node<T> z = search(root, key);
+    public T delete(K key) {
+        Node<K, T> z = search(root, key);
         if (z == null) return null;
         delete(z);
         return z.data;
     }
 
-    protected Node<T> delete(Node<T> z) {
-        Node<T> x;
+    protected Node<K, T> delete(Node<K, T> z) {
+        Node<K, T> x;
         if (z.left == null) {
             x = z.right;
             transplant(z, z.right);
@@ -189,7 +193,7 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
             transplant(z, z.left);
         } else {
             // target 必有两子
-            Node<T> y = x = successor(z); // cur 为 target 后继
+            Node<K, T> y = x = successor(z); // cur 为 target 后继
             if (y.parent != z) {
                 if (y.right != null) x = y.right;
                 transplant(y, y.right); // 必无左子
@@ -212,7 +216,7 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
      * @param u
      * @param v
      */
-    private void transplant(Node<T> u, Node<T> v) {
+    private void transplant(Node<K, T> u, Node<K, T> v) {
         if (u == root) root = v;
         else if (u == u.parent.left) u.parent.left = v;
         else u.parent.right = v;
@@ -286,7 +290,7 @@ public class BinarySearchTreeImpl<T> implements BinarySearchTree<T> {
     }
 
     @Override
-    public void layerOrder() {
+    public void layerorder() {
         if (root != null) {
             Queue<Node> Q = new LinkedList<>();
             Q.offer(root);

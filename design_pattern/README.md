@@ -58,6 +58,8 @@
 
 ### 3.6 Mediator 中介者
 
+- [x] FontDialogDirector 字体对话框导向器
+
 ### 3.7 Memento 备忘录
 
 ### 3.8 Observer 观察者

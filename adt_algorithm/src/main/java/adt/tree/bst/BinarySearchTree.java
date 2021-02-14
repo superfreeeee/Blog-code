@@ -7,7 +7,7 @@ import adt.tree.Tree;
  *
  * @param <T>
  */
-public interface BinarySearchTree<T> extends Tree<T> {
+public interface BinarySearchTree<K extends Comparable<K>, T> extends Tree<K, T> {
 
     /**
      * 根据键查找元素
@@ -15,7 +15,7 @@ public interface BinarySearchTree<T> extends Tree<T> {
      * @param key
      * @return
      */
-    T search(int key);
+    T search(K key);
 
     /**
      * 查找键最小的元素
@@ -37,7 +37,7 @@ public interface BinarySearchTree<T> extends Tree<T> {
      * @param key
      * @return
      */
-    T predecessor(int key);
+    T predecessor(K key);
 
     /**
      * 查找给定键的后继元素
@@ -45,7 +45,7 @@ public interface BinarySearchTree<T> extends Tree<T> {
      * @param key
      * @return
      */
-    T successor(int key);
+    T successor(K key);
 
     /**
      * 展示树形结构

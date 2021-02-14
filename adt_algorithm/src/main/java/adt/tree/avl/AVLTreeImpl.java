@@ -2,20 +2,20 @@ package adt.tree.avl;
 
 import adt.tree.bst.BinarySearchTreeImpl;
 
-public class AVLTreeImpl<T> extends BinarySearchTreeImpl<T> implements AVLTree<T> {
+public class AVLTreeImpl<K extends Comparable<K>, T> extends BinarySearchTreeImpl<K, T> implements AVLTree<K, T> {
 
     @Override
-    public void insert(int key, T data) {
-        Node<T> x = new Node<>(key, data);
+    public void insert(K key, T data) {
+        Node<K, T> x = new Node<>(key, data);
         insert(x);
         balance(x);
     }
 
     @Override
-    public T delete(int key) {
-        Node<T> z = search(root, key);
+    public T delete(K key) {
+        Node<K, T> z = search(root, key);
         if (z == null) return null;
-        Node<T> x = delete(z);
+        Node<K, T> x = delete(z);
         balance(x);
         return z.data;
     }
@@ -29,7 +29,7 @@ public class AVLTreeImpl<T> extends BinarySearchTreeImpl<T> implements AVLTree<T
      * @param x
      * @return
      */
-    private int balanceFactor(Node<T> x) {
+    private int balanceFactor(Node<K, T> x) {
         return height(x.left) - height(x.right);
     }
 
@@ -38,7 +38,7 @@ public class AVLTreeImpl<T> extends BinarySearchTreeImpl<T> implements AVLTree<T
      *
      * @param x
      */
-    private void balance(Node<T> x) {
+    private void balance(Node<K, T> x) {
         while (x != null) {
             int f;
             if (Math.abs(f = balanceFactor(x)) > factor) {
@@ -74,8 +74,8 @@ public class AVLTreeImpl<T> extends BinarySearchTreeImpl<T> implements AVLTree<T
 // a   y  ->  x   c
 //    / \    / \
 //   b   c  a   b
-    private void leftRotate(Node<T> x) {
-        Node<T> y = x.right;
+    private void leftRotate(Node<K, T> x) {
+        Node<K, T> y = x.right;
         // x & b
         x.right = y.left;
         if (x.right != null) x.right.parent = x;
@@ -99,8 +99,8 @@ public class AVLTreeImpl<T> extends BinarySearchTreeImpl<T> implements AVLTree<T
 // a   y  <-  x   c
 //    / \    / \
 //   b   c  a   b
-    private void rightRotate(Node<T> y) {
-        Node<T> x = y.left;
+    private void rightRotate(Node<K, T> y) {
+        Node<K, T> x = y.left;
         // y & b
         y.left = x.right;
         if (y.left != null) y.left.parent = y;
