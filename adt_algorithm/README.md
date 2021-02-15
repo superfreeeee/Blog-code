@@ -80,9 +80,9 @@
 
 - [x] 基本实现 insert, count, countPrefix, words, commonPrefix, wordsFrequency
 
-#### 5.4 RedBlackTree 红黑树
+#### 5.4 RedBlackTree 红黑树[OK]
 
-- [ ] 基本实现
+- [x] 基本实现 search, minimum, maximum, predecessor, successor, height, empty, nodes, preorder, inorder, postorder, layerorder；重点实现 insert(& insertFixUp), delete(& transplant, deleteFixUp), left/rightRotate
 
 #### 5.5 BTree B树
 

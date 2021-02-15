@@ -234,12 +234,12 @@ public class RedBlackTreeImpl<K extends Comparable<K>, T> implements RedBlackTre
             }
 
             // case 2
-//                ?:B            ?:B
-//              /   \          /   \
-//             ?:R   ?:B ->   ?:B   ?:B
-//              \            /
-//               z:R        z:R
             if (z == innerChild(z)) {
+//                 ?:B            ?:B
+//               /   \          /   \
+//              ?:R   ?:B  ->  z:R   ?:B
+//               \            /
+//                z:R        ?:R
                 if (z == z.parent.right) {
                     leftRotate(z.parent);
                     z = z.left;
@@ -250,6 +250,11 @@ public class RedBlackTreeImpl<K extends Comparable<K>, T> implements RedBlackTre
             }
 
             // case 3
+//               b:B            a:B
+//             /   \          /   \
+//            a:R   c:B ->   z:R   b:R
+//           /                      \
+//          z:R                      ?:B
             z.parent.color = BLACK;
             z.parent.parent.color = RED;
             if (z == z.parent.left) {
