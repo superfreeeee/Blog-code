@@ -1,4 +1,6 @@
 package adt.tree.b;
 
-public interface BTree {
+import adt.tree.Tree;
+
+public interface BTree<K extends Comparable<K>, T> extends Tree<K, T> {
 }
