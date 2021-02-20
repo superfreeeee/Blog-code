@@ -44,6 +44,8 @@
 
 ### 2.7 Proxy 代理
 
+- [x] Classic 经典示例
+
 ## 3. Behavioral Pattern 行为型设计模式
 
 ### 3.1 Interpreter 解释器
