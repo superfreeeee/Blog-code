@@ -16,9 +16,7 @@ const sourceTemplate = `// build by generate.js
 
 
 
-module.exports = {
-
-}
+module.exports = {  }
 `
 
 let testTemplate = `const { expect, test } = require('@jest/globals')
