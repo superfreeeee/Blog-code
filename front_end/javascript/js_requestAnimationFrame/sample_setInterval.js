@@ -3,17 +3,21 @@ const start = () => {
   const maxWidth = /[0-9]*/.exec(getComputedStyle(text).width)
 
   let w = 0
-  const render = () => {
+  const renderId = setInterval(() => {
+    for (let i = 0; i < 10000; i++) {
+      for (let j = 0; j < 10000; j++) {
+        const k = i * j
+      }
+    }
     if (w < maxWidth) {
       console.log(`do at ${performance.now()}`)
       w++
       text.style.width = `${w}px`
-      requestAnimationFrame(render)
     } else {
       console.log('animation finished')
+      clearInterval(renderId)
     }
-  }
-  requestAnimationFrame(render)
+  }, 16)
 }
 
 start()
