@@ -23,4 +23,6 @@ const start = (period, offset) => {
   requestAnimationFrame(render)
 }
 
-start(50, 5)
+document.querySelector('.btn').addEventListener('click', () => {
+  start(50, 5)
+})

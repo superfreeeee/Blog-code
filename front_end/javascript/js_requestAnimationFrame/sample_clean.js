@@ -29,5 +29,7 @@ const start = (period, offset) => {
   }
 }
 
-const cancel = start(50, 5)
-setTimeout(cancel, 1000)
+document.querySelector('.btn').addEventListener('click', () => {
+  const cancel = start(50, 5)
+  setTimeout(cancel, 1000)
+})

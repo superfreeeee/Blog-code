@@ -20,4 +20,4 @@ const start = () => {
   }, 16)
 }
 
-start()
+document.querySelector('.btn').addEventListener('click', start)

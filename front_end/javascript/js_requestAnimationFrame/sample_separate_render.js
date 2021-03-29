@@ -48,4 +48,6 @@ const startAnimation = (render, period = null) => {
   requestAnimationFrame(renderWrapper)
 }
 
-startAnimation(setRender(5), 50)
+document.querySelector('.btn').addEventListener('click', () => {
+  startAnimation(setRender(5), 50)
+})

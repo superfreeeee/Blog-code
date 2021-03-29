@@ -6,7 +6,7 @@ const start = () => {
   const render = () => {
     if (w < maxWidth) {
       console.log(`do at ${performance.now()}`)
-      w++
+      w += 5
       text.style.width = `${w}px`
       requestAnimationFrame(render)
     } else {
@@ -16,4 +16,4 @@ const start = () => {
   requestAnimationFrame(render)
 }
 
-start()
+document.querySelector('.btn').addEventListener('click', start)

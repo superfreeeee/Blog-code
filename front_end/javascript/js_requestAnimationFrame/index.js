@@ -5,14 +5,17 @@ class AnimationController {
     this.reset = reset
   }
 
+  // 设置动画回调
   setRender(render = () => {}) {
     this.render = render
   }
 
+  // 设置间隔
   setPeriod(period = null) {
     this.period = period
   }
 
+  // 开始动画
   start() {
     const { render, period } = this
     this.stop()
@@ -48,6 +51,7 @@ class AnimationController {
     this.animationId = requestAnimationFrame(this.renderWrapper)
   }
 
+  // 停止动画
   stop() {
     if (this.animationId) {
       cancelAnimationFrame(animationId)
@@ -76,10 +80,12 @@ const createRender = (offset) => {
 }
 
 const controller = new AnimationController(...createRender(10), 50)
-controller.start()
+// controller.start()
 
 console.log(controller)
 window.controller = controller
 window.start = controller.start.bind(controller)
 window.stop = controller.stop.bind(controller)
 window.reset = controller.reset
+
+document.querySelector('.btn').addEventListener('click', start)
