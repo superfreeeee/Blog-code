@@ -1,0 +1,1 @@
+console.log('loading script using defer')
