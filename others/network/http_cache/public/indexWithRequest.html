@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Http Cache</title>
+    <style>
+      * {
+        text-align: center;
+      }
+    </style>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script> -->
+  </head>
+  <body>
+    <h1>Http Cache Test Client</h1>
+    <button onclick="hello()">hello</button>
+    <button onclick="fetchTest()">fetch test.txt</button>
+
+    <script>
+      const host = 'http://localhost:3000'
+      const result = document.getElementById('result')
+
+      // console.log(axios)
+      // axios.get(`${host}/hello`).then((res) => {
+      //   console.log(res)
+      // })
+
+      const requestByXhr = (url) => {
+        const tag = `[XMLHttpRequest] ${url}`
+        console.group(tag)
+        new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest()
+          const method = 'GET'
+          const responseType = 'json'
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                resolve(xhr.response)
+              } else {
+                reject(xhr.response)
+              }
+            }
+          }
+          xhr.open(method, url, true)
+          xhr.send()
+        })
+          .then((res) => {
+            console.log('res', res)
+            console.groupEnd(tag)
+          })
+          .catch((err) => {
+            console.log('err', err)
+            console.groupEnd(tag)
+          })
+      }
+
+      const requestByFetch = (url) => {
+        const tag = `[fetch] ${url}`
+        console.group(tag)
+        fetch(url)
+          .then((res) => {
+            console.log('res', res)
+            return res.text()
+          })
+          .then((text) => {
+            console.log(`text = ${text}`)
+            console.groupEnd(tag)
+          })
+      }
+
+      const requestByAxios = (url) => {
+        const tag = `[axios] ${url}`
+        console.group(tag)
+        axios
+          .get(url, {
+            headers: {
+              Credential: true,
+            },
+          })
+          .then((res) => {
+            console.log('res', res)
+            console.log(`text = ${res.data}`)
+            console.groupEnd(tag)
+          })
+      }
+
+      function hello() {
+        requestByXhr(`${host}/hello`)
+      }
+
+      function fetchTest() {
+        requestByXhr(`${host}/test.txt`)
+      }
+    </script>
+  </body>
+</html>
