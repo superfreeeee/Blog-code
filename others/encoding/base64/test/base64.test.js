@@ -15,6 +15,19 @@ const tests = {
         'MjM0NTY3OGlqaGdmZHNxMjM0NTY3aWtqaGdkc3c0NTY3dWlram4KYmRlNTY3dWlram5iZmRyNnVpb2xrbW5idmRzdzQ1Njc4OTBwbGtmCnJ0aW9wW11bLTA5OHV5dHJldzM0NTZ5dWprbDtbXVstMDk4eXRyZXdzZGZnaA==',
     },
   ],
+
+  decode: [
+    { s: 'MTIz', res: '123' },
+    { s: 'MTIzNDU2', res: '123456' },
+    { s: 'MTIzXG40NTY=', res: '123\\n456' },
+    { s: 'MTIzCjQ1Ng==', res: '123\n456' },
+    {
+      s:
+        'MjM0NTY3OGlqaGdmZHNxMjM0NTY3aWtqaGdkc3c0NTY3dWlram4KYmRlNTY3dWlram5iZmRyNnVpb2xrbW5idmRzdzQ1Njc4OTBwbGtmCnJ0aW9wW11bLTA5OHV5dHJldzM0NTZ5dWprbDtbXVstMDk4eXRyZXdzZGZnaA==',
+      res:
+        '2345678ijhgfdsq234567ikjhgdsw4567uikjn\nbde567uikjnbfdr6uiolkmnbvdsw4567890plkf\nrtiop[][-098uytrew3456yujkl;[][-098ytrewsdfgh',
+    },
+  ],
   isBase64: [
     { s: 'MTIz', res: true },
     { s: 'MTIzNDU2', res: true },
