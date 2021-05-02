@@ -8,5 +8,12 @@
     <artifactId>spring-cloud-test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>eureka-server</module>
+        <module>eureka-service-consumer</module>
+        <module>eureka-service-provider</module>
+    </modules>
 
 </project>
