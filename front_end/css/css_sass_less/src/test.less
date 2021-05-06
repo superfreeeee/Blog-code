@@ -1,0 +1,158 @@
+/* 变量(Variables) */
+@width: 1000px;
+@height: @width - 10px;
+
+.variables {
+  width: @width;
+  height: @height;
+}
+
+/* 混合(Mixins) */
+.border {
+  border: solid 2px black;
+}
+
+.wide-block {
+  width: 1000px;
+  .border();
+}
+
+.narrow-block {
+  width: 200px;
+  .border();
+}
+
+/* 嵌套(Nesting) */
+body {
+  margin: 0;
+  > #root {
+    text-align: center;
+    .header {
+      font-weight: 600;
+    }
+    .block {
+      display: block;
+      &.inline {
+        display: inline-block;
+      }
+      &::before {
+        content: '<';
+      }
+      &::after {
+        content: '>';
+      }
+    }
+  }
+  .a,
+  .b {
+    text-align: left;
+    &.c,
+    &.d {
+      text-align: right;
+    }
+  }
+}
+
+/* 运算(Operations) */
+@num1: 5cm + 10mm;
+@num2: 2 - 3cm + 50mm;
+@num3: 2 + 5px - 3cm;
+@num4: 3px * 3;
+@num5: calc(50% + @num4 * 3);
+
+.a {
+  --num1: @num1;
+  --num2: @num2;
+  --num3: @num3;
+  --num4: @num4;
+  --num5: @num5;
+}
+
+/* 转义(Escaping) */
+@wide-screen: ~'screen and (min-width: 750px)';
+
+.a {
+  @media @wide-screen {
+    display: flex;
+  }
+}
+
+/* 函数(Functions) */
+@half: 0.5;
+@base: #0088ff;
+
+.a {
+  width: percentage(@half);
+  background-color: spin(lighten(@base, 25%), 8);
+}
+
+/* 命名空间和访问符 */
+#light() {
+  .background {
+    background-color: #ffffff;
+  }
+}
+
+#black() {
+  .background {
+    background-color: #000000;
+  }
+}
+
+.light-background {
+  #light.background();
+}
+
+.black-background {
+  #black.background();
+}
+
+/* 映射(Maps) */
+#colors() {
+  primary: blue;
+  error: red;
+  success: green;
+  info: grey;
+}
+
+.button {
+  &.primary,
+  & {
+    background-color: #colors[primary];
+  }
+
+  &.error {
+    background-color: #colors[error];
+  }
+
+  &.success {
+    background-color: #colors[success];
+  }
+
+  &.info {
+    background-color: #colors[info];
+  }
+}
+
+/* 作用域(Scope) */
+@var: 'global';
+
+#outer {
+  content: @var;
+  #inter {
+    content: @var;
+    @var: 'local';
+  }
+}
+
+/* 注释(Comments) */
+// 行注释被忽略
+/* 
+块注释被保留 */
+
+/* 导入(Importing) */
+@import 'other.less';
+
+.a {
+  background-color: @other-color;
+}

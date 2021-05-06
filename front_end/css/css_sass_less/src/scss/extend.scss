@@ -1,0 +1,17 @@
+/* 继承(Extensions) */
+.a {
+  color: red;
+}
+
+.b {
+  @extend .a;
+  font-weight: 500;
+}
+
+%only-for-ex {
+  color: blue;
+}
+
+.c {
+  @extend %only-for-ex;
+}

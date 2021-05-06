@@ -1,0 +1,19 @@
+/* 控制指令(Control Directives) */
+.a {
+  width: if(true, 200px, 0px);
+  @if true {
+    height: 100px;
+  }
+}
+
+@for $i from 1 through 4 {
+  .width-#{$i} {
+    width: $i + 0px;
+  }
+}
+
+@each $i in 1, 2, 3, 4 {
+  .height-#{$i} {
+    height: $i + 0px;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "css_sass_less",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "gulp",
+    "watch": "gulp watch",
+    "less": "gulp less",
+    "scss": "gulp scss"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-less": "^4.0.1",
+    "less": "^3.13.1",
+    "node-sass": "^5.0.0"
+  },
+  "dependencies": {
+    "gulp-sass": "^4.1.0"
+  }
+}

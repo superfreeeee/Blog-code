@@ -1,0 +1,19 @@
+/* 运算(Operations) & 函数(Functions) */
+$width: 100px + 30;
+$border: '2px' + ' solid' + ' blakc';
+$color: rgb(0, 0, 0);
+
+.a {
+  width: $width;
+  border: $border;
+  color: lighten($color, 10);
+  color: lighten($color: $color, $amount: 10);
+}
+
+@function average($x, $y) {
+  @return (($x + $y) / 2);
+}
+
+.b {
+  width: average(0px, 100px);
+}

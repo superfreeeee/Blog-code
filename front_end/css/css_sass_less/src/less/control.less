@@ -1,0 +1,18 @@
+/* 控制指令(Control Directives) */
+.a {
+  width: if(true, 200px, 0px);
+  height: if(false, 0px, 100px);
+}
+
+each(range(4), {
+  .width-@{value} {
+    width: @value + 0px;
+  }
+})
+
+@list: 1, 2, 3, 4;
+each(@list, {
+  .height-@{value} {
+    height: @value + 0px;
+  }
+})
