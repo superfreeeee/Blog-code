@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/* 混合(Mixins) */
+.header {
+  font-size: 32px;
+  font-weight: 550;
+}
+
+.banner {
+  color: skyblue;
+  font-size: 32px;
+  font-weight: 550;
+}

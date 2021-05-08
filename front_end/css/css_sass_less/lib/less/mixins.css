@@ -1,0 +1,16 @@
+/* 混合(Mixins) */
+.large {
+  font-size: 32px;
+}
+.header {
+  font-size: 32px;
+  font-weight: 550;
+}
+.banner {
+  color: skyblue;
+  font-size: 32px;
+  font-weight: 550;
+}
+.a {
+  content: '';
+}

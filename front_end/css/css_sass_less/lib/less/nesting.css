@@ -1,0 +1,19 @@
+/* 嵌套(Nesting) */
+.a .b {
+  color: red;
+}
+.a > .c {
+  color: blue;
+}
+.a + .d {
+  color: green;
+}
+.a .b {
+  color: red;
+}
+.a.c {
+  color: blue;
+}
+.d > .a {
+  color: green;
+}

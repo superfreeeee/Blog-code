@@ -1,0 +1,13 @@
+@charset "UTF-8";
+/* 继承(Extensions) */
+.a, .b {
+  color: red;
+}
+
+.b {
+  font-weight: 500;
+}
+
+.c {
+  color: blue;
+}
