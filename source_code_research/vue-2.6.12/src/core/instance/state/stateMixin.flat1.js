@@ -12,14 +12,10 @@ export function stateMixin (Vue: Class<Component>) {
   propsDef.get = function () { return this._props }
   if (process.env.NODE_ENV !== 'production') {
     dataDef.set = function () {
-      warn(
-        'Avoid replacing instance root $data. ' +
-        'Use nested data properties instead.',
-        this
-      )
+      // direct set root $data warning ...
     }
     propsDef.set = function () {
-      warn(`$props is readonly.`, this)
+      // set $props warning
     }
   }
 

@@ -26,14 +26,14 @@
 
 ```bash
 /src/core
-├── config.js
+├── config.js   # 配置选项
 ├── index.js    # Vue 实例导出入口
-├── components
+├── components  # keep alive 组件
 ├── global-api  # 全局 API
 ├── instance    # Vue 实例
-├── observer
-├── util
-└── vdom
+├── observer    # 观察者相关
+├── util        # 工具函数
+└── vdom        # 虚拟 dom 相关
 ```
 
 #### `/src/core/global-api` 全局 API
@@ -51,13 +51,13 @@
 
 ```bash
 /src/core/instance
-├── events.js
-├── index.js
-├── init.js
-├── inject.js
-├── lifecycle.js
-├── proxy.js
-├── render-helpers
-├── render.js
-└── state.js
+├── events.js       # 事件相关方法
+├── index.js        # Vue 实例入口
+├── init.js         # 初始化相关方法
+├── inject.js       # 注入相关方法
+├── lifecycle.js    # 生命周期相关方法
+├── proxy.js        # 渲染代理相关方法
+├── render.js       # 渲染相关方法
+├── state.js        # 状态相关方法
+└── render-helpers  # 渲染辅助函数
 ```

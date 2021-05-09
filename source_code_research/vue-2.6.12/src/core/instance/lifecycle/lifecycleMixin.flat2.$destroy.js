@@ -7,10 +7,10 @@ export function lifecycleMixin (Vue: Class<Component>) {
 
   Vue.prototype.$destroy = function () {
     const vm: Component = this
-    if (vm._isBeingDestroyed) { // 避免重复调用
+    if (vm._isBeingDestroyed) {  // 避免重复调用
       return
     }
-    callHook(vm, 'beforeDestroy') // beforeDestroy 生命周期钩子
+    callHook(vm, 'beforeDestroy')  // beforeDestroy 生命周期钩子
 
     vm._isBeingDestroyed = true
 
@@ -38,7 +38,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
     vm._isDestroyed = true
     /* __patch__ 方法将 vnode 置为 null */
     vm.__patch__(vm._vnode, null)
-    callHook(vm, 'destroyed') // destroyed 生命周期钩子
+    callHook(vm, 'destroyed')  // destroyed 生命周期钩子
 
     /* 关闭实例监听函数 */
     vm.$off()
