@@ -22,7 +22,6 @@ export function initState (vm: Component) {
   }
 }
 
-
 function initProps (vm: Component, propsOptions: Object) {
   /* props 遍历对象 */
   const propsData = vm.$options.propsData || {}

@@ -1,3 +1,5 @@
+// 依赖管理器
+
 export default class Dep {
   static target: ?Watcher;
   id: number;
