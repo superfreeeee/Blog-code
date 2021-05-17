@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "compile": "babel src -d lib"
+    "compile": "npx babel src -d lib"
   },
   "license": "MIT",
   "devDependencies": {
