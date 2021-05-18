@@ -57,6 +57,7 @@ export function createPatchFunction (backend) {
           if (isTrue(hydrating)) {
             // 4.1 hydrating === true -> 直接替换旧节点策略
             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
+              // 调用 insert 钩子
               invokeInsertHook(vnode, insertedVnodeQueue, true)
               return oldVnode
             } else if (process.env.NODE_ENV !== 'production') {

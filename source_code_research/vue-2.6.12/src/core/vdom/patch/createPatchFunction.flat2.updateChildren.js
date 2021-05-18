@@ -31,8 +31,11 @@ export function createPatchFunction (backend) {
 
     while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
       if (isUndef(oldStartVnode)) {
+        // 旧节点 moveTo 最左侧 -> 直接跳过找下一个
         oldStartVnode = oldCh[++oldStartIdx] // Vnode has been moved left
+
       } else if (isUndef(oldEndVnode)) {
+        // 旧节点 moveTo 最右侧 -> 直接跳过找前一个
         oldEndVnode = oldCh[--oldEndIdx]
 
       } else if (sameVnode(oldStartVnode, newStartVnode)) {
@@ -93,9 +96,11 @@ export function createPatchFunction (backend) {
       }
     }
     if (oldStartIdx > oldEndIdx) {
+      // 新旧子节点数不对等 -> startIdx 越界 -> 插入将剩余新节点
       refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
     } else if (newStartIdx > newEndIdx) {
+      // 移除剩余旧节点
       removeVnodes(oldCh, oldStartIdx, oldEndIdx)
     }
   }

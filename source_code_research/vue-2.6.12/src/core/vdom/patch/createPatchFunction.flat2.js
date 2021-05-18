@@ -37,13 +37,16 @@ export function createPatchFunction (backend) {
     }
   }
 
+  /* 创建并返回空节点 */
   function emptyNodeAt (elm) {/* ... */}
 
+  /* 创建移除监听器回调 */
   function createRmCb (childElm, listeners) {/* ... */}
 
   /* 移除旧节点 */
   function removeNode (el) {/* ... */}
 
+  /* 判断是否为未知元素节点 */
   function isUnknownElement (vnode, inVPre) {/* ... */}
 
   let creatingElmInVPre = 0
@@ -75,13 +78,16 @@ export function createPatchFunction (backend) {
   /* 设置 CSS scoped Id */
   function setScope (vnode) {/* ... */}
 
+  /* 直接添加剩余新节点 */
   function addVnodes (parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {/* ... */}
 
   /* 触发 destroy 钩子 */
   function invokeDestroyHook (vnode) {/* ... */}
 
+  /* 直接移除剩余旧节点 */
   function removeVnodes (vnodes, startIdx, endIdx) {/* ... */}
 
+  /* 移除节点并触发 remove 钩子 */
   function removeAndInvokeRemoveHook (vnode, rm) {/* ... */}
 
   /* 递归更新子数组(patchVnode 内部调用) */
@@ -96,7 +102,7 @@ export function createPatchFunction (backend) {
   /* 比较新旧节点差异并更新 */
   function patchVnode (/* ... */) {/* ... */}
 
-
+  /* 触发 insert 钩子 */
   function invokeInsertHook (vnode, queue, initial) {/* ... */}
 
   let hydrationBailed = false

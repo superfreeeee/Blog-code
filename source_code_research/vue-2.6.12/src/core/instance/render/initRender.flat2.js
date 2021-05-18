@@ -8,6 +8,22 @@
 //   reactive Vue.prototype.$attrs
 //   reactive Vue.prototype.$listeners
 
+import {
+  warn,
+  nextTick,
+  emptyObject,
+  handleError,
+  defineReactive
+} from '../util/index'
+
+import { createElement } from '../vdom/create-element'
+import { installRenderHelpers } from './render-helpers/index'
+import { resolveSlots } from './render-helpers/resolve-slots'
+import { normalizeScopedSlots } from '../vdom/helpers/normalize-scoped-slots'
+import VNode, { createEmptyVNode } from '../vdom/vnode'
+
+import { isUpdatingChildComponent } from './lifecycle'
+
 export function initRender (vm: Component) {
   // 子树根节点
   vm._vnode = null // the root of the child tree
