@@ -2,7 +2,7 @@ export function createPatchFunction (backend) {
 
   // ...
 
-  /* 创建组件(子组件) */
+  /* 创建组件节点 */
   function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     // 有数据项
     let i = vnode.data
@@ -13,7 +13,7 @@ export function createPatchFunction (backend) {
         i(vnode, false /* hydrating */)
       }
 
-      // 如果 Vue 实例已经存在(表示当前组件作为子节点)
+      // 如果 Vue 实例已经存在(表示当前为组件节点)
       if (isDef(vnode.componentInstance)) {
         // 初始化子节点组件
         initComponent(vnode, insertedVnodeQueue)

@@ -36,7 +36,7 @@ export function createPatchFunction (backend) {
 
     vnode.isRootInsert = !nested  // 检查是否为
     if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
-      // 作为子节点时直接返回
+      // 作为组件节点时直接返回
       return
     }
 

@@ -4,11 +4,11 @@ export function createPatchFunction (backend) {
 
   /* 递归更新子数组(patchVnode 内部调用) */
   /**
-   * case 1: 旧头 & 新头相同 -> 递归 patch
-   * case 2: 旧尾 & 新尾相同 -> 递归 patch
-   * case 3: 旧头 & 新尾相同 -> 递归 patch
-   * case 4: 旧尾 & 新头相同 -> 递归 patch
-   * case 5: 按序查找并更新节点
+   * case 1: 新头 & 旧头相同 -> 递归 patch
+   * case 2: 新尾 & 旧尾相同 -> 递归 patch
+   * case 3: 新头 & 旧尾相同 -> 递归 patch
+   * case 4: 新尾 & 旧头相同 -> 递归 patch
+   * case 5: 按序查找并更新节点(建立 key:index 映射)
    */
 
   function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
@@ -50,21 +50,21 @@ export function createPatchFunction (backend) {
         oldEndVnode = oldCh[--oldEndIdx]
         newEndVnode = newCh[--newEndIdx]
 
-      } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
-        /* case 3: 旧头 & 新尾相同 -> 递归 patch */
-        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)
-        // 更新后旧节点 moveTo 未处理节点最右侧
-        canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm))
-        oldStartVnode = oldCh[++oldStartIdx]
-        newEndVnode = newCh[--newEndIdx]
-
-      } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
-        /* case 4: 旧尾 & 新头相同 -> 递归 patch */
+      } else if (sameVnode(oldEndVnode, newStartVnode)) {
+        /* case 3: 旧尾 & 新头相同 -> 递归 patch */
         patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
         // 更新后旧节点 moveTo 未处理节点最左侧
         canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm)
         oldEndVnode = oldCh[--oldEndIdx]
         newStartVnode = newCh[++newStartIdx]
+
+      } else if (sameVnode(oldStartVnode, newEndVnode)) {
+        /* case 4: 旧头 & 新尾相同 -> 递归 patch */
+        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)
+        // 更新后旧节点 moveTo 未处理节点最右侧
+        canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm))
+        oldStartVnode = oldCh[++oldStartIdx]
+        newEndVnode = newCh[--newEndIdx]
 
       } else {
         /* case 5: 按序查找并更新节点 */
