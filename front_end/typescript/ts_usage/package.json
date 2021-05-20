@@ -1,0 +1,27 @@
+{
+  "name": "ts_usage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "basic": "tsc src/index.ts",
+    "basic-watch": "tsc src/index.ts -w",
+    "use-config": "tsc",
+    "use-config-run": "tsc && node lib",
+    "use-ts-node": "ts-node src/index.ts",
+    "use-nodemon": "nodemon src/index.ts",
+    "build": "webpack",
+    "serve": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "html-webpack-plugin": "^5.3.1",
+    "nodemon": "^2.0.7",
+    "ts-loader": "^9.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
