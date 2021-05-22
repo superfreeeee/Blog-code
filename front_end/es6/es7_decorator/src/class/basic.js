@@ -1,5 +1,13 @@
 import { log } from '../utils'
 
+function test(...args) {
+  let i = 0
+  args.forEach((arg) => log(i++, arg))
+}
+
+@test
+class MyClass {}
+
 function testable(target) {
   target._isTestable = true
 }
