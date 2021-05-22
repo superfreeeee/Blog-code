@@ -1,0 +1,16 @@
+import { log } from '../utils'
+
+function testable(target) {
+  target._isTestable = true
+}
+
+@testable
+class TestableClass {}
+
+class OtherClass {}
+
+log('TestableClass:             ', TestableClass)
+log('TestableClass._isTestable: ', TestableClass._isTestable)
+
+log('OtherClass:             ', OtherClass)
+log('OtherClass._isTestable: ', OtherClass._isTestable)
