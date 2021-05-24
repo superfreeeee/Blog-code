@@ -10,10 +10,13 @@ export const createCompiler = createCompilerCreator(function baseCompile (
   template: string,
   options: CompilerOptions
 ): CompiledResult {
+  // 解析 html 文本
   const ast = parse(template.trim(), options)
   if (options.optimize !== false) {
+    // 优化 AST 节点树(标记静态节点)
     optimize(ast, options)
   }
+  // 生成渲染代码
   const code = generate(ast, options)
   return {
     ast,
