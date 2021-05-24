@@ -46,20 +46,65 @@ export function parseHTML (html, options) {
   let last, lastTag
 
   // 主流程
-  while (html) {/* ... */}
 
   // Clean up any remaining tags
   parseEndTag()
 
-  /* 指针前进 */
   function advance (n) {/* ... */}
 
-  /* 匹配开始标签 */
   function parseStartTag () {/* ... */}
 
   /* 处理开始标签 */
-  function handleStartTag (match) {/* ... */}
+  function handleStartTag (match) {
+    const tagName = match.tagName
+    const unarySlash = match.unarySlash
 
-  /* 解析结束标签 */
+    if (expectHTML) {
+      // 处理前一个 p 未闭合
+      if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
+        parseEndTag(lastTag)
+      }
+      // 处理允许未闭合标签
+      if (canBeLeftOpenTag(tagName) && lastTag === tagName) {
+        parseEndTag(tagName)
+      }
+    }
+
+    const unary = isUnaryTag(tagName) || !!unarySlash
+
+    const l = match.attrs.length
+    const attrs = new Array(l)
+    
+    // 依序处理属性
+    for (let i = 0; i < l; i++) {
+      const args = match.attrs[i]
+      const value = args[3] || args[4] || args[5] || ''
+      const shouldDecodeNewlines = tagName === 'a' && args[1] === 'href'
+        ? options.shouldDecodeNewlinesForHref
+        : options.shouldDecodeNewlines
+      // 属性名 / 属性值(转义)
+      attrs[i] = {
+        name: args[1],
+        value: decodeAttr(value, shouldDecodeNewlines)
+      }
+      // 保留属性位置
+      if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+        attrs[i].start = args.start + args[0].match(/^\s*/).length
+        attrs[i].end = args.end
+      }
+    }
+
+    // 未闭合标签
+    if (!unary) {
+      stack.push({ tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs, start: match.start, end: match.end })
+      lastTag = tagName
+    }
+
+    // 调用 start 钩子创建 AST 节点
+    if (options.start) {
+      options.start(tagName, attrs, unary, match.start, match.end)
+    }
+  }
+
   function parseEndTag (tagName, start, end) {/* ... */}
 }

@@ -95,6 +95,7 @@ export function parse (
     /* 解析注释标签 */
     comment (text: string, start, end) {
       if (currentParent) {
+        // 创建节点
         const child: ASTText = {
           type: 3,
           text,

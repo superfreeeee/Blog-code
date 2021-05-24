@@ -35,8 +35,53 @@ const encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g
 const isIgnoreNewlineTag = makeMap('pre,textarea', true)
 const shouldIgnoreFirstNewline = (tag, html) => tag && isIgnoreNewlineTag(tag) && html[0] === '\n'
 
-/* 进行属性值转义 */
 function decodeAttr (value, shouldDecodeNewlines) {/* ... */}
 
-/* 解析 html 文本 */
-export function parseHTML (html, options) {/* ... */}
+export function parseHTML (html, options) {
+  const stack = []
+  const expectHTML = options.expectHTML
+  const isUnaryTag = options.isUnaryTag || no
+  const canBeLeftOpenTag = options.canBeLeftOpenTag || no
+  let index = 0
+  let last, lastTag
+
+  // 主流程
+
+  // Clean up any remaining tags
+  parseEndTag()
+
+  function advance (n) {/* ... */}
+
+  /* 匹配开始标签 */
+  function parseStartTag () {
+    // 匹配 <xxx
+    const start = html.match(startTagOpen)
+    if (start) {
+      const match = {
+        tagName: start[1],  // 标签名 xxx
+        attrs: [],          // 属性列表
+        start: index        // 起始位置
+      }
+      advance(start[0].length)  // 移动到 <xxx 之后
+      let end, attr
+      // end 匹配 > 或 />
+      // attr 匹配属性
+      while (!(end = html.match(startTagClose)) && (attr = html.match(dynamicArgAttribute) || html.match(attribute))) {
+        attr.start = index
+        advance(attr[0].length)
+        attr.end = index
+        match.attrs.push(attr)
+      }
+      if (end) {
+        match.unarySlash = end[1]  // '/' 自闭合
+        advance(end[0].length)
+        match.end = index
+        return match
+      }
+    }
+  }
+
+  function handleStartTag (match) {/* ... */}
+
+  function parseEndTag (tagName, start, end) {/* ... */}
+}

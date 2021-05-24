@@ -35,8 +35,26 @@ const encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g
 const isIgnoreNewlineTag = makeMap('pre,textarea', true)
 const shouldIgnoreFirstNewline = (tag, html) => tag && isIgnoreNewlineTag(tag) && html[0] === '\n'
 
-/* 进行属性值转义 */
 function decodeAttr (value, shouldDecodeNewlines) {/* ... */}
 
-/* 解析 html 文本 */
-export function parseHTML (html, options) {/* ... */}
+export function parseHTML (html, options) {
+  const stack = []
+  const expectHTML = options.expectHTML
+  const isUnaryTag = options.isUnaryTag || no
+  const canBeLeftOpenTag = options.canBeLeftOpenTag || no
+  let index = 0
+  let last, lastTag
+
+  // 主流程
+
+  // Clean up any remaining tags
+  parseEndTag()
+
+  function advance (n) {/* ... */}
+
+  function parseStartTag () {/* ... */}
+
+  function handleStartTag (match) {/* ... */}
+
+  function parseEndTag (tagName, start, end) {/* ... */}
+}

@@ -127,8 +127,9 @@ export function parse (
         text = preserveWhitespace ? ' ' : ''
       }
 
-      // 2. 处理文本内容样式
+      // 2. 处理文本结果
       if (text) {
+        // 2.1 处理 condense 选项
         if (!inPre && whitespaceOption === 'condense') {
           // condense consecutive whitespaces into single space
           // 换行符 -> 单空格
@@ -136,6 +137,8 @@ export function parse (
         }
         let res
         let child: ?ASTNode
+
+        // 2.2 创建 child
         if (!inVPre && text !== ' ' && (res = parseText(text, delimiters))) {
           child = {
             type: 2,
@@ -149,6 +152,8 @@ export function parse (
             text
           }
         }
+
+        // 2.3 标记 start、end，并将节点加入 children 数组
         if (child) {
           if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
             child.start = start

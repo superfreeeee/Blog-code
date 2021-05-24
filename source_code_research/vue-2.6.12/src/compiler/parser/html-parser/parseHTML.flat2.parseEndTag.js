@@ -46,20 +46,60 @@ export function parseHTML (html, options) {
   let last, lastTag
 
   // 主流程
-  while (html) {/* ... */}
 
   // Clean up any remaining tags
   parseEndTag()
 
-  /* 指针前进 */
   function advance (n) {/* ... */}
 
-  /* 匹配开始标签 */
   function parseStartTag () {/* ... */}
 
-  /* 处理开始标签 */
   function handleStartTag (match) {/* ... */}
 
   /* 解析结束标签 */
-  function parseEndTag (tagName, start, end) {/* ... */}
+  function parseEndTag (tagName, start, end) {
+    let pos, lowerCasedTagName
+    if (start == null) start = index
+    if (end == null) end = index
+
+    // 查找匹配起始标签
+    if (tagName) {
+      lowerCasedTagName = tagName.toLowerCase()
+      for (pos = stack.length - 1; pos >= 0; pos--) {
+        if (stack[pos].lowerCasedTag === lowerCasedTagName) {
+          break
+        }
+      }
+    } else {
+      // 无结束标签名则置顶
+      pos = 0
+    }
+
+    if (pos >= 0) {
+      // 关闭对应标签上的所有标签
+      for (let i = stack.length - 1; i >= pos; i--) {
+        // no match end tag warning ...
+
+        if (options.end) {
+          options.end(stack[i].tag, start, end)
+        }
+      }
+      // 移除对应起始标签
+      stack.length = pos
+      lastTag = pos && stack[pos - 1].tag
+    } else if (lowerCasedTagName === 'br') {
+      // br 自闭合
+      if (options.start) {
+        options.start(tagName, [], true, start, end)
+      }
+    } else if (lowerCasedTagName === 'p') {
+      // p 自闭合
+      if (options.start) {
+        options.start(tagName, [], false, start, end)
+      }
+      if (options.end) {
+        options.end(tagName, start, end)
+      }
+    }
+  }
 }
