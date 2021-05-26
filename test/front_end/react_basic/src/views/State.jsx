@@ -12,15 +12,15 @@ class State extends React.Component {
     this.setState({ date: new Date() })
   }
 
-  // componentDidMount() {
-  //   console.log('[StateSample.LifeCycle] componentDidMount')
-  //   this.timer = setInterval(() => this.tick(), 1000)
-  // }
+  componentDidMount() {
+    console.log('[StateSample.LifeCycle] componentDidMount')
+    this.timer = setInterval(() => this.tick(), 1000)
+  }
 
-  // componentWillUnmount() {
-  //   console.log('[StateSample.LifeCycle] componentWillUnmount')
-  //   clearInterval(this.timer)
-  // }
+  componentWillUnmount() {
+    console.log('[StateSample.LifeCycle] componentWillUnmount')
+    clearInterval(this.timer)
+  }
 
   stop() {
     console.log('timer stop')

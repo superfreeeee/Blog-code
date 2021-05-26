@@ -8,7 +8,7 @@ group('path attributes', () => {
 
 const modules = [
   'basename',
-  'delimiter',
+  'sep_delimiter',
   'dirname',
   'extname',
   'format',
@@ -17,11 +17,9 @@ const modules = [
   'normalize',
   'parse',
   'posix_win32',
-
   'relative',
   'resolve',
-  'sep',
-  'toNamespacedPath',
+  // 'toNamespacedPath',
 ]
 
 modules.forEach((name) => {

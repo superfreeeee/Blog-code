@@ -15,14 +15,14 @@ class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   setTimeout(() => {
-  //     this.setState({ showStateSample: false })
-  //     setTimeout(() => {
-  //       this.setState({ showStateSample: true })
-  //     }, 2000)
-  //   }, 2000)
-  // }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ showStateSample: false })
+      setTimeout(() => {
+        this.setState({ showStateSample: true })
+      }, 2000)
+    }, 2000)
+  }
 
   render() {
     const obj = { a: 123 }

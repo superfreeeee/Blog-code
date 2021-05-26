@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "path": "node src/path"
+    "path": "node src/path",
+    "module": "node src/module"
   }
 }
