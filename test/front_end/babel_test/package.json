@@ -2,5 +2,11 @@
   "name": "babel_test",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/generator": "^7.14.3",
+    "@babel/parser": "^7.14.3",
+    "@babel/traverse": "^7.14.2",
+    "@babel/types": "^7.14.2"
+  }
 }
