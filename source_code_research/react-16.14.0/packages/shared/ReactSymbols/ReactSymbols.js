@@ -36,18 +36,18 @@ export let REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
 
 if (typeof Symbol === 'function' && Symbol.for) {
   const symbolFor = Symbol.for;
-  REACT_ELEMENT_TYPE = symbolFor('react.element');          // React 元素 Symbol
+  REACT_ELEMENT_TYPE = symbolFor('react.element');          // React 元素
   REACT_PORTAL_TYPE = symbolFor('react.portal');
-  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');
+  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');        // Fragment 空元素
   REACT_STRICT_MODE_TYPE = symbolFor('react.strict_mode');
   REACT_PROFILER_TYPE = symbolFor('react.profiler');
-  REACT_PROVIDER_TYPE = symbolFor('react.provider');
-  REACT_CONTEXT_TYPE = symbolFor('react.context');
+  REACT_PROVIDER_TYPE = symbolFor('react.provider');        // Provider 生产者
+  REACT_CONTEXT_TYPE = symbolFor('react.context');          // Context 上下文对象
   REACT_FORWARD_REF_TYPE = symbolFor('react.forward_ref');
   REACT_SUSPENSE_TYPE = symbolFor('react.suspense');
   REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
-  REACT_MEMO_TYPE = symbolFor('react.memo');
-  REACT_LAZY_TYPE = symbolFor('react.lazy');
+  REACT_MEMO_TYPE = symbolFor('react.memo');                // Memo 对象
+  REACT_LAZY_TYPE = symbolFor('react.lazy');                // Lazy 对象
   REACT_BLOCK_TYPE = symbolFor('react.block');
   REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
   REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
