@@ -6,7 +6,7 @@ class Form extends React.Component {
     this.state = {
       name: '',
       password: '',
-      lazy: [],
+      lazy: '',
     }
 
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -36,16 +36,7 @@ class Form extends React.Component {
 
   handleLazyChange(e) {
     console.log('handleLazyChange', e, e.target.value)
-    const lazy = this.state.lazy
-    const option = e.target.value
-    console.log(lazy)
-    console.log(option)
-    if (lazy.includes(option)) {
-      lazy.splice(lazy.indexOf(option), 1)
-      this.setState({ lazy })
-    } else {
-      this.setState({ lazy: [...lazy, option] })
-    }
+    this.setState({ lazy: e.target.value })
   }
 
   handleFileChange(e) {
@@ -59,7 +50,7 @@ class Form extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     console.log('handleSubmit')
-    console.log('form:', this.state.form)
+    console.log('form:', this.state)
   }
 
   render() {
@@ -92,15 +83,17 @@ class Form extends React.Component {
               />
             </label>
             <br />
+
             <label>
               懒惰程度:{' '}
-              <select multiple={true} value={lazy} onChange={handleLazyChange}>
+              <select value={lazy} onChange={handleLazyChange}>
                 <option value="lazy">懒</option>
                 <option value="aBitLazy">极懒</option>
                 <option value="superLazy">超级懒</option>
               </select>
             </label>
             <br />
+
             <label>
               上传文件:{' '}
               <input type="file" ref={file} onChange={handleFileChange} />

@@ -24,8 +24,8 @@ console.log(`current oa = `, oa)
 
 import { b, fb, ob, fob } from './other_with_es6'
 
-fb()
-b *= 10
+// fb()
+// b *= 10;  // import b is read-only
 fb()
 console.log(`current b = ${b}`)
 fob()

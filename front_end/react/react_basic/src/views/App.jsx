@@ -41,7 +41,8 @@ class App extends Component {
           dynamic={obj}
           {...otherProps}
         ></PropsSample>
-        {this.state.showStateSample && <StateSample></StateSample>}
+        <StateSample></StateSample>
+        {/* {this.state.showStateSample && <StateSample></StateSample>} */}
         <EventsSample></EventsSample>
         <FormSample></FormSample>
       </>

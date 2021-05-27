@@ -11,6 +11,10 @@ function Prop(props) {
 }
 
 class Props extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   buildProps() {
     const props = []
     for (const prop in this.props) {
