@@ -21,6 +21,12 @@ class DataSource {
   commentId = 0
   comments = []
 
+  clear() {
+    this.commentId = 0
+    this.comments = []
+    this.blogPosts = {}
+  }
+
   addComment(comment) {
     const newComment = {
       ...comment,
