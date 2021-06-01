@@ -1,41 +1,43 @@
 import React, { Component } from 'react'
-import { ThemeContext } from './ThemeContext2'
+import { ThemeContext } from './ThemeContext'
 import themes from './themes'
 
 class ThemedButton extends Component {
+  // 使用 contextType
   static contextType = ThemeContext
 
   render() {
-    const { theme, toggleTheme } = this.context
+    const theme = this.context
+    const { children, onClick } = this.props
     return (
       <button
-        onClick={toggleTheme}
+        onClick={onClick}
         style={{
           backgroundColor: theme.background,
           color: theme.foreground,
         }}
       >
-        {this.props.children}
+        {children}
       </button>
     )
   }
 }
 
-function ToolBar() {
-  return <ThemedButton>Change theme</ThemedButton>
+function ToolBar(props) {
+  return (
+    <ThemedButton onClick={props.changeTheme}>
+      Change theme
+    </ThemedButton>
+  )
 }
 
-class Version4 extends Component {
+class Version2 extends Component {
   constructor(props) {
     super(props)
-
-    this.toggleTheme = this.toggleTheme.bind(this)
-
     this.state = {
       theme: themes.light,
-      // 将状态改变也通过 context 上下文传递
-      toggleTheme: this.toggleTheme,
     }
+    this.toggleTheme = this.toggleTheme.bind(this)
   }
 
   toggleTheme() {
@@ -50,12 +52,12 @@ class Version4 extends Component {
   render() {
     return (
       <div>
-        <ThemeContext.Provider value={this.state}>
-          <ToolBar />
+        <ThemeContext.Provider value={this.state.theme}>
+          <ToolBar changeTheme={this.toggleTheme} />
         </ThemeContext.Provider>
       </div>
     )
   }
 }
 
-export default Version4
+export default Version2

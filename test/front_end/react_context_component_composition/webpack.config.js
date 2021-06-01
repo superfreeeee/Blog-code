@@ -24,11 +24,11 @@ module.exports = {
       filename: 'index.html',
     }),
   ],
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   devServer: {
     port: 3000,
     host: '0.0.0.0',

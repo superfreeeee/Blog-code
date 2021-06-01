@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --inline --hot",
+    "start": "webpack serve",
     "build": "webpack"
   },
   "dependencies": {

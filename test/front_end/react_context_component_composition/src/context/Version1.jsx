@@ -16,24 +16,55 @@ function StyledButton2(props) {
   return <button {...rest}>{children}</button>
 }
 
+// 使用 Consumer
 class ThemedButton extends Component {
   render() {
     const { children, onClick } = this.props
     return (
-      <ThemeContext.Consumer>
-        {(theme) => {
-          const props = {
-            children,
-            onClick,
-            style: {
-              backgroundColor: theme.background,
-              color: theme.foreground,
-            },
-          }
-          return <StyledButton {...props} />
-          return <StyledButton2 {...props} />
-        }}
-      </ThemeContext.Consumer>
+      <>
+        {/* Class Component */}
+        {/* <ThemeContext.Consumer>
+          {(theme) => {
+            const props = {
+              children,
+              onClick,
+              style: {
+                backgroundColor: theme.background,
+                color: theme.foreground,
+              },
+            }
+            return <StyledButton {...props} />
+          }}
+        </ThemeContext.Consumer> */}
+        {/* Function Component */}
+        {/* <ThemeContext.Consumer>
+          {(theme) => {
+            const props = {
+              children,
+              onClick,
+              style: {
+                backgroundColor: theme.background,
+                color: theme.foreground,
+              },
+            }
+            return <StyledButton2 {...props} />
+          }}
+        </ThemeContext.Consumer> */}
+        {/* directly Usage Component */}
+        <ThemeContext.Consumer>
+          {(theme) => (
+            <button
+              onClick={onClick}
+              style={{
+                backgroundColor: theme.background,
+                color: theme.foreground,
+              }}
+            >
+              {children}
+            </button>
+          )}
+        </ThemeContext.Consumer>
+      </>
     )
   }
 }
