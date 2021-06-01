@@ -19,7 +19,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'React 高阶组件(HOC)',
+      title: 'React 状态提升 & 高阶组件(HOC)',
       template: './public/index.html',
       filename: 'index.html',
     }),

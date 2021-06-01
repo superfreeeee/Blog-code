@@ -17,6 +17,7 @@ class Single extends Component {
     return (
       <div style={{ display: 'inline-block' }}>
         <label>
+          {/* 由 props.label 指定输入框标签 */}
           {this.props.label}
           <br />
           <input
