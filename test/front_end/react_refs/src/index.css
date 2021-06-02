@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.block {
+  border-top: 1px solid gray;
+}
