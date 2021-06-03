@@ -25,7 +25,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'React ???',
+      title: 'React Hook API',
       template: './public/index.html',
       filename: 'index.html',
     }),
@@ -39,9 +39,5 @@ module.exports = {
     port: 3000,
     host: '0.0.0.0',
     contentBase: 'dist',
-    historyApiFallback: true,
-    overlay: { // 灰屏错误提示
-      errors: true
-    },
   },
 }

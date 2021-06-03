@@ -12,7 +12,10 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(js|jsx)$/, use: 'babel-loader' },
+      {
+        test: /\.(js|jsx|ts|tsx)$/,
+        use: 'babel-loader',
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -20,12 +23,12 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'React ???',
+      title: 'React TS ???',
       template: './public/index.html',
       filename: 'index.html',
     }),
@@ -40,8 +43,9 @@ module.exports = {
     host: '0.0.0.0',
     contentBase: 'dist',
     historyApiFallback: true,
-    overlay: { // 灰屏错误提示
-      errors: true
+    overlay: {
+      // 灰屏错误提示
+      errors: true,
     },
   },
 }
