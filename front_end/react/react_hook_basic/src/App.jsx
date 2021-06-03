@@ -6,7 +6,7 @@ import UseStateSample from './useState'
 
 export default function App() {
   return (
-    <div>
+    <div style={{ marginLeft: '32px' }}>
       <h1>React Hook API</h1>
       <UseStateSample />
       <UseEffectSample />

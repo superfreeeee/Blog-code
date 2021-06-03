@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 function FunctionVersion() {
   const [name, setName] = useState('Alice')
@@ -11,11 +11,17 @@ function FunctionVersion() {
     document.title = `name: ${name}`
   })
 
+  const ref = useRef(null)
+
+  useEffect(() => {
+    ref.current.focus()
+  }, [])
+
   return (
     <div>
       <h3>In Function Component</h3>
       <div>name: {name}</div>
-      <input value={name} onChange={handleNameChange} />
+      <input ref={ref} value={name} onChange={handleNameChange} />
     </div>
   )
 }
