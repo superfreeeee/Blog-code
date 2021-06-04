@@ -1,17 +1,20 @@
 const path = require('path')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+const WebpackBar = require('webpackbar')
+const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin')
+
 module.exports = {
-  // mode: 'development',
-  mode: 'production',
-  entry: path.join(__dirname, './src/index.js'),
+  entry: path.resolve(__dirname, './src/index.js'),
   output: {
-    path: path.join(__dirname, './dist'),
-    filename: '[name].[chunkhash].bundle.js',
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].bundle.js',
     publicPath: '/',
   },
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -25,8 +28,15 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      title: 'Webpack Template',
+      title: 'Webpack Bars',
       hash: true,
     }),
+    // new WebpackBar(),
+    // new ProgressBarWebpackPlugin(),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 }

@@ -3,7 +3,8 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin')
+// const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin')
+const WebpackBar = require('webpackbar')
 
 const chunks = ['entryA', 'entryB', 'entryC']
 
@@ -21,7 +22,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new WebpackManifestPlugin(),
-    new ProgressBarWebpackPlugin(),
+    // new ProgressBarWebpackPlugin(),
+    new WebpackBar(),
     ...chunks.map(
       (name) =>
         new HtmlWebpackPlugin({
