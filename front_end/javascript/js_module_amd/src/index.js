@@ -1,0 +1,10 @@
+define(['./utils/amdFn.js', './utils/cjsFn.js'], function (fn1, fn2) {
+  console.group('index.js')
+  console.log('fn1', fn1)
+  console.log('fn2', fn2)
+  fn1.f()
+  fn1.g()
+  fn2.f()
+  fn2.g()
+  console.groupEnd()
+})
