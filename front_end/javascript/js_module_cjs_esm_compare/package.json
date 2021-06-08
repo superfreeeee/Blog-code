@@ -1,5 +1,5 @@
 {
-  "name": "js_module_compare",
+  "name": "js_module_cjs_esm_compare",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "devDependencies": {
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "@babel/register": "^7.13.16"
   }

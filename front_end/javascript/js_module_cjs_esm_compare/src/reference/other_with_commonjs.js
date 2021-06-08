@@ -1,18 +1,18 @@
 let a = 1
 
 const fa = () => {
-  console.log(`a = ${a}`)
+  console.log(`origin a = ${a}`)
 }
 
 let oa = { a: 3 }
 
 const foa = () => {
-  console.log('oa = ', oa)
+  console.log('origin oa = ', oa)
 }
 
 module.exports = {
   a,
   fa,
   oa,
-  foa
+  foa,
 }
