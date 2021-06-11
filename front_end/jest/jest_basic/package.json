@@ -1,0 +1,28 @@
+{
+  "name": "jest_basic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test-simple": "jest simple",
+    "test-bool": "jest bool",
+    "test-number": "jest number",
+    "test-string": "jest string",
+    "test-array": "jest array",
+    "test-exception": "jest exception",
+    "test-asynchronous": "jest asynchronous",
+    "test-async-await": "jest async_await",
+    "test-index": "jest index",
+    "test-babel": "jest babel",
+    "test-ts": "jest typescript",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.23",
+    "jest": "^27.0.4"
+  }
+}
