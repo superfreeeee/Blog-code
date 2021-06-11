@@ -75,11 +75,11 @@ var ReactMount = {
     // 获取上下文
     var nextContext;
     if (parentComponent) {
-      // 存在父元素
+      // 存在父元素(非根组件)
       var parentInst = ReactInstanceMap.get(parentComponent);
       nextContext = parentInst._processChildContext(parentInst._context);
     } else {
-      // 不存在父元素(首次渲染)
+      // 不存在父元素(作为根组件)
       nextContext = emptyObject;
     }
 

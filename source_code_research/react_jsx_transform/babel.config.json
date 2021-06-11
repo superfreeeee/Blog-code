@@ -1,0 +1,4 @@
+{
+  "plugins": ["@babel/plugin-transform-react-jsx"],
+  "sourceRoot": "src/index.jsx"
+}
