@@ -7,6 +7,7 @@
     "start": "typings install dt~node --global --save",
     "path": "node src/path",
     "module": "node src/module",
-    "process": "node src/process"
+    "process": "node src/process",
+    "timer": "node src/timer"
   }
 }
