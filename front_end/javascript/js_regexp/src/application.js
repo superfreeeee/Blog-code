@@ -5,27 +5,36 @@ log('>>> application.js')
 group('application: mail address', () => {
   const mail = 'superfreeeee@gmail.com'
   const mailPattern = /[_\w]+@(?:\w+\.)[a-z]+/
-  log(`'${mail}'.match(${mailPattern})`, mail.match(mailPattern))
+  log('mail                   :', mail)
+  log('mailPattern            :', mailPattern)
+  log(`mail.match(mailPattern):`, mail.match(mailPattern))
 })
 
 group('application: url parse', () => {
   const url1 =
     'http://localhost:8080/user/login?name=superfree&mail=superfreeeee@gmail.com'
   const urlPattern = /(http|https):\/\/(\w+):(\d+)((?:\/\w+)*)(\?.*)/
-  log(`'${url1}'.match(${urlPattern})`, url1.match(urlPattern))
+  log('url1                  :', url1)
+  log('urlPattern            :', urlPattern)
+  log(`url1.match(urlPattern):`, url1.match(urlPattern))
 
   const [, protocal, host, port, path, queryStr] = url1.match(urlPattern)
   group('match groups', () => {
     log(`protocal: ${protocal}`)
-    log(`host: ${host}`)
-    log(`port: ${port}`)
-    log(`path: ${path}`)
+    log(`host    : ${host}`)
+    log(`port    : ${port}`)
+    log(`path    : ${path}`)
     log(`queryStr: ${queryStr}`)
   })
 
   const queryParamsPattern = /([^?&#+]+=[^?&#+]+)/g
   group('match query parameters', () => {
-    log(queryStr.match(queryParamsPattern))
+    log('queryStr                          :', queryStr)
+    log('queryParamsPattern                :', queryParamsPattern)
+    log(
+      `queryStr.match(queryParamsPattern):`,
+      queryStr.match(queryParamsPattern)
+    )
   })
 
   function parseUrl(url) {
@@ -57,15 +66,10 @@ group('application: html', () => {
 </div>`
 
   function parseHTML(html) {
-    // while (html) {}
-
     const nodes = []
     const stack = []
 
-    let i = 10
-
-    while (html && i) {
-      i--
+    while (html) {
       const lastHtml = html
 
       // parse start tag

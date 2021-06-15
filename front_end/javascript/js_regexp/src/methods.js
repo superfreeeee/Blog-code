@@ -2,27 +2,28 @@ import { log, group } from './utils'
 
 log('>>> methods.js')
 
-const reg_a = /^a/
-log('reg_a:', reg_a)
-
 group('RegExp.prototype.test(string)', () => {
+  const reg_a = /^a/
+  log('reg_a:', reg_a)
   log(`reg_a.test('12345'):`, reg_a.test('12345'))
   log(`reg_a.test('12a45'):`, reg_a.test('12a45'))
   log(`reg_a.test('a1245'):`, reg_a.test('a1245'))
 })
 
 group('RegExp.prototype.exec(string)', () => {
+  const reg_a = /^a/
+  log('reg_a:', reg_a)
   log(`reg_a.exec('12345'):`, reg_a.exec('12345'))
   log(`reg_a.exec('12a45'):`, reg_a.exec('12a45'))
   log(`reg_a.exec('a1245'):`, reg_a.exec('a1245'))
 })
 
 group('String.prototype.match(regexp)', () => {
-  log(`'12345'.match(/^a/):`, '12345'.match(/^a/))
-  log(`'12a45'.match(/^a/):`, '12a45'.match(/^a/))
-  log(`'a1245'.match(/^a/):`, 'a1245'.match(/^a/))
-  log(`'a1245'.match('^a'):`, '1^a45'.match('^a'))
-  log(`'a1245'.match('^a.'):`, 'a1245'.match('^a.'))
+  log(`'12345'.match(/^a/)  :`, '12345'.match(/^a/))
+  log(`'12a45'.match(/^a/)  :`, '12a45'.match(/^a/))
+  log(`'a1245'.match(/^a/)  :`, 'a1245'.match(/^a/))
+  log(`'a1245'.match('^a')  :`, '1^a45'.match('^a'))
+  log(`'a1245'.match('^a.') :`, 'a1245'.match('^a.'))
   log(`'a.245'.match('^a\\.'):`, 'a.245'.match('^a\\.'))
 })
 
