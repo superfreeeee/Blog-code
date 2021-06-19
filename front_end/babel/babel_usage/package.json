@@ -1,0 +1,32 @@
+{
+  "name": "babel_usage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index",
+    "start-cli": "yarn clean && yarn build-cli && node lib/index",
+    "build-cli": "babel src/* -d lib/ > lib/log.txt",
+    "start-node-register": "node src/register",
+    "start-babel-node": "babel-node src/index",
+    "start-babel-node-ts": "babel-node src/index2 -x .ts",
+    "start-webpack": "webpack serve",
+    "build": "webpack",
+    "clean": "rm -rf lib && mkdir lib"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@babel/register": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "html-webpack-plugin": "^5.3.1",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpackbar": "^5.0.0-3"
+  }
+}

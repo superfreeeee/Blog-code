@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.msg=void 0;var msg='msg from other.js';exports.msg=msg;
