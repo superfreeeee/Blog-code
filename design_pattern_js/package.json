@@ -5,8 +5,13 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node src/index -x \".ts\"",
-    "start-abstract-factory": "babel-node src/abstract_factory -x \".ts\"",
-    "start-builder": "babel-node src/builder -x \".ts\"",
+    "start-creational": "babel-node src/creational/index -x \".ts\"",
+    "start-abstract-factory": "babel-node src/creational/abstract_factory -x \".ts\"",
+    "start-builder": "babel-node src/creational/builder -x \".ts\"",
+    "start-builder-graph": "babel-node src/creational/builder/graph -x \".ts\"",
+    "start-factory-method": "babel-node src/creational/factory_method -x \".ts\"",
+    "start-prototype": "babel-node src/creational/prototype -x \".ts\"",
+    "start-singleton": "babel-node src/creational/singleton -x \".ts\"",
     "build": "rm -rf lib && babel src/ -d lib/ -x \".ts\"",
     "clean": "rm -rf lib"
   },
