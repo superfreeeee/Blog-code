@@ -1,7 +1,7 @@
-import { group, log } from '../../utils/console'
+import { group, log } from '../../../utils/console'
 import SVGBuilder from './svg/Builder'
 
-import { writeFile } from '../../utils/file'
+import { writeFile } from '../../../utils/file'
 import path from 'path'
 
 class Diretor {
@@ -72,7 +72,7 @@ group('test 1', () => {
 
   const filePath = path.resolve(
     __dirname,
-    '../../../results/builder/svg_test_1.svg'
+    '../../../../results/builder/svg_test_1.svg'
   )
   writeFile(filePath, svg)
 })
