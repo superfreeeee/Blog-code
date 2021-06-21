@@ -1,10 +1,10 @@
 import { Component, Product } from './products'
 
 export interface Builder {
-  setComponentA: (component: Component) => this
-  setComponentB: (component: Component) => this
-  setComponentC: (component: Component) => this
-  build: () => Product
+  setComponentA(component: Component): this
+  setComponentB(component: Component): this
+  setComponentC(component: Component): this
+  build(): Product
 }
 
 export class ConcreteBuilder implements Builder {

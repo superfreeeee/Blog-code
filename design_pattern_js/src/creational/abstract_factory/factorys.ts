@@ -8,8 +8,8 @@ import {
 } from './products'
 
 export interface Factory {
-  createProductA: () => ProductA
-  createProductB: () => ProductB
+  createProductA(): ProductA
+  createProductB(): ProductB
 }
 
 export class Factory1 implements Factory {

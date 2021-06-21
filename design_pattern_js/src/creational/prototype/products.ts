@@ -1,5 +1,5 @@
 export interface Product {
-  clone: () => Product
+  clone(): Product
 }
 
 export class ProductA implements Product {
