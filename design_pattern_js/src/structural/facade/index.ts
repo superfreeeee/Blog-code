@@ -1,4 +1,3 @@
-import { log } from '../../utils/console'
 import Facade from './Facade'
 import { SubsystemA, SubsystemB, SubsystemC } from './subsystems'
 

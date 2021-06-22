@@ -1,12 +1,12 @@
 import { log } from '../../utils/console'
 import { foo, RealSubject, Subject } from './subjects'
 
+/***** Remote Proxy *****/
 const urlMapper = new Map<string, Subject>()
 urlMapper.set('url1', new RealSubject('url1'))
 urlMapper.set('url2', new RealSubject('url2'))
 urlMapper.set('url3', new RealSubject('url3'))
 
-/***** Remote Proxy *****/
 export let config = {
   url: 'url1',
 }

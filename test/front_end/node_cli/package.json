@@ -1,0 +1,12 @@
+{
+  "name": "node_cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "commander": "^7.2.0",
+    "inquirer": "^8.1.1",
+    "ora": "^5.4.1"
+  }
+}
