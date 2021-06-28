@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "bin": "index.js",
   "dependencies": {
     "chalk": "^4.1.1",
+    "clear": "^0.1.0",
     "commander": "^7.2.0",
+    "figlet": "^1.5.0",
     "inquirer": "^8.1.1",
-    "ora": "^5.4.1"
+    "ora": "^5.4.1",
+    "prettier": "^2.3.2",
+    "progress": "^2.0.3",
+    "single-line-log": "^1.1.2"
   }
 }

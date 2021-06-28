@@ -1,2 +1,13 @@
-const s: string = 'Hello world'
-console.log(s)
+import { group } from './utils/console'
+
+group('Creational', () => {
+  require('./creational')
+})
+
+group('Structural', () => {
+  require('./structural')
+})
+
+group('Behavioral', () => {
+  require('./behavioral')
+})
