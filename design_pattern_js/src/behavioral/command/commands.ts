@@ -40,3 +40,18 @@ export class CommandUsingContext implements Command {
     this.receiver.context?.commandRealize()
   }
 }
+
+export class MacroCommand implements Command {
+  receiver: Application
+  commands: Command[]
+
+  constructor(receiver: Application, ...commands: Command[]) {
+    this.receiver = receiver
+    this.commands = commands
+  }
+
+  execute() {
+    log('MacroCommand.execute')
+    this.commands.forEach((command) => command.execute())
+  }
+}
