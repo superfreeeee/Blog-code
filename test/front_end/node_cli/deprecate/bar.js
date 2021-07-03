@@ -1,6 +1,10 @@
 // const ProgressBar = require('progress')
 const slog = require('single-line-log').stdout
-const { format } = require('./utils')
+
+const format = (s, len) => {
+  return s.length >= len ? s : `${' '.repeat(len - s.length)}${s}`
+}
+
 // const bar = new ProgressBar('Progress [:bar] :current/:total', { total: 10 })
 
 function ProgressBar(title = 'A Bar', total = 10, length = 25) {

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "bin": "index.js",
+  "bin": {
+    "my-cli": "bin/my-cli",
+    "my-cli-create": "bin/my-cli-create"
+  },
   "dependencies": {
     "chalk": "^4.1.1",
     "clear": "^0.1.0",

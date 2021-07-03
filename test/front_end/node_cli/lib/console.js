@@ -26,4 +26,5 @@ module.exports = {
   error,
   info,
   group,
+  log: console.log,
 }

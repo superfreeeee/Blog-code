@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const spinner = ora()
 
 const start = (msg) => {
-  spinner.text(msg)
+  spinner.text = chalk.cyan(msg)
   spinner.start()
 }
 
@@ -13,11 +13,11 @@ const stop = (msg) => {
 }
 
 const success = (msg) => {
-  spinner.stopAndPersist(chalk.green(msg))
+  spinner.succeed(chalk.green(msg))
 }
 
 const error = (msg) => {
-  spinner.stopAndPersist(chalk.red(msg))
+  stop(chalk.red(msg))
 }
 
 module.exports = {
