@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const path = require('path')
 const init = require('../lib/init')
 const asking = require('../lib/asking')
 const build = require('../lib/build')

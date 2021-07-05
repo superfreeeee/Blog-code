@@ -5,7 +5,8 @@
   "license": "MIT",
   "bin": {
     "my-cli": "bin/my-cli",
-    "my-cli-create": "bin/my-cli-create"
+    "my-cli-create": "bin/my-cli-create",
+    "my-cli-test-commander": "samples/commander.js"
   },
   "dependencies": {
     "chalk": "^4.1.1",
