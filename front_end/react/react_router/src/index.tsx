@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-
-import './history/factoryMethod'
+// import App from './basic/App'
+import App from './connected/App'
 
 ReactDOM.render(<App />, document.querySelector('#app'))

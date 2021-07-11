@@ -6,9 +6,10 @@ import {
   useRouteMatch,
 } from 'react-router-dom'
 import { RouteUserParam } from './App'
-import { group } from './utils/msg'
+import { group } from '../utils/msg'
+import InnerHome from './InnerHome'
 
-const Home = () => {
+const Home = (props) => {
   const history = useHistory()
   const location = useLocation()
   const params = useParams<RouteUserParam>()
@@ -17,6 +18,7 @@ const Home = () => {
   const userId = params.userId
 
   group('[Component] Home', () => {
+    console.log('props', props)
     console.log('history', history)
     console.log('location', location)
     console.log('params', params)
@@ -27,6 +29,7 @@ const Home = () => {
     <div>
       <h2>Home Page</h2>
       {userId && <h3>userId: {userId}</h3>}
+      <InnerHome></InnerHome>
     </div>
   )
 }

@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { RouteUserParam } from './App'
-import { group } from './utils/msg'
+import { group } from '../utils/msg'
+import InnerDefault from './InnerDefault'
 
-class Default extends Component<
-  RouteComponentProps<RouteUserParam>,
-  any,
-  any
-> {
+class Default extends Component<RouteComponentProps<RouteUserParam>> {
   constructor(props) {
     super(props)
   }
@@ -25,8 +22,8 @@ class Default extends Component<
     const match = this.props.match
 
     group('[Component] Default componentDidUpdate', () => {
-      console.log(this.props)
-      console.log(match)
+      console.log('props', this.props)
+      console.log('match', match)
     })
   }
 
@@ -36,6 +33,7 @@ class Default extends Component<
       <div>
         <h2>Default Page</h2>
         {userId && <h3>userId: {userId}</h3>}
+        <InnerDefault></InnerDefault>
       </div>
     )
   }
