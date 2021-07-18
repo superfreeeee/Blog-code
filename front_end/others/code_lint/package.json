@@ -1,0 +1,42 @@
+{
+  "name": "code_lint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.31.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.0.1",
+    "prettier": "^2.3.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "format": "prettier src/* --write",
+    "lint-commit1": "echo 'test1'      | commitlint",
+    "lint-commit2": "echo 'tag: test2' | commitlint",
+    "lint-commit3": "echo 'ci: test3'  | commitlint",
+    "lint-script": "eslint src/*",
+    "lint-style": "stylelint src/*.scss",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.json": [
+      "prettier --write"
+    ],
+    "*.{js,ts}": [
+      "prettier --write",
+      "yarn eslint --fix"
+    ],
+    "*.{css,less,scss}": [
+      "prettier --write",
+      "yarn stylelint --fix"
+    ]
+  }
+}
