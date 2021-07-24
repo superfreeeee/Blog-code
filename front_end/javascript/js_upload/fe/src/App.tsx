@@ -9,10 +9,10 @@ export default function App() {
   return (
     <div>
       <Single />
-      {/* <Multiple /> */}
-      {/* <Directory /> */}
-      {/* <Zip /> */}
-      {/* <BigFile /> */}
+      <Multiple />
+      <Directory />
+      <Zip />
+      <BigFile />
     </div>
   );
 }

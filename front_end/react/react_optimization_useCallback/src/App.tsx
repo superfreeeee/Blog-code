@@ -20,8 +20,9 @@ export default function App() {
       <Test4 />
       <Test5 />
       <Test6 />
-      {/* <Test7 /> */}
+      <Test7 />
       <Test8 />
+      <div style={{ height: '100px' }}></div>
     </div>
   );
 }

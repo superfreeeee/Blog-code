@@ -5,6 +5,10 @@ import {
   useState,
 } from 'react';
 
+/**
+ * 基本用法
+ * @returns
+ */
 const useInput = (): [
   string,
   ChangeEventHandler<HTMLInputElement>
@@ -17,6 +21,10 @@ const useInput = (): [
   return [value, handleChange];
 };
 
+/**
+ * 带 useCallback 用法
+ * @returns
+ */
 const useInputWithCallback = (): [
   string,
   ChangeEventHandler<HTMLInputElement>
