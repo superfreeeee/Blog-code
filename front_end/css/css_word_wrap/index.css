@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  font-size: 18px;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+h4,
+h3,
+body {
+  margin: 0;
+}
+
+.block,
+.block2 {
+  width: 20em;
+  padding: 0.5em;
+  border: 0.15em solid #3e3e3e;
+}
+
+.b {
+  overflow: hidden;
+}
+
+.c {
+  word-break: break-all;
+}
+
+.d {
+  word-break: keep-all;
+}
+
+.e {
+  word-break: break-word;
+}
+
+.a2,
+.b2 {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.a2 {
+  text-overflow: clip;
+}
+
+.b2 {
+  text-overflow: ellipsis;
+}
+
+.single,
+.single2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.multiple,
+.multiple2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.block2 {
+  width: 21em;
+  padding: 0;
+}
+
+.block2 > .single2,
+.block2 > .multiple2 {
+  margin: 0.5em;
+}
