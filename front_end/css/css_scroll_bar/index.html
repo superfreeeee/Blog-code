@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Scroll Bar</title>
+    <style>
+      body,
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+      }
+
+      .block {
+        width: 400px;
+        max-height: 150px;
+        border: 0.2em solid #3e3e3e;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .block::-webkit-scrollbar {
+        display: none;
+        width: 0.5em;
+        background-color: #d9d9d9;
+      }
+
+      .block::-webkit-scrollbar-thumb {
+        border-radius: 0.25em;
+        background-color: #b9b9b9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS 滚动条样式</h1>
+
+    <div id="A" class="block">
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+      <div>A</div>
+    </div>
+
+    <style>
+      #A {
+      }
+    </style>
+  </body>
+</html>
