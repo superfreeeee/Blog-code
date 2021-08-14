@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+}
+
+h1 {
+  text-decoration: underline 0.1em solid black;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+button {
+  background-color: #f8f8f8;
+  border: 0.1em solid #838383;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0.6em rgba($color: #000000, $alpha: 0.16);
+  }
+
+  &:active {
+    border-width: 0.15em;
+  }
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btns {
+  display: flex;
+  gap: 1em;
+
+  button {
+    width: 5em;
+    height: 3em;
+    border-radius: 1.5em;
+  }
+}
