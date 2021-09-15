@@ -1,0 +1,156 @@
+# entry
+
+<!-- package: node_modules/webpack -->
+- webpack -> /bin/webpack.js
+  - runCli
+    - require(node_modules/webpack-cli/bin/cli.js)
+
+<!-- package: node_modules/webpack-cli -->
+- /bin/cli.js
+  - runCLI = require(/lib/bootstrap)
+  - runCLI(args, originalModuleCompile)
+    - cli = new WebpackCLI()                - /lib/bootstrap
+      - WebpackCLI.constructor              - /lib/webpack-cli
+        - this.webpack
+        - this.logger
+        - this.utils
+        - this.program
+    - cli.run(args)                         - /lib/bootstrap
+      - WebpackCLI.run                      - /lib/webpack-cli
+        - this.program.action():1414
+          - loadCommandByName('build', true)
+            - options = this.getBuiltInOptions()
+              - minimumHelpFlags(16)
+              - builtInFlags(19)
+              - coreFlags(574)
+              - this.builtInOptionsCache = options
+            - this.makeCommand(commandOptions, options, action)
+              - command = this.program.command('build \[entries...\]')
+              - options.forEach(=> this.makeOption)
+              - command.action(action)
+              - action invoke =>
+    - this.runWebpack({}, false)            - /lib/webpack-cli
+      - compiler = await this.createCompiler(options, callback)
+        - this.applyNodeEnv(options)
+        - config = await this.resolveConfig(options)
+        - config = await this.applyOptions(config, options)
+        - config = await this.applyCLIPlugin(config, options)
+        - compiler = this.webpack(options, callback) => mergeExports(fn, options)(options, callback)
+
+<!-- package: node_modules/webpack -->
+- /lib/index.js
+  - fn = lazy(() => require('./webpack'))
+  - webpack(options, callback)
+    - { compiler, watch, watchOptions } = create()                            - /lib/webpack.js
+      - if !webpackOptionsSchemaCheck(options)
+        - getValidateSchema()(webpackOptionsSchema, options)
+      - if Array.isArray(options)
+        - compiler = createMultiCompiler(options, options)
+      - if !Array.isArray(options) &&
+        - webpackOptions = options
+        - compiler = createCompiler(webpackOptions)
+          - options = getNormalizedWebpackOptions(rawOptions)
+          - applyWebpackOptionsBaseDefaults(options)
+          - compiler = new Compiler(options.context)
+            - Compiler.constructor()                                          - /lib/Compiler.js
+              - this.hooks
+              - this.webpack
+              - this.name
+              - this.parentCompilation
+              - this.root
+              - this.outputPath
+              - this.watching
+              - ...
+              - this.running = false
+          - new NodeEnvironmentPlugin().apply(compiler)
+            - NodeEnvironmentPlugin.constructor()                             - /lib/node/NodeEnvironmentPlugin.js
+            - NodeEnvironmentPlugin.apply(compiler)
+              - compiler.infrastructureLogger = createConsoleLogger(options)
+              - compiler.inputFileSystem = new CachedInputFileSystem(fs, 60000)
+              - compiler.outputFileSystem = fs
+              - compiler.intermediateFileSystem = fs
+              - compiler.watchFileSystem = new NodeWatchFileSystem(compiler.inputFileSystem)
+              - \[hooks\] compiler.hooks.beforeRun.tap("NodeEnvironmentPlugin", compiler => {})
+          - plugin.apply(compiler)
+          - applyWebpackOptionsDefaults(options)                              - /lib/config/defaults.js
+          - \[hooks\] compiler.hooks.environment.call()
+          - \[hooks\] compiler.hooks.afterEnvironment.call()
+          - new WebpackOptionsApply().process(options, compiler)
+            - WebpackOptionsApply.constructor()                               - /lib/WebpackOptionsApply.js
+            - WebpackOptionsApply.process(options.compiler)
+              - compiler.outputPath
+              - compiler.recordsInputPath
+              - compiler.recordsOutputPath
+              - compiler.name
+              - options.externalsPresets.web &&
+                new ExternalsPlugin("module", /^(https?:\/\/|std:)/).apply(compiler)
+                - ExternalsPlugin.constructor()                               - /lib/ExternalsPlugin.js
+                  - this.type
+                  - this.externals
+                - ExternalsPlugin.apply(compiler)
+                  - \[hooks\] compiler.hooks.compile.tap("ExternalsPlugin", ({ normalModuleFactory }) => {})
+                    - new ExternalModuleFactoryPlugin(type, externals).apply(normalModuleFactory)
+                      - ExternalModuleFactoryPlugin.constructor()             - /lib/ExternalModuleFactoryPlugin.js
+                      - ExternalModuleFactoryPlugin.apply(normalModuleFactory)
+              - new ChunkPrefetchPreloadPlugin().apply(compiler)
+                - ChunkPrefetchPreloadPlugin.apply(compiler)                  - /lib/prefetch/ChunkPrefetchPreloadPlugin.js
+                  - \[hooks\] compiler.hooks.compilation.tap("ChunkPrefetchPreloadPlugin", compilation => {})
+              - options.output.chunkFormat === 'array-push' &&
+                new ArrayPushCallbackChunkFormatPlugin().apply(compiler)
+                - ArrayPushCallbackChunkFormatPlugin.apply(compiler)          - /lib/javascript/ArrayPushCallbackChunkFormatPlugin.js
+                  - \[hooks\] compiler.hooks.thisCompilation.tap("ArrayPushCallbackChunkFormatPlugin", compilation => {})
+              - new JavascriptModulesPlugin().apply(compiler)
+              - new JsonModulesPlugin().apply(compiler)
+              - new AssetModulesPlugin().apply(compiler)
+              - new EntryOptionPlugin().apply(compiler);
+          		- \[hooks\] compiler.hooks.entryOption.call(options.context, options.entry)
+              - new RuntimePlugin().apply(compiler)
+              - new InferAsyncModulesPlugin().apply(compiler)
+              - new DataUriPlugin().apply(compiler)
+              - new FileUriPlugin().apply(compiler)
+              - new CompatibilityPlugin().apply(compiler)
+              - new HarmonyModulesPlugin({ topLevelAwait }).apply(compiler);
+          - \[hooks\] compiler.hooks.initialize.call()
+        - return { compiler, watch, watchOptions }
+    - if watch
+      - compiler.watch(watchOptions, callback)
+    - if !watch
+      - compiler.run((err, stats) => { compiler.close(err2 => {}) })
+        - Compiler.run(callback)                                              - /lib/Compiler.js
+          - if this.running
+            - return callback(new ConcurrentCompilationError())
+          - run()
+            - \[hooks\] this.hooks.beforeRun.callAsync(this, err => {})
+              - \[hooks\] this.hooks.run.callAsync(this, err => {})
+                - this.readRecords(err => { this.compile(onCompiled) })
+                  - if !this.recordsInputPath
+                    - this.records = {}
+                    - return callback()
+                  - this.compile(onCompiled)
+                    - params = this.newCompilationParams()
+                      - normalModuleFactory = this.createNormalModuleFactory()
+                      - contextModuleFactory = this.createContextModuleFactory()
+                      - return { normalModuleFactory, contextModuleFactory }
+                    - \[hooks\] this.hooks.beforeCompile.callAsync(params, err => {})
+                      - this.hooks.compile.call(params)
+                      - compilation = this.newCompilation(params)
+                        - compilation = this.createCompilation()
+                          - this._cleanupLastCompilation()
+                            - if this._lastCompilation
+                              - ...
+                              - this._lastCompilation = undefined
+                          - return (this._lastCompilation = new Compilation(this))
+                            - Compilation.constructor(compiler)               - /lib/Compilation.js
+                              - ...
+                        - compilation.name, compilation.records
+                        - \[hooks\] this.hooks.thisCompilation.call(compilation, params)
+                    		- \[hooks\] this.hooks.compilation.call(compilation, params)
+                  		- logger = compilation.getLogger("webpack.Compiler")
+                    		- Compilation.getLogger(name)                         - /lib/Compilation.js
+                      		- return new Logger((type, args) => {}, childName => {})
+                        		- WebpackLogger.constructor(log, getChildLogger)  - /lib/logging/Logger.js
+                  		- \[hooks\] this.hooks.make.callAsync(compilation, err => {})
+                    		- \[hooks\] this.hooks.finishMake.callAsync(compilation, err => {})
+                      		- compilation.finish(err => {})
+                		- 
+

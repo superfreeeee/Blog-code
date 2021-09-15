@@ -1,0 +1,13 @@
+{
+  "name": "lerna-launch",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
