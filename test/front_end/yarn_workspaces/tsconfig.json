@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@youxian/test-components": ["components/src"],
+      "@youxian/test-hooks": ["hooks/src"],
+      "@youxian/*": ["*/src"]
+    },
+    "moduleResolution": "Node"
+  }
+}

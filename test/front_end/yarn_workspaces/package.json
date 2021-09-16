@@ -1,9 +1,7 @@
 {
-  "name": "lerna-launch",
+  "name": "yarn_workspaces",
+  "license": "MIT",
   "private": true,
-  "scripts": {
-    "clean": "rm -rf node_modules"
-  },
   "workspaces": [
     "packages/*"
   ],
