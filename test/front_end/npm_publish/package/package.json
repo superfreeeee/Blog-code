@@ -1,7 +1,7 @@
 {
   "name": "@youxian/test-pkg",
-  "version": "1.0.0-alpha.2",
-  "main": "index.js",
+  "version": "1.0.0-alpha.3",
+  "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib/* && babel src/ -d lib/ -x .ts"
