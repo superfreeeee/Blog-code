@@ -1,6 +1,6 @@
 {
   "name": "@youxian/test-pkg",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.5",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
