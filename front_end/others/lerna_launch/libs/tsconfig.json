@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
-      "@youxian/test-components": ["components/src"],
-      "@youxian/test-hooks": ["hooks/src"],
-      "@youxian/*": ["*/src"]
+      "superfree-testpkg-1": ["pkg-1/src"],
+      "superfree-testpkg-2": ["pkg-2/src"]
     },
     "moduleResolution": "Node"
   }

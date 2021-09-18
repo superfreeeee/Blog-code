@@ -1,0 +1,44 @@
+{
+  "name": "superfree-testpkg-2",
+  "version": "0.0.1-alpha.5",
+  "description": "> TODO: description",
+  "author": "superfree <superfreeeee@gmail.com>",
+  "homepage": "https://github.com/superfreeeee/Blog-code#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superfreeeee/Blog-code.git"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "jest": "^27.2.0",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "superfree-testpkg-1": "^0.0.1-alpha.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "dev": "webpack --watch",
+    "build": "webpack"
+  },
+  "bugs": {
+    "url": "https://github.com/superfreeeee/Blog-code/issues"
+  },
+  "gitHead": "c8ee04cb0373b92e051978c30c149769863bcfbc"
+}

@@ -1,11 +1,19 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: path.join(__dirname, 'src/index'),
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'lib'),
+    library: {
+      name: '__youxiantest_pkg_2',
+      type: 'umd',
+    },
+    globalObject: 'this',
+  },
+  externals: {
+    'superfree-testpkg-1': 'superfree-testpkg-1',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -18,8 +26,5 @@ module.exports = {
         use: 'babel-loader',
       },
     ],
-  },
-  externals: {
-    '@youxian/test-hooks': path.resolve(__dirname, '../hooks'),
   },
 };

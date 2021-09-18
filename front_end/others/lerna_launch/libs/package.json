@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "clean": "rm -rf node_modules/ && lerna clean -y",
+    "dev": "lerna run --stream --sort dev",
+    "build": "lerna run --stream --sort build"
+  }
+}
