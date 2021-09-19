@@ -1,0 +1,21 @@
+{
+  "name": "scheme_event_emitter",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/node": "^16.9.3",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "start": "clear && babel-node src/index -x .ts",
+    "build": "yarn clean && tsc && babel src/ -d lib/ -x .ts",
+    "clean": "rm -rf types/ lib/"
+  }
+}

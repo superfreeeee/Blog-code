@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "declarationDir": "types",
+    "declaration": true,
+    "allowSyntheticDefaultImports": true
+  }
+}
