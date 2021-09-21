@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "watch": ["src/"],
+  "ext": "js,ts,json"
+}
