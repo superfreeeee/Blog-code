@@ -1,0 +1,70 @@
+.audioPlayer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .playPauseBtn {
+    display: grid;
+    place-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  .progressBar {
+    position: relative;
+    width: 400px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+  }
+
+  .time {
+    width: 110px;
+    text-align: right;
+  }
+
+  .volumeControl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 42px;
+
+    .bar {
+      height: 100px;
+    }
+  }
+
+  .speedControl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+
+    .speedOption {
+      width: 100%;
+      padding: 5px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}

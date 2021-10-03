@@ -1,0 +1,62 @@
+$sliderWidth: 6px;
+
+.sliderBg {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 20px;
+  cursor: pointer;
+
+  &.vertical {
+    width: 20px;
+    height: 100%;
+  }
+}
+
+.slider {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: $sliderWidth;
+  border-radius: $sliderWidth / 2;
+  background: #e3e3e3;
+  user-select: none;
+
+  &.vertical {
+    width: $sliderWidth;
+    height: 100%;
+  }
+
+  .shadow {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: $sliderWidth;
+    border-radius: $sliderWidth / 2;
+    background: #737373;
+
+    &.vertical {
+      height: unset;
+      width: $sliderWidth;
+    }
+  }
+
+  .dot {
+    position: absolute;
+    top: -$sliderWidth / 2;
+    width: $sliderWidth * 2;
+    height: $sliderWidth * 2;
+    border-radius: 50%;
+    background: #737373;
+    user-select: none;
+
+    &.vertical {
+      top: unset;
+      left: -$sliderWidth / 2;
+    }
+  }
+}
