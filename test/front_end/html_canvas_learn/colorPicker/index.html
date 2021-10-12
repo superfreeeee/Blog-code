@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas</title>
+    <style>
+      canvas {
+      }
+
+      .container {
+        display: flex;
+      }
+
+      .colorSelector {
+        display: grid;
+        place-items: center;
+        width: 200px;
+        height: 229px;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h3>Source</h3>
+        <canvas id="canvas" width="300" height="227"></canvas>
+      </div>
+      <div>
+        <h3>Hovered color</h3>
+        <div id="hovered-color" class="colorSelector"></div>
+      </div>
+      <div>
+        <h3>Selected color</h3>
+        <div id="selected-color" class="colorSelector"></div>
+      </div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

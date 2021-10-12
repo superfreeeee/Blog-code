@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Nokia 1100:snake..Member berries</title>
+    <link rel="stylesheet" href="./snake.css" />
+  </head>
+  <body>
+    <div class="keypress hide">
+      <div class="up" onclick="emit(38)">&#8593;</div>
+      <div class="right" onclick="emit(39)">&#8594;</div>
+      <div class="left" onclick="emit(37)">&#8592;</div>
+      <div class="down" onclick="emit(40)">&#8595;</div>
+    </div>
+    <div class="banner" id="selector">
+      <div>Time :<span id="time">0</span></div>
+      <div>ShittyGames ©</div>
+      <div>Score :<span id="score">0</span></div>
+      <div class="touch off" onclick="touch(this)">touch</div>
+    </div>
+    <canvas id="main"></canvas>
+    <script src="./snake.js"></script>
+  </body>
+</html>
