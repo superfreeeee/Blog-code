@@ -11,3 +11,7 @@ body {
 canvas {
   border: 1px solid #c4c4c4;
 }
+
+.hide {
+  /* display: none; */
+}

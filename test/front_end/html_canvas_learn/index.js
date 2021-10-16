@@ -10,6 +10,8 @@ function resetCanvas() {
   ctx.globalAlpha = 1;
   ctx.lineWidth = 1;
   ctx.lineCap = 'butt';
+  ctx.setLineDash([]);
+  ctx.lineDashOffset = 0;
   // 6.
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 0;
@@ -50,6 +52,9 @@ basicBtn.addEventListener('click', drawBasic);
 /**
  * 1.
  */
+/**
+ * Blog 2.
+ */
 function drawRect() {
   ctx.fillRect(25, 25, 100, 100);
   ctx.clearRect(45, 45, 60, 60);
@@ -88,6 +93,9 @@ function drawFace() {
 const pathBtn2 = document.querySelector('.switch .path2');
 pathBtn2.addEventListener('click', drawFace);
 
+/**
+ * Blog 3.1
+ */
 function drawLine() {
   // 填充三角形
   ctx.beginPath();
@@ -108,6 +116,9 @@ function drawLine() {
 const pathBtn3 = document.querySelector('.switch .path3');
 pathBtn3.addEventListener('click', drawLine);
 
+/**
+ * Blog 3.2
+ */
 function drawArc() {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 3; j++) {
@@ -133,7 +144,11 @@ function drawArc() {
 const pathBtn4 = document.querySelector('.switch .path4');
 pathBtn4.addEventListener('click', drawArc);
 
-function drawCurve() {
+/**
+ * Blog 3.3
+ */
+function* drawCurve() {
+  resetCanvas();
   // 二次贝塞尔曲线
   ctx.beginPath();
   ctx.moveTo(75, 25);
@@ -144,6 +159,9 @@ function drawCurve() {
   ctx.quadraticCurveTo(125, 100, 125, 62.5);
   ctx.quadraticCurveTo(125, 25, 75, 25);
   ctx.stroke();
+
+  yield;
+  resetCanvas();
 
   //三次贝塞尔曲线
   ctx.beginPath();
@@ -158,7 +176,15 @@ function drawCurve() {
 }
 
 const pathBtn5 = document.querySelector('.switch .path5');
-pathBtn5.addEventListener('click', drawCurve);
+pathBtn5.addEventListener(
+  'click',
+  (() => {
+    let drawCurveGen = drawCurve();
+    return () => {
+      drawCurveGen.next().done && (drawCurveGen = drawCurve());
+    };
+  })()
+);
 
 function drawPath2D() {
   var rectangle = new Path2D();
@@ -261,6 +287,9 @@ ghostBtn.addEventListener('click', drawGhost);
 /**
  * 3.
  */
+/**
+ * Blog 4.1 4.2
+ */
 function drawColor(stroke = false) {
   const width = 50;
   const radius = width / 2 - 10;
@@ -286,6 +315,9 @@ colorBtn.addEventListener('click', () => drawColor());
 const colorBtn2 = document.querySelector('.switch .color2');
 colorBtn2.addEventListener('click', () => drawColor(true));
 
+/**
+ * Blog 4.3
+ */
 function drawTransparency() {
   const width = 150;
 
@@ -345,6 +377,10 @@ transBtn2.addEventListener('click', drawTransparency2);
 /**
  * 4.
  */
+
+/**
+ * Blog 4.4
+ */
 function drawLineWidth() {
   for (var i = 0; i < 10; i++) {
     ctx.lineWidth = 1 + i;
@@ -358,6 +394,9 @@ function drawLineWidth() {
 const lineWidthBtn = document.querySelector('.switch .lineWidth');
 lineWidthBtn.addEventListener('click', drawLineWidth);
 
+/**
+ * Blog 4.4
+ */
 function drawLineCap() {
   var lineCap = ['butt', 'round', 'square'];
 
@@ -388,6 +427,9 @@ function drawLineCap() {
 const lineCapBtn = document.querySelector('.switch .lineCap');
 lineCapBtn.addEventListener('click', drawLineCap);
 
+/**
+ * Blog 4.4
+ */
 function drawLineJoin() {
   var lineJoin = ['round', 'bevel', 'miter'];
   const width = (ctx.lineWidth = 20);
@@ -410,6 +452,9 @@ function drawLineJoin() {
 const lineJoinBtn = document.querySelector('.switch .lineJoin');
 lineJoinBtn.addEventListener('click', drawLineJoin);
 
+/**
+ * Blog 4.4
+ */
 let offset = 0,
   timer = null;
 function drawAnt() {
@@ -439,6 +484,10 @@ antBtn2.addEventListener('click', clearAnime);
 /**
  * 5.
  */
+
+/**
+ * Blog 4.5
+ */
 function drawLinearGradient() {
   // Create gradients
   var lingrad = ctx.createLinearGradient(0, 0, 0, 150);
@@ -463,6 +512,9 @@ function drawLinearGradient() {
 const lgBtn = document.querySelector('.switch .lg');
 lgBtn.addEventListener('click', drawLinearGradient);
 
+/**
+ * Blog 4.5
+ */
 function drawRadialGradient() {
   // 创建渐变
   var radgrad = ctx.createRadialGradient(45, 45, 10, 52, 50, 30);
@@ -522,15 +574,18 @@ const patternBtn = document.querySelector('.switch .pattern');
 patternBtn.addEventListener('click', drawPattern);
 
 // 6.
+
+/**
+ * Blog 4.6
+ */
 function drawShadow() {
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 2;
   ctx.shadowBlur = 2;
   ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
 
-  ctx.font = '20px Times New Roman';
-  ctx.fillStyle = 'Black';
-  ctx.fillText('Sample String', 5, 30);
+  ctx.fillStyle = 'steelblue';
+  ctx.fillRect(100, 100, 50, 30);
 }
 
 const shadowBtn = document.querySelector('.switch .shadow');
@@ -549,10 +604,13 @@ fillRuleBtn.addEventListener('click', drawFillRule);
 /**
  * 7.
  */
+
+/**
+ * Blog 5.1
+ */
 function drawText() {
   ctx.font = '48px serif';
   ctx.fillText('Hello world', 10, 50);
-  ctx.font = '48px serif';
   ctx.strokeText('Hello world', 10, 100);
 }
 
@@ -561,6 +619,10 @@ textBtn.addEventListener('click', drawText);
 
 /**
  * 8.
+ */
+
+/**
+ * Blog 5.2
  */
 function drawTextBaseline() {
   ctx.font = '48px serif';
@@ -588,11 +650,15 @@ function drawTextBaseline() {
 const tbBtn = document.querySelector('.switch .tb');
 tbBtn.addEventListener('click', drawTextBaseline);
 
+/**
+ * Blog 5.3
+ */
 function drawMeasureText() {
   const text = 'foo';
-  var measurement = ctx.measureText(text); // TextMetrics object
-  measurement.width; // 16;
   ctx.font = '48px serif';
+  const measurement = ctx.measureText(text); // TextMetrics object
+  console.log('measurement', measurement);
+  ctx.fillRect(10, 100, measurement.width, 5);
   ctx.fillText(text, 10, 100);
 }
 
@@ -600,73 +666,11 @@ const measureBtn = document.querySelector('.switch .measure');
 measureBtn.addEventListener('click', drawMeasureText);
 
 /**
- * 9.
+ * 10.
  */
-function drawImage() {
-  const img = new Image();
-  img.onload = function () {
-    ctx.drawImage(img, 0, 0);
-    ctx.beginPath();
-    ctx.moveTo(30, 96);
-    ctx.lineTo(70, 66);
-    ctx.lineTo(103, 76);
-    ctx.lineTo(170, 15);
-    ctx.stroke();
-  };
-  img.src = 'https://mdn.mozillademos.org/files/5395/backdrop.png';
-}
-
-const imgBtn = document.querySelector('.switch .img');
-imgBtn.addEventListener('click', drawImage);
-
-function drawImageRepeat() {
-  var img = new Image();
-  const width = 300 / 3;
-  const height = 300 / 4;
-  img.onload = function () {
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 3; j++) {
-        ctx.drawImage(img, j * width, i * height, width, height);
-      }
-    }
-  };
-  img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
-}
-
-const imgBtn2 = document.querySelector('.switch .img2');
-imgBtn2.addEventListener('click', drawImageRepeat);
-
-function loadImg(src, width, height) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    width && (img.width = width);
-    height && (img.height = height);
-    img.onload = function () {
-      resolve(img);
-    };
-    img.onerror = function (err) {
-      reject(err);
-    };
-    img.src = src;
-  });
-}
-
-const rhinoImageSrc = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
-const frameImageSrc = 'https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png';
-
-async function drawImageFrame() {
-  const rhinoImg = await loadImg(rhinoImageSrc);
-  const frameImg = await loadImg(frameImageSrc);
-
-  ctx.drawImage(rhinoImg, 33, 71, 104, 124, 21, 20, 87, 104);
-  ctx.drawImage(frameImg, 0, 0);
-}
-
-const imgBtn3 = document.querySelector('.switch .img3');
-imgBtn3.addEventListener('click', drawImageFrame);
 
 /**
- * 10.
+ * Blog 6.1
  */
 function* drawState() {
   ctx.fillRect(0, 0, 150, 150); // 使用默认设置绘制一个矩形
@@ -712,6 +716,9 @@ function genLoop(generator, showReturn = false) {
 const stateBtn = document.querySelector('.switch .state');
 stateBtn.addEventListener('click', genLoop(drawState));
 
+/**
+ * Blog 6.2
+ */
 function* drawTranslate() {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
@@ -727,8 +734,11 @@ function* drawTranslate() {
 }
 
 const translateBtn = document.querySelector('.switch .trans');
-translateBtn.addEventListener('click', genLoop(drawTranslate, true));
+translateBtn.addEventListener('click', genLoop(drawTranslate, false));
 
+/**
+ * Blog 6.3
+ */
 function drawRotate() {
   const width = 300;
 
@@ -758,6 +768,9 @@ function drawRotate() {
 const rotateBtn = document.querySelector('.switch .rotate');
 rotateBtn.addEventListener('click', drawRotate);
 
+/**
+ * Blog 6.4
+ */
 function drawScale() {
   // draw a simple rectangle, but scale it.
   ctx.save();
@@ -776,6 +789,9 @@ function drawScale() {
 const scaleBtn = document.querySelector('.switch .scale');
 scaleBtn.addEventListener('click', drawScale);
 
+/**
+ * Blog 6.5
+ */
 function drawTransform() {
   var sin30 = Math.sin(Math.PI / 6);
   var cos30 = Math.cos(Math.PI / 6);
@@ -797,6 +813,75 @@ function drawTransform() {
 
 const transformBtn = document.querySelector('.switch .transform');
 transformBtn.addEventListener('click', drawTransform);
+
+/**
+ * 9.
+ */
+ function drawImage() {
+  const img = new Image();
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+    ctx.beginPath();
+    ctx.moveTo(30, 96);
+    ctx.lineTo(70, 66);
+    ctx.lineTo(103, 76);
+    ctx.lineTo(170, 15);
+    ctx.stroke();
+  };
+  img.src = 'https://mdn.mozillademos.org/files/5395/backdrop.png';
+}
+
+const imgBtn = document.querySelector('.switch .img');
+imgBtn.addEventListener('click', drawImage);
+
+function drawImageRepeat() {
+  var img = new Image();
+  const width = 300 / 3;
+  const height = 300 / 4;
+  img.onload = function () {
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 3; j++) {
+        ctx.drawImage(img, j * width, i * height, width, height);
+      }
+    }
+  };
+  img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+}
+
+const imgBtn2 = document.querySelector('.switch .img2');
+imgBtn2.addEventListener('click', drawImageRepeat);
+
+/**
+ * Blog 7.
+ */
+function loadImg(src, width, height) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    width && (img.width = width);
+    height && (img.height = height);
+    img.onload = function () {
+      resolve(img);
+    };
+    img.onerror = function (err) {
+      reject(err);
+    };
+    img.src = src;
+  });
+}
+
+const rhinoImageSrc = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+const frameImageSrc = 'https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png';
+
+async function drawImageFrame() {
+  const rhinoImg = await loadImg(rhinoImageSrc);
+  const frameImg = await loadImg(frameImageSrc);
+
+  ctx.drawImage(rhinoImg, 33, 71, 104, 124, 21, 20, 87, 104);
+  ctx.drawImage(frameImg, 0, 0);
+}
+
+const imgBtn3 = document.querySelector('.switch .img3');
+imgBtn3.addEventListener('click', drawImageFrame);
 
 /**
  * 11.
