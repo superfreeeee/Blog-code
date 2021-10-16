@@ -129,7 +129,7 @@ const testCombineHandler = () => {
   });
 };
 
-testCombineHandler();
+// testCombineHandler();
 
 /**
  * 5. counting press time
@@ -284,7 +284,7 @@ const testScheduler = () => {
   });
 };
 
-// testSchedulerOrigin();
+testSchedulerOrigin();
 // testScheduler();
 
 /**
