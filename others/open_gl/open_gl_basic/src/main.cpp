@@ -1,4 +1,3 @@
-//#include <GL/glew.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -34,9 +33,9 @@ int main() {
         return -1;
     }
 
-//    2. glfw 配置项
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//    2. glfw 配置项(OpenGL 版本号、绘制模式)
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -83,7 +82,7 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-//    8. 三角形向量
+//    8. 顶点数据
     float vertices[] = {
             0.5f, 0.5f, 0.0f,
             0.5f, -0.5f, 0.0f,
@@ -92,6 +91,7 @@ int main() {
             -0.5f, 0.5f, 0.0f,
     };
 
+    // 顶点索引
     unsigned int indices[] = {
             0, 1, 2,
             2, 3, 4
@@ -107,6 +107,7 @@ int main() {
 //    三角形顶点数组写入缓冲对象 VBO
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
@@ -143,7 +144,6 @@ int main() {
     return 0;
 }
 
-
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
@@ -159,7 +159,7 @@ void processInput(GLFWwindow *window) {
 }
 
 void checkShaderCompile(unsigned int shader) {
-    //    检查顶点着色器编译结果
+    //    检查着色器编译结果
     int success;
     char infoLog[512];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -170,6 +170,7 @@ void checkShaderCompile(unsigned int shader) {
 }
 
 void checkProgramCompile(unsigned int program) {
+    //    检查着色程序编译结果
     int success;
     char infoLog[512];
     glGetProgramiv(program, GL_LINK_STATUS, &success);
