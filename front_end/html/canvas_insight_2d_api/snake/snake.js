@@ -31,11 +31,10 @@ function snake() {
         i.x >= w ? (i.x = 0) : i.x < 0 && (i.x = w - this.w),
         i.y > h ? (i.y = 0) : i.y < 0 && (i.y = h),
         (e = fa.findIndex((t) => coll({ ...this.sn[0], h: this.h, w: this.w }, t))),
-        this.sn.unshift(i,{ ...i }, { ...i }, { ...i }, { ...i }, { ...i }, { ...i }),
+        this.sn.unshift(i),
         -1 != e)
       )
         return (
-          this.sn.unshift({ ...i }, { ...i }, { ...i }, { ...i }, { ...i }, { ...i }),
           fa[e].renew(),
           void (document.getElementById('score').innerText = Number(document.getElementById('score').innerText) + 1),
           findNearest()
@@ -164,10 +163,10 @@ var o,
   init();
 
 function findNearest() {
-  // const head = s.sn[0];
-  // const getD = ({ x, y }, { x: targetX, y: targetY }) => (x - targetX) * (x - targetX) + (y - targetY) * (y - targetY);
-  // const dl = fa.map((f, i) => ({ i, d: getD(head, f), f, head }));
-  // const index = dl.reduce((res, next) => (res.d <= next.d ? res : next)).i;
-  // target = fa[index];
+  const head = s.sn[0];
+  const getD = ({ x, y }, { x: targetX, y: targetY }) => (x - targetX) * (x - targetX) + (y - targetY) * (y - targetY);
+  const dl = fa.map((f, i) => ({ i, d: getD(head, f), f, head }));
+  const index = dl.reduce((res, next) => (res.d <= next.d ? res : next)).i;
+  target = fa[index];
 }
 var target = fa[0];

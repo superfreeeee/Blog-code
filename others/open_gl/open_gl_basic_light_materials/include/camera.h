@@ -2,8 +2,8 @@
 // Created by 超悠閒 on 2021/10/20.
 //
 
-#ifndef OPEN_GL_CAMERA_COORDINATE_CAMERA_H
-#define OPEN_GL_CAMERA_COORDINATE_CAMERA_H
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -17,8 +17,8 @@ enum Camera_Movement {
 };
 
 // Default camera values
-const float DEFAULT_YAW = -90.0f;
-const float DEFAULT_PITCH = 0.0f;
+const float DEFAULT_YAW = -110.0f;
+const float DEFAULT_PITCH = -25.0f;
 const float DEFAULT_SPEED = 5.0f;
 const float DEFAULT_SENSITIVITY = 0.1f;
 const float DEFAULT_ZOOM = 45.0f;
@@ -57,4 +57,4 @@ private:
 
 };
 
-#endif //OPEN_GL_CAMERA_COORDINATE_CAMERA_H
+#endif //CAMERA_H

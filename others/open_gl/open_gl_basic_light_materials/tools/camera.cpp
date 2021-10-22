@@ -42,7 +42,7 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime) {
     } else if (direction == RIGHT) {
         this->position += this->right * velocity;
     }
-//    this->position.y = 0.0f;
+//    this->position.y = 0.0f; // stay at xz plane
 }
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch) {
@@ -52,7 +52,6 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
     this->yaw += xoffset;
     this->pitch += yoffset;
 
-    // make sure that when pitch is out of bounds, screen doesn't get flipped
     if (constrainPitch) {
         if (this->pitch > 89.0f) {
             this->pitch = 89.0f;
@@ -61,7 +60,6 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
         }
     }
 
-    // update Front, Right and Up Vectors using the updated Euler angles
     this->updateCameraVectors();
 }
 
@@ -75,15 +73,12 @@ void Camera::ProcessMouseScroll(float yoffset) {
 }
 
 void Camera::updateCameraVectors() {
-    // calculate the new Front vector
     glm::vec3 front;
     front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
     front.y = sin(glm::radians(this->pitch));
     front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
     this->front = glm::normalize(front);
-    // also re-calculate the Right and Up vector
 
-    // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
     this->right = glm::normalize(glm::cross(this->front, this->worldUp));
     this->up = glm::normalize(glm::cross(this->right, this->front));
 }

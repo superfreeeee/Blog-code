@@ -4,16 +4,15 @@
 
 #include "texture.h"
 #include "stb_image.h"
-#include <glad/glad.h>
 
 void loadTexture(const char *filename, GLuint *texture, int hasAlpha) {
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
+
     unsigned char *data;
-
     glGenTextures(1, texture);
-    glBindTexture(GL_TEXTURE_2D, *texture);
 
+    glBindTexture(GL_TEXTURE_2D, *texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
