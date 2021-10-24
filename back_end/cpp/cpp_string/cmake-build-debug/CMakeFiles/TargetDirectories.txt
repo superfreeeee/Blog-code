@@ -1,3 +1,0 @@
-/Users/superfree/Desktop/Blog/code/back_end/cpp/cpp_string/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/superfree/Desktop/Blog/code/back_end/cpp/cpp_string/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/superfree/Desktop/Blog/code/back_end/cpp/cpp_string/cmake-build-debug/CMakeFiles/cpp_string.dir
