@@ -10,4 +10,6 @@
 
 GLuint loadTexture(const char *filename);
 
+GLuint loadTextureFromFile(const char *path, const string &directory, bool gamma = false);
+
 #endif //TEXTURE_H
