@@ -8,6 +8,6 @@
 #include <glad/glad.h>
 #include "shader.h"
 
-void loadTexture(const char *filename, GLuint *texture, int hasAlpha);
+GLuint loadTexture(const char *filename);
 
 #endif //TEXTURE_H
