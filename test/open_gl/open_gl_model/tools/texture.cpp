@@ -10,7 +10,6 @@ GLuint loadTexture(const char *filename) {
     glGenTextures(1, &texture);
 
     int width, height, nrChannels;
-//    stbi_set_flip_vertically_on_load(true);
     unsigned char *data = stbi_load(filename, &width, &height, &nrChannels, 0);
     if (data) {
         GLenum format;
@@ -32,13 +31,19 @@ GLuint loadTexture(const char *filename) {
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     } else {
         cout << "Failed to load texture: " << filename << endl;
     }
     stbi_image_free(data);
-    glBindTexture(GL_TEXTURE_2D, 0); // unbind texture
 
     return texture;
+}
+
+GLuint loadTextureFromFile(const char *path, const string &directory, bool gamma) {
+    string filename = string(path);
+    filename = directory + '/' + filename;
+
+    return loadTexture(filename.c_str());
 }
