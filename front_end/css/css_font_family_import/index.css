@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&family=Trispace&family=Zen+Antique+Soft&display=swap');
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.font1 {
+  font-family: 'Space Mono', monospace;
+}
+
+.font2 {
+  font-family: 'Trispace', sans-serif;
+}
+
+.font3 {
+  font-family: 'Zen Antique Soft', serif;
+}
