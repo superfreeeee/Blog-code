@@ -44,21 +44,17 @@ body {
 .loading-svg > .path {
   stroke: #409eff;
   stroke-width: 5;
-  stroke-dasharray: 1, 126;
-  stroke-dasharray: 95, 126;
-  stroke-dasharray: 6, 120;
-  stroke-dashoffset: 0;
   animation: loading-dash 1.5s infinite ease-in-out;
 }
 
 @keyframes loading-dash {
   0% {
-    stroke-dasharray: 1, 126;
+    stroke-dasharray: 1, 125;
     stroke-dashoffset: 0;
   }
 
   50% {
-    stroke-dasharray: 95, 126;
+    stroke-dasharray: 95, 31;
     stroke-dashoffset: -31px;
   }
 
@@ -69,12 +65,7 @@ body {
 }
 
 @keyframes loading-rotate {
-    to {
-        transform: rotate(1turn);
-    }
-}
-
-.loading-icon {
-    display: inline-block;
-    font-size: 56px;
+  to {
+    transform: rotate(1turn);
+  }
 }
