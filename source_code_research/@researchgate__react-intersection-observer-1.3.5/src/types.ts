@@ -1,9 +1,13 @@
+// 取消观察方法
 export type Unobserve = () => void;
 
+// 回调函数
 export type ChangeHandler = (entry: IntersectionObserverEntry, unobserve: Unobserve) => void;
 
+// 目标元素
 export type TargetNode = Element;
 
+// 配置选项
 export interface Options {
   root?: string | Element | null;
   rootMargin?: string;
