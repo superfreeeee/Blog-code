@@ -68,66 +68,72 @@ impl Command {
 
     fn ls() {
         let path = Path::new(".");
-        if path.is_dir() {
-            match path.read_dir() {
-                Ok(dir) => {
-                    println!("name\t\ttype\t\tpermission\t\tsize\tcreate time\t\taccess time\t\tmodify time");
-                    for file in dir {
-                        match file {
-                            Ok(entry) => {
-                                match entry.metadata() {
-                                    Ok(metadata) => {
-                                        // name
-                                        let name = String::from(entry.file_name().to_str().unwrap_or("N/A"));
-                                        print!("{}", name);
-                                        match name.len() {
-                                            0..=4 => print!("\t\t\t"),
-                                            4..=9 => print!("\t\t"),
-                                            _ => print!("\t")
-                                        }
-                                        // type
-                                        if let Ok(ft) = entry.file_type() {
-                                            if ft.is_dir() {
-                                                print!("directory\t");
-                                            } else if ft.is_file() {
-                                                print!("file\t\t");
-                                            } else if ft.is_symlink() {
-                                                print!("symbol link\t");
-                                            } else {
-                                                print!("N/A\t\t");
-                                            }
-                                        }
-                                        // permission
-                                        let p = metadata.permissions();
-                                        if p.readonly() {
-                                            print!("read only\t");
-                                        } else {
-                                            print!("read / write\t");
-                                        }
-                                        // size
-                                        print!("{:?}\t", metadata.len());
-                                        // create time
-                                        // let create_time = metadata.created().unwrap_or(SystemTime::now());
-                                        // print!("{:?}\t", create_time.format("%Y-%m-%d %T"));
-                                        println!();
-                                    }
-                                    Err(e) => {
-                                        println!("Error occur: {:?}", e.kind());
-                                    }
-                                }
-                            }
-                            Err(e) => {
-                                println!("Error occur: {:?}", e.kind());
-                            }
-                        }
-                    }
-                }
+        if !path.is_dir() {
+            println!("{:?} is not directory", path);
+            return;
+        }
+
+        let _dir = match path.read_dir() {
+            Ok(dir) => dir,
+            Err(e) => {
+                println!("Error occur: {:?}", e.kind());
+                return;
+            }
+        };
+
+        println!("name\t\ttype\t\tpermission\t\tsize\tcreate time\t\taccess time\t\tmodify time");
+        for file in _dir {
+            // get file entry
+            let _entry = match file {
+                Ok(entry) => entry,
                 Err(e) => {
                     println!("Error occur: {:?}", e.kind());
+                    return;
+                }
+            };
+
+            // get file metadata
+            let metadata = match _entry.metadata() {
+                Ok(metadata) => metadata,
+                Err(e) => {
+                    println!("Error occur: {:?}", e.kind());
+                    continue;
+                }
+            };
+
+            // name
+            let name = String::from(_entry.file_name().to_str().unwrap_or("N/A"));
+            print!("{}", name);
+            match name.len() {
+                0..=4 => print!("\t\t\t"),
+                4..=9 => print!("\t\t"),
+                _ => print!("\t")
+            }
+            // type
+            if let Ok(ft) = _entry.file_type() {
+                if ft.is_dir() {
+                    print!("directory\t");
+                } else if ft.is_file() {
+                    print!("file\t\t");
+                } else if ft.is_symlink() {
+                    print!("symbol link\t");
+                } else {
+                    print!("N/A\t\t");
                 }
             }
-        } else {
-            println!("{:?} is not directory", path);
+            // permission
+            let p = metadata.permissions();
+            if p.readonly() {
+                print!("read only\t");
+            } else {
+                print!("read / write\t");
+            }
+            // size
+            print!("{:?}\t", metadata.len());
+            // create time
+            // let create_time = metadata.created().unwrap_or(SystemTime::now());
+            // print!("{:?}\t", create_time.format("%Y-%m-%d %T"));
+            println!();
         }
     }
 
