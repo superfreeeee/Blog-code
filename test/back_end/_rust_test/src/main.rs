@@ -1,40 +1,7 @@
-mod primitive;
-mod function;
-mod loop_stmt;
-mod ownership;
-mod reference;
-mod slice;
-mod struct_tuple;
-mod enum_type;
-mod module;
-mod error_handle;
-mod generic;
-mod trait_feature;
-mod lifecycle;
-mod fs_and_io;
-mod collection_vector;
-mod collection_string;
-mod collection_hashmap;
-mod object_oriented;
+mod old;
+mod example;
 
 fn main() {
-    println!("Hello, world!");
-    primitive::test_primitive();
-    function::test_function();
-    loop_stmt::test_loop_stmt();
-    ownership::test_ownership();
-    reference::test_reference();
-    slice::test_slice();
-    struct_tuple::test_struct_and_tuple();
-    enum_type::test_enum();
-    module::test_mod();
-    error_handle::test_result();
-    generic::test_generic();
-    trait_feature::test_trait();
-    lifecycle::test_lifecycle();
-    fs_and_io::test_fs_and_io();
-    collection_vector::test_vec();
-    collection_string::test_string();
-    collection_hashmap::test_hashmap();
-    object_oriented::test_object_oriented();
+    println!("Hello, world! from main.rs");
+    example::main();
 }
