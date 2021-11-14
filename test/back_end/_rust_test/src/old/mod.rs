@@ -18,7 +18,7 @@ pub mod collection_hashmap;
 pub mod object_oriented;
 
 #[allow(dead_code)]
-pub fn test_old() {
+pub fn main() {
     primitive::test_primitive();
     function::test_function();
     loop_stmt::test_loop_stmt();

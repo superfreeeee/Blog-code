@@ -7,6 +7,7 @@ mod polymorphism;
 mod operation_overload;
 mod std_trait;
 
+#[allow(dead_code)]
 pub fn main() {
     // destructor::test();
     // ownership_move::test();
@@ -15,5 +16,5 @@ pub fn main() {
     // aliasing::test();
     // polymorphism::test();
     // operation_overload::test();
-    std_trait::test();
+    // std_trait::test();
 }

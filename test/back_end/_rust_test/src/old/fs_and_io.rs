@@ -25,7 +25,7 @@ pub fn test_fs_and_io() {
     use std::fs;
     let hello_path = "hello.txt";
     let text = fs::read_to_string(hello_path).unwrap();
-    println!("text from hello.txt:\n{}", text);
+    println!("text.txt from hello.txt:\n{}", text);
 
     // read binary file
     println!("<<< read binary file >>>");
