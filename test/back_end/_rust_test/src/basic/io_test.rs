@@ -96,6 +96,7 @@ fn is_file_png(path: &str) -> Result<(), Error> {
     Ok(())
 }
 
+#[allow(unused_must_use)]
 fn test_file_type() -> Result<(), Error> {
     is_file_png("./assets/test_image.png");
     is_file_png("./assets/text.txt");
@@ -105,7 +106,7 @@ fn test_file_type() -> Result<(), Error> {
 
 #[allow(unused)]
 pub fn test() {
-    // test_path();
+    test_path();
     test_file_read();
     test_file_type();
 }
