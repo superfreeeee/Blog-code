@@ -7,6 +7,8 @@ import StateSample from './State'
 import EventsSample from './Events'
 import FormSample from './Form'
 
+import { AClassComponent, AFunctionComponent } from './samples/components'
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -30,6 +32,7 @@ class App extends Component {
       b: 456,
       c: 789,
     }
+
     return (
       <>
         <h1>React 基础特性演示</h1>
@@ -41,10 +44,15 @@ class App extends Component {
           dynamic={obj}
           {...otherProps}
         ></PropsSample>
-        <StateSample></StateSample>
-        {/* {this.state.showStateSample && <StateSample></StateSample>} */}
+        {/* <StateSample></StateSample> */}
+        {this.state.showStateSample && <StateSample></StateSample>}
         <EventsSample></EventsSample>
         <FormSample></FormSample>
+        <AClassComponent
+          a="this is a string put at a attribute"
+          obj={{ name: 'superfree' }}
+        />
+        <AFunctionComponent />
       </>
     )
   }
