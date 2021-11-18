@@ -1,3 +1,3 @@
-# ___ Source Code Research
+# ___ Source Code Research(Npm library)
 
 - Npm Repository: []()
