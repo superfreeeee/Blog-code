@@ -1,6 +1,7 @@
-use std::fmt::Debug;
 use std::thread;
 use std::sync::{Arc, mpsc, Mutex};
+use std::time::Duration;
+use std::time::SystemTime;
 
 pub struct ThreadPool {
     workers: Vec<Worker>,
@@ -21,7 +22,6 @@ impl ThreadPool {
             workers.push(Worker::new(i, Arc::clone(&receiver)));
         }
 
-
         ThreadPool {
             workers,
             sender,
@@ -29,8 +29,7 @@ impl ThreadPool {
     }
 
     pub fn execute<F>(&self, f: F) where F: FnOnce() + Send + 'static {
-        let job = Box::new(f);
-        self.sender.send(job).unwrap();
+        self.sender.send(Box::new(f)).unwrap();
     }
 }
 
@@ -47,7 +46,7 @@ impl Worker {
 
                 let job = receiver.lock().unwrap().recv().unwrap();
 
-                println!("Worker({}) recive a Job to do.", id);
+                println!("Worker({}) took the stream.", id);
 
                 job();
 
