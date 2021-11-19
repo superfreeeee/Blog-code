@@ -117,8 +117,10 @@ mod dry {
         };
     }
 
+    #[allow(unused)]
     macro_rules! op {
         ($func:ident, $bound:ident, $op:tt, $method:ident) => {
+            #[allow(dead_code)]
             fn $func<T: $bound<T, Output=T> + Copy>(xs: &mut Vec<T>, ys: &Vec<T>) {
                 assert_equal_len!(xs, ys, $func, $op);
 
@@ -136,7 +138,6 @@ mod dry {
     op!(sub_assign, Sub, -=, sub);
 
     pub mod test {
-        use std::iter;
         macro_rules! test {
             ($func:ident, $x:expr, $y:expr, $z:expr) => {
                 #[test]
@@ -162,6 +163,7 @@ mod dry {
 }
 
 mod dsl {
+    #[allow(unused)]
     macro_rules! calculate {
         (eval $e:expr) => {{
             {
