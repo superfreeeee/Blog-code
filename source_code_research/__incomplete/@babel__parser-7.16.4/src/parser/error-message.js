@@ -125,6 +125,7 @@ export const ErrorMessages = makeErrorTemplates(
     NewlineAfterThrow: 'Illegal newline after throw.',
     NoCatchOrFinally: 'Missing catch or finally clause.',
     NumberIdentifier: 'Identifier directly after number.',
+    // ? 转义序列不允许数字分隔符
     NumericSeparatorInEscapeSequence:
       'Numeric separators are not allowed inside unicode escape sequences or hex escape sequences.',
     ObsoleteAwaitStar:
@@ -215,6 +216,7 @@ export const ErrorMessages = makeErrorTemplates(
       'Lexical declaration cannot appear in a single-statement context.',
     UnexpectedNewTarget:
       '`new.target` can only be used in functions or class properties.',
+    // ? 不合法数字分隔符
     UnexpectedNumericSeparator:
       'A numeric separator is only allowed between two digits.',
     UnexpectedPrivateField: 'Unexpected private name.',

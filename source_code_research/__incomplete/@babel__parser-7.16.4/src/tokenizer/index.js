@@ -37,9 +37,13 @@ const VALID_REGEX_FLAGS = new Set([
 
 // The following character codes are forbidden from being
 // an immediate sibling of NumericLiteralSeparator _
-
+/**
+ * 数字分隔符
+ */
+// ? Read
 const forbiddenNumericSeparatorSiblings = {
   decBinOct: [
+    // .BbEeOo_
     charCodes.dot,
     charCodes.uppercaseB,
     charCodes.uppercaseE,
@@ -50,6 +54,7 @@ const forbiddenNumericSeparatorSiblings = {
     charCodes.lowercaseO,
   ],
   hex: [
+    // ._xX
     charCodes.dot,
     charCodes.uppercaseX,
     charCodes.underscore, // multiple separators are not allowed
@@ -58,11 +63,13 @@ const forbiddenNumericSeparatorSiblings = {
 };
 
 const allowedNumericSeparatorSiblings = {};
+// ? 二进制字符
 allowedNumericSeparatorSiblings.bin = [
   // 0 - 1
   charCodes.digit0,
   charCodes.digit1,
 ];
+// ? 8 进制字符
 allowedNumericSeparatorSiblings.oct = [
   // 0 - 7
   ...allowedNumericSeparatorSiblings.bin,
@@ -74,6 +81,7 @@ allowedNumericSeparatorSiblings.oct = [
   charCodes.digit6,
   charCodes.digit7,
 ];
+// ? 10 进制字符
 allowedNumericSeparatorSiblings.dec = [
   // 0 - 9
   ...allowedNumericSeparatorSiblings.oct,
@@ -82,6 +90,7 @@ allowedNumericSeparatorSiblings.dec = [
   charCodes.digit9,
 ];
 
+// ? 16 进制字符
 allowedNumericSeparatorSiblings.hex = [
   // 0 - 9, A - F, a - f,
   ...allowedNumericSeparatorSiblings.dec,
@@ -1188,6 +1197,7 @@ export default class Tokenizer extends ParserErrors {
    * @param {*} allowNumSeparator
    * @returns
    */
+  // ? Read
   readInt(
     radix: number, // 进制
     len?: number, // 长度
@@ -1201,12 +1211,12 @@ export default class Tokenizer extends ParserErrors {
         : forbiddenNumericSeparatorSiblings.decBinOct;
     const allowedSiblings =
       radix === 16
-        ? allowedNumericSeparatorSiblings.hex
+        ? allowedNumericSeparatorSiblings.hex // 16 进制
         : radix === 10
-        ? allowedNumericSeparatorSiblings.dec
+        ? allowedNumericSeparatorSiblings.dec // 10 进制
         : radix === 8
-        ? allowedNumericSeparatorSiblings.oct
-        : allowedNumericSeparatorSiblings.bin;
+        ? allowedNumericSeparatorSiblings.oct // 8 进制
+        : allowedNumericSeparatorSiblings.bin; // 其他进制
 
     let invalid = false;
     let total = 0;
@@ -1216,58 +1226,70 @@ export default class Tokenizer extends ParserErrors {
       let val;
 
       if (code === charCodes.underscore) {
+        // 1. _
         const prev = this.input.charCodeAt(this.state.pos - 1);
         const next = this.input.charCodeAt(this.state.pos + 1);
         if (allowedSiblings.indexOf(next) === -1) {
+          // 分隔符下一个字符不合法
           this.raise(this.state.pos, Errors.UnexpectedNumericSeparator);
         } else if (
           forbiddenSiblings.indexOf(prev) > -1 ||
           forbiddenSiblings.indexOf(next) > -1 ||
           Number.isNaN(next)
         ) {
+          // 前后存在不合法字符
           this.raise(this.state.pos, Errors.UnexpectedNumericSeparator);
         }
 
         if (!allowNumSeparator) {
+          // 不允许分隔符号
           this.raise(this.state.pos, Errors.NumericSeparatorInEscapeSequence);
         }
 
         // Ignore this _ character
+        // 合法 _，跳过就行
         ++this.state.pos;
         continue;
       }
 
       if (code >= charCodes.lowercaseA) {
-        val = code - charCodes.lowercaseA + charCodes.lineFeed;
+        // 2. 小写字母
+        val = code - charCodes.lowercaseA + charCodes.lineFeed; // '?' - 'a' + 10
       } else if (code >= charCodes.uppercaseA) {
-        val = code - charCodes.uppercaseA + charCodes.lineFeed;
+        // 3. 大写字母
+        val = code - charCodes.uppercaseA + charCodes.lineFeed; // '?' - 'A' + 10
       } else if (charCodes.isDigit(code)) {
-        val = code - charCodes.digit0; // 0-9
+        // 4. 数字
+        val = code - charCodes.digit0; // 0-9 // '?' - '0'
       } else {
+        // 5. 不合法数字
         val = Infinity;
       }
       if (val >= radix) {
+        // 数字超过进制限制
         // If we are in "errorRecovery" mode and we found a digit which is too big,
         // don't break the loop.
 
         if (this.options.errorRecovery && val <= 9) {
+          // errorRecovery 模式下填 0 然后 raise 警告
           val = 0;
           this.raise(this.state.start + i + 2, Errors.InvalidDigit, radix);
         } else if (forceLen) {
           val = 0;
-          invalid = true;
+          invalid = true; // 记录不合法字符
         } else {
           break;
         }
       }
-      ++this.state.pos;
-      total = total * radix + val;
+      ++this.state.pos; // 往后看一个字符
+      total = total * radix + val; // 加入值
     }
     if (
       this.state.pos === start ||
       (len != null && this.state.pos - start !== len) ||
       invalid
     ) {
+      // 没有任何字符、长度为 0、存在不合法字符 => null
       return null;
     }
 
@@ -1406,6 +1428,7 @@ export default class Tokenizer extends ParserErrors {
     let code;
 
     if (ch === charCodes.leftCurlyBrace) {
+      // \u{xxx}
       const codePos = ++this.state.pos;
       code = this.readHexChar(
         this.input.indexOf('}', this.state.pos) - this.state.pos,
@@ -1421,6 +1444,7 @@ export default class Tokenizer extends ParserErrors {
         }
       }
     } else {
+      // \u1234
       code = this.readHexChar(4, false, throwOnInvalid);
     }
     return code;
@@ -1580,7 +1604,7 @@ export default class Tokenizer extends ParserErrors {
         const code = this.readHexChar(2, false, throwOnInvalid);
         return code === null ? null : String.fromCharCode(code);
       }
-      // '\0'
+      // '\u'
       case charCodes.lowercaseU: {
         const code = this.readCodePoint(throwOnInvalid);
         return code === null ? null : String.fromCodePoint(code);
@@ -1669,6 +1693,7 @@ export default class Tokenizer extends ParserErrors {
    * @param {*} throwOnInvalid
    * @returns
    */
+  // ? Read
   readHexChar(
     len: number,
     forceLen: boolean,
@@ -1677,7 +1702,7 @@ export default class Tokenizer extends ParserErrors {
     const codePos = this.state.pos;
     const n = this.readInt(16, len, forceLen, false);
     if (n === null) {
-      // 抛错 or 简单回退一格
+      // 抛错 or 简单回退到解析前
       if (throwOnInvalid) {
         this.raise(codePos, Errors.InvalidEscapeSequence);
       } else {
