@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Origin Test</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(45deg, #8460ed, #ff1252);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .menu {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .toggle {
+        width: 60px;
+        height: 60px;
+        font-size: 2em;
+        z-index: 100;
+        transition: transform 1s ease;
+      }
+
+      .menu.active .toggle {
+        transform: rotate(315deg);
+      }
+
+      .menu li {
+        position: absolute;
+        left: 0;
+        list-style: none;
+        transform-origin: 100px;
+        transform: rotate(0) translateX(80px);
+        transition-delay: calc(0.1s * var(--i));
+        transition-duration: 0.5s;
+        z-index: 1;
+      }
+
+      .menu.active li {
+        transform: rotate(calc(360deg / 8 * var(--i)));
+      }
+
+      .toggle,
+      .menu li a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .menu li a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3em;
+        transform: rotate(calc(360deg / -8 * var(--i)));
+        color: #111;
+      }
+
+      .menu.active li a:hover {
+        color: #ff1252;
+      }
+    </style>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul class="menu">
+        <div class="toggle">
+          <ion-icon name="add-outline"></ion-icon>
+        </div>
+      </ul>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
