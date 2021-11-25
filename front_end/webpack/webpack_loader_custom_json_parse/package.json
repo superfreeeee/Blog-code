@@ -1,0 +1,18 @@
+{
+  "name": "webpack_custom_json_parse",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.64.3",
+    "webpack-cli": "^4.9.1",
+    "webpackbar": "^5.0.2"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test0": "node src/index.js",
+    "test1": "webpack && node dist/main.js"
+  }
+}

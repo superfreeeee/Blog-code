@@ -1,0 +1,7 @@
+// Single user
+{
+  "name": "superfree",
+  "age": 22,
+  // maybe more
+  "courses": ["math", "cs"]
+}
