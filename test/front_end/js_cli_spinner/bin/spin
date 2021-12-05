@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+console.log('hello world');
+const dots = {
+  interval: 80,
+  frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+};
+console.log(dots);

@@ -1,0 +1,15 @@
+{
+  "name": "js_cli_spinner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "spin": "bin/spin"
+  },
+  "scripts": {
+    "start": "node index"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11"
+  }
+}
