@@ -10,3 +10,5 @@
 
 - [sindresorhus/ansi-escapes](https://github.com/sindresorhus/ansi-escapes)
 - [ANSI跳脫序列](https://zh.wikipedia.org/wiki/ANSI%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97)
+- [node.js - 从终端读取 ANSI 转义](https://www.coder.work/article/1379474)
+- [Read ANSI escape from terminal](https://stackoverflow.com/questions/36929209/read-ansi-escape-from-terminal)
