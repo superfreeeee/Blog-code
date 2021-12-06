@@ -5,3 +5,4 @@
 ## Reference
 
 - [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)
+- [cli-spinner - asciinema](https://asciinema.org/a/95348)
