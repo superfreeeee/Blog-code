@@ -1,3 +1,7 @@
+/**
+ * 版本号区间
+ */
+// ? Read
 // hoisted class for cyclic dependency
 class Range {
   /**
