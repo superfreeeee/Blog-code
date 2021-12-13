@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+// ? 命令行入口
+require('../uuid-bin');
