@@ -14,3 +14,4 @@ Open things
 ## Reference
 
 - [https://github.com/domenic/opener](https://github.com/domenic/opener)
+- [http://nodejs.org/dist/latest-v16.x/docs/api/child_process.html#child_processexecfilefile-args-options-callback](http://nodejs.org/dist/latest-v16.x/docs/api/child_process.html#child_processexecfilefile-args-options-callback)

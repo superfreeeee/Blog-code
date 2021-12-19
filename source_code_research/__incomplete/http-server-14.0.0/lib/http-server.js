@@ -8,6 +8,10 @@ var fs = require('fs'),
   corser = require('corser'),
   secureCompare = require('secure-compare');
 
+/**
+ * 暴露 HttpServer 主类
+ */
+// ? Read
 //
 // Remark: backwards compatibility for previous
 // case convention of HTTP
@@ -15,14 +19,18 @@ var fs = require('fs'),
 exports.HttpServer = exports.HTTPServer = HttpServer;
 
 /**
+ * 暴露 createServer 接口
  * Returns a new instance of HttpServer with the
  * specified `options`.
  */
+// ? Read
 exports.createServer = function (options) {
+  // 返回 HttpServer 实例
   return new HttpServer(options);
 };
 
 /**
+ * Http 服务器主类
  * Constructor function for the HttpServer object
  * which is responsible for serving static files along
  * with other HTTP-related features.
@@ -183,10 +191,17 @@ function HttpServer(options) {
   }
 }
 
+/**
+ * server.listen 方法
+ * @returns arguments
+ */
 HttpServer.prototype.listen = function () {
   this.server.listen.apply(this.server, arguments);
 };
 
+/**
+ * server.close 方法
+ */
 HttpServer.prototype.close = function () {
   return this.server.close();
 };

@@ -19,6 +19,7 @@ var ifaces = os.networkInterfaces();
 
 process.title = 'http-server';
 
+// ? Read
 // -h, --help
 if (argv.h || argv.help) {
   console.log([
@@ -66,6 +67,7 @@ if (argv.h || argv.help) {
   process.exit();
 }
 
+// ? Read
 // other options
 var port = argv.p || argv.port || parseInt(process.env.PORT, 10), // -p, --port  启动端口
     host = argv.a || '0.0.0.0',                                   // -a          启动域名
@@ -90,6 +92,7 @@ if (proxyOptions) {
   });
 }
 
+// ? Read
 // -s, --slient  静默输出
 // 初始化 logger
 if (!argv.s && !argv.silent) {
@@ -124,12 +127,14 @@ else if (colors) {
   };
 }
 
+// ? Read
 // -v, --version 版本号
 if (version) {
   logger.info('v' + require('../package.json').version);
   process.exit(); // 展示后退出
 }
 
+// ? Read
 if (!port) {
   // 默认使用 8080 端口号
   portfinder.basePort = 8080;
@@ -146,6 +151,7 @@ else {
  * 创建 http 服务器
  * @param port 
  */
+// ? Read
 function listen(port) {
   // 配置选项
   var options = {
