@@ -38,41 +38,46 @@ exports.createServer = function (options) {
 function HttpServer(options) {
   options = options || {};
 
+  // 静态资源根目录
   if (options.root) {
     this.root = options.root;
   } else {
+    // 默认采用 public 做静态资源目录
     try {
       // eslint-disable-next-line no-sync
       fs.lstatSync('./public');
       this.root = './public';
     } catch (err) {
+      // 第二序位为当前目录
       this.root = './';
     }
   }
 
-  this.headers = options.headers || {};
+  this.headers = options.headers || {}; // 默认 headers
   this.headers['Accept-Ranges'] = 'bytes';
 
-  this.cache = (
+  // 缓存资源大小
+  this.cache =
     // eslint-disable-next-line no-nested-ternary
-    options.cache === undefined ? 3600 :
-    // -1 is a special case to turn off caching.
-    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#Preventing_caching
-      options.cache === -1 ? 'no-cache, no-store, must-revalidate' :
-        options.cache // in seconds.
-  );
+    options.cache === undefined
+      ? 3600
+      : // -1 is a special case to turn off caching.
+      // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#Preventing_caching
+      options.cache === -1
+      ? 'no-cache, no-store, must-revalidate'
+      : options.cache; // in seconds.
   this.showDir = options.showDir !== 'false';
   this.autoIndex = options.autoIndex !== 'false';
   this.showDotfiles = options.showDotfiles;
   this.gzip = options.gzip === true;
   this.brotli = options.brotli === true;
   if (options.ext) {
-    this.ext = options.ext === true
-      ? 'html'
-      : options.ext;
+    this.ext = options.ext === true ? 'html' : options.ext;
   }
-  this.contentType = options.contentType ||
-    this.ext === 'html' ? 'text/html' : 'application/octet-stream';
+  this.contentType =
+    options.contentType || this.ext === 'html'
+      ? 'text/html'
+      : 'application/octet-stream';
 
   var before = options.before ? options.before.slice() : [];
 
@@ -93,8 +98,14 @@ function HttpServer(options) {
       if (credentials) {
         // if credentials is defined, name and pass are guaranteed to be string
         // type
-        var usernameEqual = secureCompare(options.username.toString(), credentials.name);
-        var passwordEqual = secureCompare(options.password.toString(), credentials.pass);
+        var usernameEqual = secureCompare(
+          options.username.toString(),
+          credentials.name
+        );
+        var passwordEqual = secureCompare(
+          options.password.toString(),
+          credentials.pass
+        );
         if (usernameEqual && passwordEqual) {
           return res.emit('next');
         }
@@ -108,23 +119,33 @@ function HttpServer(options) {
 
   if (options.cors) {
     this.headers['Access-Control-Allow-Origin'] = '*';
-    this.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Range';
+    this.headers['Access-Control-Allow-Headers'] =
+      'Origin, X-Requested-With, Content-Type, Accept, Range';
     if (options.corsHeaders) {
-      options.corsHeaders.split(/\s*,\s*/)
-        .forEach(function (h) { this.headers['Access-Control-Allow-Headers'] += ', ' + h; }, this);
+      options.corsHeaders.split(/\s*,\s*/).forEach(function (h) {
+        this.headers['Access-Control-Allow-Headers'] += ', ' + h;
+      }, this);
     }
-    before.push(corser.create(options.corsHeaders ? {
-      requestHeaders: this.headers['Access-Control-Allow-Headers'].split(/\s*,\s*/)
-    } : null));
+    before.push(
+      corser.create(
+        options.corsHeaders
+          ? {
+              requestHeaders:
+                this.headers['Access-Control-Allow-Headers'].split(/\s*,\s*/),
+            }
+          : null
+      )
+    );
   }
 
   if (options.robots) {
     before.push(function (req, res) {
       if (req.url === '/robots.txt') {
         res.setHeader('Content-Type', 'text/plain');
-        var robots = options.robots === true
-          ? 'User-agent: *\nDisallow: /'
-          : options.robots.replace(/\\n/, '\n');
+        var robots =
+          options.robots === true
+            ? 'User-agent: *\nDisallow: /'
+            : options.robots.replace(/\\n/, '\n');
 
         return res.end(robots);
       }
@@ -133,35 +154,43 @@ function HttpServer(options) {
     });
   }
 
-  before.push(httpServerCore({
-    root: this.root,
-    cache: this.cache,
-    showDir: this.showDir,
-    showDotfiles: this.showDotfiles,
-    autoIndex: this.autoIndex,
-    defaultExt: this.ext,
-    gzip: this.gzip,
-    brotli: this.brotli,
-    contentType: this.contentType,
-    mimetypes: options.mimetypes,
-    handleError: typeof options.proxy !== 'string'
-  }));
+  before.push(
+    httpServerCore({
+      root: this.root,
+      cache: this.cache,
+      showDir: this.showDir,
+      showDotfiles: this.showDotfiles,
+      autoIndex: this.autoIndex,
+      defaultExt: this.ext,
+      gzip: this.gzip,
+      brotli: this.brotli,
+      contentType: this.contentType,
+      mimetypes: options.mimetypes,
+      handleError: typeof options.proxy !== 'string',
+    })
+  );
 
   if (typeof options.proxy === 'string') {
     var proxyOptions = options.proxyOptions || {};
     var proxy = httpProxy.createProxyServer(proxyOptions);
     before.push(function (req, res) {
-      proxy.web(req, res, {
-        target: options.proxy,
-        changeOrigin: true
-      }, function (err, req, res) {
-        if (options.logFn) {
-          options.logFn(req, res, {
-            message: err.message,
-            status: res.statusCode });
+      proxy.web(
+        req,
+        res,
+        {
+          target: options.proxy,
+          changeOrigin: true,
+        },
+        function (err, req, res) {
+          if (options.logFn) {
+            options.logFn(req, res, {
+              message: err.message,
+              status: res.statusCode,
+            });
+          }
+          res.emit('next');
         }
-        res.emit('next');
-      });
+      );
     });
   }
 
@@ -174,17 +203,18 @@ function HttpServer(options) {
       }
 
       res.end();
-    }
+    },
   };
 
   if (options.https) {
     serverOptions.https = options.https;
   }
 
-  this.server = serverOptions.https && serverOptions.https.passphrase
-    // if passphrase is set, shim must be used as union does not support
-    ? require('./shims/https-server-shim')(serverOptions)
-    : union.createServer(serverOptions);
+  this.server =
+    serverOptions.https && serverOptions.https.passphrase
+      ? // if passphrase is set, shim must be used as union does not support
+        require('./shims/https-server-shim')(serverOptions)
+      : union.createServer(serverOptions);
 
   if (options.timeout !== undefined) {
     this.server.setTimeout(options.timeout);
@@ -195,6 +225,7 @@ function HttpServer(options) {
  * server.listen 方法
  * @returns arguments
  */
+// ? Read
 HttpServer.prototype.listen = function () {
   this.server.listen.apply(this.server, arguments);
 };
@@ -202,6 +233,7 @@ HttpServer.prototype.listen = function () {
 /**
  * server.close 方法
  */
+// ? Read
 HttpServer.prototype.close = function () {
   return this.server.close();
 };
