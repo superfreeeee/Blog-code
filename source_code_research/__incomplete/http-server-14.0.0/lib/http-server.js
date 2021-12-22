@@ -79,6 +79,8 @@ function HttpServer(options) {
       ? 'text/html'
       : 'application/octet-stream';
 
+  // =============== 参数校验 ===============
+
   var before = options.before ? options.before.slice() : [];
 
   if (options.logFn) {
