@@ -35,6 +35,7 @@ exports.createServer = function (options) {
  * which is responsible for serving static files along
  * with other HTTP-related features.
  */
+// ? Read
 function HttpServer(options) {
   options = options || {};
 
@@ -83,6 +84,7 @@ function HttpServer(options) {
 
   var before = options.before ? options.before.slice() : [];
 
+  // logger 中间件
   if (options.logFn) {
     before.push(function (req, res) {
       options.logFn(req, res);
@@ -90,6 +92,7 @@ function HttpServer(options) {
     });
   }
 
+  // 权限验证中间件
   if (options.username || options.password) {
     before.push(function (req, res) {
       var credentials = auth(req);
@@ -100,6 +103,7 @@ function HttpServer(options) {
       if (credentials) {
         // if credentials is defined, name and pass are guaranteed to be string
         // type
+        // 检查账号密码
         var usernameEqual = secureCompare(
           options.username.toString(),
           credentials.name
@@ -109,17 +113,23 @@ function HttpServer(options) {
           credentials.pass
         );
         if (usernameEqual && passwordEqual) {
+          // 判断通过才触发 next 事件
           return res.emit('next');
         }
       }
 
+      // 401 权限问题
       res.statusCode = 401;
       res.setHeader('WWW-Authenticate', 'Basic realm=""');
       res.end('Access denied');
     });
   }
 
+  // 跨域中间件
   if (options.cors) {
+    // 跨域相关 Http 请求头
+    //   Access-Control-Allow-Origin
+    //   Access-Control-Allow-Headers
     this.headers['Access-Control-Allow-Origin'] = '*';
     this.headers['Access-Control-Allow-Headers'] =
       'Origin, X-Requested-With, Content-Type, Accept, Range';
@@ -128,6 +138,7 @@ function HttpServer(options) {
         this.headers['Access-Control-Allow-Headers'] += ', ' + h;
       }, this);
     }
+    // 跨域中间件
     before.push(
       corser.create(
         options.corsHeaders
@@ -140,9 +151,11 @@ function HttpServer(options) {
     );
   }
 
+  // robots.txt 中间件
   if (options.robots) {
     before.push(function (req, res) {
       if (req.url === '/robots.txt') {
+        // 查询 robots.txt 文件
         res.setHeader('Content-Type', 'text/plain');
         var robots =
           options.robots === true
@@ -156,6 +169,7 @@ function HttpServer(options) {
     });
   }
 
+  // 核心 http 模块作为中间件插入
   before.push(
     httpServerCore({
       root: this.root,
@@ -172,9 +186,11 @@ function HttpServer(options) {
     })
   );
 
+  // http proxy 代理服务器中间件
   if (typeof options.proxy === 'string') {
     var proxyOptions = options.proxyOptions || {};
     var proxy = httpProxy.createProxyServer(proxyOptions);
+    // 插入 proxy server
     before.push(function (req, res) {
       proxy.web(
         req,
@@ -196,6 +212,7 @@ function HttpServer(options) {
     });
   }
 
+  // 服务器配置参数
   var serverOptions = {
     before: before,
     headers: this.headers,
@@ -212,12 +229,14 @@ function HttpServer(options) {
     serverOptions.https = options.https;
   }
 
+  // 具体创建服务器
   this.server =
     serverOptions.https && serverOptions.https.passphrase
       ? // if passphrase is set, shim must be used as union does not support
-        require('./shims/https-server-shim')(serverOptions)
-      : union.createServer(serverOptions);
+        require('./shims/https-server-shim')(serverOptions) // https 服务
+      : union.createServer(serverOptions); // http 服务（基于 union 创建）
 
+  // 设置 timeout
   if (options.timeout !== undefined) {
     this.server.setTimeout(options.timeout);
   }

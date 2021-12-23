@@ -10,4 +10,6 @@ Hybird streaming middleware kernel
 
 ## Reference
 
-- [https://github.com/flatiron/union](https://github.com/flatiron/union)
+- [flatiron/union - Github](https://github.com/flatiron/union)
+- [flatiron/director - Github](https://github.com/flatiron/director)
+- [senchalabs/connect - Github](https://github.com/senchalabs/connect)

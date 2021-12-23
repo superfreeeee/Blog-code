@@ -1,13 +1,21 @@
+/**
+ * 状态码处理函数
+ *   res 上 statusCode、header 设置
+ *   res.end 终止
+ */
+
 'use strict';
 
 const he = require('he');
 
+// ? Read
 // not modified
 exports['304'] = (res) => {
   res.statusCode = 304;
   res.end();
 };
 
+// ? Read
 // access denied
 exports['403'] = (res, next) => {
   res.statusCode = 403;
@@ -30,6 +38,7 @@ exports['405'] = (res, next, opts) => {
   }
 };
 
+// ? Read
 // not found
 exports['404'] = (res, next) => {
   res.statusCode = 404;
@@ -51,6 +60,7 @@ exports['416'] = (res, next) => {
   }
 };
 
+// ? Read
 // flagrant error
 exports['500'] = (res, next, opts) => {
   res.statusCode = 500;
@@ -73,6 +83,7 @@ exports['500'] = (res, next, opts) => {
   res.end(html);
 };
 
+// ? Read
 // bad request
 exports['400'] = (res, next, opts) => {
   res.statusCode = 400;

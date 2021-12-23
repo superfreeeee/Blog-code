@@ -5,9 +5,14 @@
 const defaults = require('./defaults.json');
 const aliases = require('./aliases.json');
 
+/**
+ * 配置参数解析
+ * @param {*} opts 
+ * @returns 
+ */
 module.exports = (opts) => {
   let autoIndex = defaults.autoIndex;
-  let showDir = defaults.showDir;
+  let showDir = defaults.showDir; // ............. 打印资源目录
   let showDotfiles = defaults.showDotfiles;
   let humanReadable = defaults.humanReadable;
   let hidePermissions = defaults.hidePermissions;
@@ -24,10 +29,13 @@ module.exports = (opts) => {
   let weakCompare = defaults.weakCompare;
   let handleOptionsMethod = defaults.handleOptionsMethod;
 
+  // 检查 opts 是否包含 k 属性
   function isDeclared(k) {
     return typeof opts[k] !== 'undefined' && opts[k] !== null;
   }
 
+  // 将 headers[str] 设为 ture
+  // or str="A:B"  => headers[A] = B
   function setHeader(str) {
     const m = /^(.+?)\s*:\s*(.*)$/.exec(str);
     if (!m) {
@@ -37,8 +45,10 @@ module.exports = (opts) => {
     }
   }
 
-
+  // 配置参数解析
   if (opts) {
+    // =============== >>> alias <<< ===============
+    // autoIndex
     aliases.autoIndex.some((k) => {
       if (isDeclared(k)) {
         autoIndex = opts[k];
@@ -47,6 +57,7 @@ module.exports = (opts) => {
       return false;
     });
 
+    // showDir
     aliases.showDir.some((k) => {
       if (isDeclared(k)) {
         showDir = opts[k];
@@ -87,16 +98,22 @@ module.exports = (opts) => {
       return false;
     });
 
+    // =============== ^^^ alias ^^^ ===============
+    // defaultExt
     if (opts.defaultExt && typeof opts.defaultExt === 'string') {
       defaultExt = opts.defaultExt;
     }
 
+    // caches
     if (typeof opts.cache !== 'undefined' && opts.cache !== null) {
       if (typeof opts.cache === 'string') {
+        // 字符串形式
         cache = opts.cache;
       } else if (typeof opts.cache === 'number') {
+        // 数字 => max-age=<number>
         cache = `max-age=${opts.cache}`;
       } else if (typeof opts.cache === 'function') {
+        // 函数形式
         cache = opts.cache;
       }
     }
@@ -109,6 +126,7 @@ module.exports = (opts) => {
       brotli = opts.brotli;
     }
 
+    // =============== >>> alias <<< ===============
     aliases.handleError.some((k) => {
       if (isDeclared(k)) {
         handleError = opts[k];
@@ -178,8 +196,10 @@ module.exports = (opts) => {
       }
       return false;
     });
+    // =============== ^^^ alias ^^^ ===============
   }
 
+  // 重新导出
   return {
     cache,
     autoIndex,

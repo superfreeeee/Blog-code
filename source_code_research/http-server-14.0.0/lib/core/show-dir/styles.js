@@ -4,6 +4,7 @@ const icons = require('./icons.json');
 
 const IMG_SIZE = 16;
 
+// ? Read
 let css = `i.icon { display: block; height: ${IMG_SIZE}px; width: ${IMG_SIZE}px; }\n`;
 css += 'table tr { white-space: nowrap; }\n';
 css += 'td.perms {}\n';
@@ -16,5 +17,6 @@ Object.keys(icons).forEach((key) => {
   css += '}\n\n';
 });
 
+// 样式
 exports.icons = icons;
 exports.css = css;
