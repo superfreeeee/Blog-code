@@ -6,7 +6,11 @@ pub fn add_one(x: i32) -> i32 {
 
 pub fn maybe_add_one(x: i32) -> i32 {
     let b: bool = rand::random();
-    if b { x + 1 } else { x }
+    if b {
+        x + 1
+    } else {
+        x
+    }
 }
 
 #[cfg(test)]
