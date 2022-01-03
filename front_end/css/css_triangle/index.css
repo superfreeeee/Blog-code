@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+#app {
+}
+
+.list {
+  display: flex;
+  padding: 40px 40px 0;
+  gap: 20px;
+}
+
+.wrapper:hover,
+[class^='box']:hover {
+  outline: 1px solid red;
+  border-color: #c3c3c3;
+}
+
+[class^='box'] > [id^='t'] {
+  width: 0;
+  height: 0;
+  /* width: 100%; */
+  /* height: 100%; */
+  /* border: 2px solid gray; */
+}
+
+#t1 {
+  border-top: 20px solid blue;
+  border-right: 20px solid green;
+  border-bottom: 20px solid yellow;
+  border-left: 20px solid red;
+}
+#t11 {
+  border: 20px solid transparent;
+  border-top: 20px solid blue;
+}
+#t12 {
+  border: 20px solid transparent;
+  border-right: 20px solid green;
+}
+#t13 {
+  border: 20px solid transparent;
+  border-bottom: 20px solid yellow;
+}
+#t14 {
+  border: 20px solid transparent;
+  border-left: 20px solid red;
+}
+
+#t21 {
+  border: 20px solid transparent;
+  border-top: 50px solid transparent;
+  border-bottom: 10px solid green;
+}
+#t22 {
+  border: 20px solid transparent;
+  border-top: 40px solid transparent;
+  border-bottom: 20px solid green;
+}
+#t23 {
+  border: 20px solid transparent;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid green;
+}
+#t24 {
+  border: 20px solid transparent;
+  border-top: 20px solid transparent;
+  border-bottom: 40px solid green;
+}
+#t25 {
+  border: 20px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 50px solid green;
+}
+
+#t31 {
+  border: 20px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid green;
+}
+#t32 {
+  border: 20px solid transparent;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 20px solid green;
+}
+#t33 {
+  border: 20px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid green;
+}
+#t34 {
+  border: 20px solid transparent;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 20px solid green;
+}
+#t35 {
+  border: 20px solid transparent;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 20px solid green;
+}
+
+#t41 {
+  border-top: 0;
+  border-left: 0;
+  border-right: 40px solid transparent;
+  border-bottom: 40px solid green;
+}
+#t42 {
+  border-top: 0;
+  border-left: 10px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 40px solid green;
+}
+#t43 {
+  border-top: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 40px solid green;
+}
+#t44 {
+  border-top: 0;
+  border-left: 30px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 40px solid green;
+}
+#t45 {
+  border-top: 0;
+  border-left: 40px solid transparent;
+  border-right: 0;
+  border-bottom: 40px solid green;
+}
+
+.wrapper {
+  width: 200px;
+  height: 40px;
+  overflow: hidden;
+}
+
+#r1 {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  transform: translateX(-100%);
+  animation: loading 2s infinite linear;
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0%); }
+}
+
+.top-loading {
+  position: fixed;
+  top: -9px;
+  width: 25vw;
+  height: 10px;
+}
+
+#r2 {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  transform: translateX(-100%);
+  animation: loading 5s infinite linear;
+}
