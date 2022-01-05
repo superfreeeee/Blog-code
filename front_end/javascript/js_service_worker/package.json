@@ -1,0 +1,17 @@
+{
+  "name": "js_service_worker",
+  "description": "front end application by pure HTML + CSS + JS",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec 'http-server'",
+    "reinstall": "rm -rf node_modules && yarn"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@youxian/simple-server": "^0.1.1",
+    "http-server": "^14.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "author": "superfree"
+}
