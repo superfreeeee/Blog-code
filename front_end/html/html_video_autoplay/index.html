@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autoplay fail</title>
+  </head>
+  <body>
+    <h1>Autoplay on &lt;video&gt; is useless</h1>
+    <video src="sample.mp4" controls autoplay></video>
+
+    <script>
+      const video = document.querySelector('video');
+
+      // auto play when script loaded
+      video
+        .play()
+        .then(() => {
+          console.log(`autoplay well`);
+        })
+        .catch((e) => {
+          console.log(`autoplay fail, wait for first click`);
+          if (e instanceof DOMException) {
+            // play before user intersact
+            const autoPlayAfterAnyClick = () => {
+              video.play();
+              document.removeEventListener('click', autoPlayAfterAnyClick);
+            };
+
+            document.addEventListener('click', autoPlayAfterAnyClick);
+            throw e;
+          } else {
+            // or rethrow
+            throw e;
+          }
+        });
+    </script>
+  </body>
+</html>

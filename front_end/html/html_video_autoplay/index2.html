@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autoplay fail</title>
+  </head>
+  <body>
+    <h1>Autoplay on &lt;video&gt; is useless</h1>
+    <video controls autoplay></video>
+
+    <button id="load">Load video</button>
+
+    <script>
+      const video = document.querySelector('video');
+
+      document.querySelector('#load').addEventListener('click', () => {
+        video.src = './sample.mp4';
+      });
+    </script>
+  </body>
+</html>
