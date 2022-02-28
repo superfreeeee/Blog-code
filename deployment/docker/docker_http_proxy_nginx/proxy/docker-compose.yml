@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 8991:80
+      - 8992:8999
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./dist:/usr/share/nginx/html
+    command: /bin/bash -c "nginx -g 'daemon off;'"
