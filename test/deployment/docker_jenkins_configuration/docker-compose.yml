@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  jenkins:
+    image: jenkins/jenkins
+    ports:
+      - 8999:8080
+      - 50000:50000
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    privileged: true
+
+networks:
+  jenkins:
+
+volumes:
+  jenkins-data:
