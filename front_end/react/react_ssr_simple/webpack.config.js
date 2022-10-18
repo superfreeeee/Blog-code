@@ -5,7 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const IS_PROD = process.env.NODE_ENV;
+const IS_PROD = process.env.NODE_ENV === 'production';
+console.log(`IS_PROD = ${IS_PROD}`);
 
 const config = {
   // Start mode / environment
@@ -35,12 +36,15 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          IS_PROD ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+        ],
       },
       {
         test: /\.module.(sass|scss)$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          IS_PROD ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -65,9 +69,6 @@ const config = {
       template: path.resolve(__dirname, 'public/index.html'),
       minify: IS_PROD,
     }),
-    new MiniCssExtractPlugin({
-      filename: 'styles-[chunkhash:8].css',
-    }),
   ],
 
   // Webpack chunks optimization
@@ -83,12 +84,12 @@ const config = {
           test: /node_modules/,
         },
 
-        styles: {
-          name: 'styles',
-          type: 'css/mini-extract',
-          chunks: 'all',
-          enforce: true,
-        },
+        // styles: {
+        //   name: 'styles',
+        //   type: 'css/mini-extract',
+        //   chunks: 'all',
+        //   enforce: true,
+        // },
       },
     },
   },
@@ -101,12 +102,20 @@ const config = {
 
   // DevServer for development
   devServer: {
-    port: 3000,
+    port: 3001,
     historyApiFallback: true,
   },
 
   // Generate source map
   devtool: 'source-map',
 };
+
+if (IS_PROD) {
+  config.plugins.push(
+    new MiniCssExtractPlugin({
+      filename: 'styles-[chunkhash:8].css',
+    })
+  );
+}
 
 module.exports = config;

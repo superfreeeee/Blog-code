@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-
 import App from './App';
 
 import './index.module.scss';
@@ -12,4 +10,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-// ReactDOM.hydrate(<App />, document.querySelector('#app'));
