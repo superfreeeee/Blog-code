@@ -1,16 +1,22 @@
 extern crate rand;
 
+use rand::random;
+use std::ops::Fn;
 use std::thread;
 use std::time::Duration;
-use std::ops::Fn;
-use rand::random;
 
-struct FnCache<T> where T: Fn(u32) -> u32 {
+struct FnCache<T>
+where
+    T: Fn(u32) -> u32,
+{
     calculation: T,
     value: Option<u32>,
 }
 
-impl<T> FnCache<T> where T: Fn(u32) -> u32 {
+impl<T> FnCache<T>
+where
+    T: Fn(u32) -> u32,
+{
     fn new(calculation: T) -> FnCache<T> {
         FnCache {
             calculation,
@@ -39,7 +45,10 @@ fn generate_task(intensity: u32) -> bool {
     });
 
     if intensity < 20 {
-        println!("intensity = {}, keep working", expensive_closure.value(intensity));
+        println!(
+            "intensity = {}, keep working",
+            expensive_closure.value(intensity)
+        );
         false
     } else {
         println!("intensity = {}, enough", intensity);

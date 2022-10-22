@@ -1,0 +1,21 @@
+{
+  "name": "napi_rs_test-linux-x64-gnu",
+  "version": "0.0.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "napi_rs_test.linux-x64-gnu.node",
+  "files": [
+    "napi_rs_test.linux-x64-gnu.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "libc": [
+    "glibc"
+  ]
+}

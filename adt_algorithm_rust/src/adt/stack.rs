@@ -26,7 +26,7 @@ impl<T> Stack<T> {
     pub fn from(mut arr: Vec<T>) -> Self {
         let mut stack = Stack::new();
         while let Some(val) = arr.pop() {
-            stack.push(val);
+            stack.push(val)
         }
         stack
     }
@@ -50,12 +50,14 @@ impl<T> Stack<T> {
                 self.len -= 1;
                 Some(target.val)
             }
-            None => None
+            None => None,
         }
     }
 
     #[inline]
-    pub fn len(&self) -> usize { self.len }
+    pub fn len(&self) -> usize {
+        self.len
+    }
 }
 
 mod tests {
@@ -91,6 +93,7 @@ mod tests {
     #[test]
     fn stack_from() {
         let mut stack = Stack::from(vec![1, 2, 3, 4, 5]);
+        println!("stack: {:?}", stack);
         assert_eq!(1, stack.pop().unwrap());
         assert_eq!(2, stack.pop().unwrap());
         assert_eq!(3, stack.pop().unwrap());
