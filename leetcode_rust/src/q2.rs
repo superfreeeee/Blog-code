@@ -43,7 +43,7 @@ impl Solution {
     }
 }
 
-fn createNum(nums: Vec<i32>) -> Option<Box<ListNode>> {
+fn create_num(nums: Vec<i32>) -> Option<Box<ListNode>> {
     if nums.len() == 0 {
         return None;
     }
@@ -58,9 +58,10 @@ fn createNum(nums: Vec<i32>) -> Option<Box<ListNode>> {
     head
 }
 
+#[test]
 pub fn test() {
-    let num1 = createNum(vec![1, 3, 5]);
-    let num2 = createNum(vec![2, 4, 6]);
+    let num1 = create_num(vec![1, 3, 5]);
+    let num2 = create_num(vec![2, 4, 6]);
 
     println!("{:?}", num1);
     println!("{:?}", num2);

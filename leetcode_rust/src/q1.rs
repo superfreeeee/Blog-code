@@ -14,6 +14,7 @@ fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     panic!("not found");
 }
 
+#[test]
 pub fn test() {
     println!(">>>>> question2.test");
     let res = two_sum(vec![1, 3, 5, 7, 9], 6);
