@@ -1,10 +1,14 @@
 mod q1;
 mod q11;
+mod q12;
 mod q1461;
 mod q1625;
 mod q1768;
+mod q19;
 mod q2;
+mod q21;
 mod q2191;
+mod q3;
 mod q4;
 mod q46;
 mod q826;
@@ -12,7 +16,62 @@ mod q826;
 pub struct Solution {}
 
 mod tests {
-    use crate::{q11, q1461, q1625, q1768, q2191, q46, q826};
+    use crate::{q11, q12, q1461, q1625, q1768, q19, q21, q2191, q3, q46, q826};
+
+    #[test]
+    fn test_free() {
+        // let mut data = 123;
+        // let data_ref = &mut data;
+        // let res = data.min(123);
+        // *data_ref = 123;
+        // let mut other = Box::new(456);
+        // data_ref = &mut other;
+    }
+
+    #[test]
+    fn test_q21() {
+        let res = q21::Solution::merge_two_lists(
+            q21::ListNode::from(vec![1, 2, 4]),
+            q21::ListNode::from(vec![1, 3, 4]),
+        );
+        println!("res={:?}", res);
+    }
+
+    #[test]
+    fn test_q19() {
+        let res = q19::Solution::remove_nth_from_end(q19::ListNode::from(vec![1, 2, 3, 4, 5]), 2);
+        println!("res={:?}", res);
+        let res = q19::Solution::remove_nth_from_end(q19::ListNode::from(vec![1]), 1);
+        println!("res={:?}", res);
+        let res = q19::Solution::remove_nth_from_end(q19::ListNode::from(vec![1, 2]), 1);
+        println!("res={:?}", res);
+    }
+
+    #[test]
+    fn test_q12() {
+        let res = q12::Solution::int_to_roman(3);
+        assert_eq!("III", res);
+        let res = q12::Solution::int_to_roman(4);
+        assert_eq!("IV", res);
+        let res = q12::Solution::int_to_roman(9);
+        assert_eq!("IX", res);
+        let res = q12::Solution::int_to_roman(58);
+        assert_eq!("LVIII", res);
+        let res = q12::Solution::int_to_roman(1994);
+        assert_eq!("MCMXCIV", res);
+    }
+
+    #[test]
+    fn test_q3() {
+        let res = q3::Solution::length_of_longest_substring(String::from("abcabcbb"));
+        assert_eq!(3, res);
+        let res = q3::Solution::length_of_longest_substring(String::from("bbbbb"));
+        assert_eq!(1, res);
+        let res = q3::Solution::length_of_longest_substring(String::from("pwwkew"));
+        assert_eq!(3, res);
+        let res = q3::Solution::length_of_longest_substring(String::from(" "));
+        assert_eq!(1, res);
+    }
 
     #[test]
     fn test_q2191() {

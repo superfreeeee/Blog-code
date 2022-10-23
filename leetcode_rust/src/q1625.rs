@@ -105,8 +105,8 @@ impl Solution {
                 add(&mut rotated_s, false);
             }
 
-            let sub =
-                String::from_utf8(rotated_s.iter().map(|n| n + b'0').collect::<Vec<_>>()).unwrap();
+            let sub = rotated_s.iter().map(|n| n + b'0').collect::<Vec<_>>();
+            let sub = String::from_utf8(sub).unwrap();
             res = res.min(sub);
         }
 
