@@ -1,10 +1,10 @@
 {
-  "name": "napi_rs_test",
+  "name": "@youxian/napi-rs-test",
   "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
-    "name": "napi_rs_test",
+    "name": "napi-rs-test",
     "triples": {}
   },
   "license": "MIT",
@@ -20,8 +20,7 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
-    "build": "napi build --release",
-    "build:platform": "napi build --platform --release",
+    "build": "napi build --platform --release",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "ava",

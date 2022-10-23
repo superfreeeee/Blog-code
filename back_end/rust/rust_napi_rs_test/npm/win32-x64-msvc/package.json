@@ -1,5 +1,5 @@
 {
-  "name": "napi_rs_test-win32-x64-msvc",
+  "name": "@youxian/napi-rs-test-win32-x64-msvc",
   "version": "0.0.0",
   "os": [
     "win32"
@@ -7,9 +7,9 @@
   "cpu": [
     "x64"
   ],
-  "main": "napi_rs_test.win32-x64-msvc.node",
+  "main": "napi-rs-test.win32-x64-msvc.node",
   "files": [
-    "napi_rs_test.win32-x64-msvc.node"
+    "napi-rs-test.win32-x64-msvc.node"
   ],
   "license": "MIT",
   "engines": {

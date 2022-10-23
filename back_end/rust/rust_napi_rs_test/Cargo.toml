@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "napi_rs_test"
+name = "youxian_napi-rs-test"
 version = "0.0.0"
 
 [lib]
