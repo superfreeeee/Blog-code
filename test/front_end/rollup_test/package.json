@@ -1,0 +1,18 @@
+{
+  "name": "rollup_test",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "run-s build:*",
+    "build:dist": "rollup -c --bundleConfigAsCjs"
+  },
+  "keywords": [],
+  "author": "superfree",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-buble": "^1.0.1",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^3.2.3"
+  }
+}
