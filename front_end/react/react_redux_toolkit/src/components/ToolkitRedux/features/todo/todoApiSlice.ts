@@ -3,12 +3,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: '/' }), // http://localhost
   tagTypes: ['todos'],
   endpoints: (builder) => {
     return {
       fetchTodos: builder.query<ITodoItem[], number | void>({
-        query: (limit = 10) => `/todos.json?limit=${limit}`,
+        query: (limit = 10) => `/todos.json?limit=${limit}`, // /todoItems
         providesTags: [{ type: 'todos', id: 'all' }],
       }),
       updateTodos: builder.mutation({

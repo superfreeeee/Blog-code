@@ -12,6 +12,10 @@ const withThunk = true
 const store = createTimerStore(withThunk)
 const store2 = createTimerStore(withThunk)
 
+// const state = store.getState()
+// store.dispatch(increment())
+// store.subscribe(() => {})
+
 export default function App() {
   return (
     <div>

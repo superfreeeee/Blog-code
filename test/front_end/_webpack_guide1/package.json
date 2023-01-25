@@ -1,0 +1,30 @@
+{
+  "name": "_webpack_guide",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "clear && webpack serve",
+    "build": "clear && webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "csv-loader": "^3.0.5",
+    "json5": "^2.2.3",
+    "style-loader": "^3.3.1",
+    "toml": "^3.0.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "xml-loader": "^1.2.1",
+    "yamljs": "^0.3.0"
+  }
+}

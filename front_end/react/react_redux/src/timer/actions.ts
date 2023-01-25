@@ -3,12 +3,18 @@ import { ActionCreator } from 'redux'
 import { TimerAction } from './reducer'
 
 // action creators
+// const action = incrementAction()    // action = { type: 'xxx' }
 export const incrementAction: ActionCreator<TimerAction> = () => ({
   type: 'INCREMENT',
 })
 
 export const resetAction: ActionCreator<TimerAction> = () => ({
   type: 'RESET',
+})
+
+export const setTimerAction = (count: number) => ({
+  type: 'xxx',
+  payload: count,
 })
 
 // async action creators
