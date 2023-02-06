@@ -37,6 +37,9 @@ const handledDeprecatedNoEmitOnErrors = util.deprecate(
  * @param {function(T): R} fn nested handler
  * @returns {R} result value
  */
+/**
+ * return fn(value === undefined ? {} : value)
+ */
 const nestedConfig = (value, fn) =>
 	value === undefined ? fn(/** @type {T} */ ({})) : fn(value);
 
@@ -44,6 +47,9 @@ const nestedConfig = (value, fn) =>
  * @template T
  * @param {T|undefined} value value or not
  * @returns {T} result value
+ */
+/**
+ * shallow clone
  */
 const cloneObject = value => {
 	return /** @type {T} */ ({ ...value });
@@ -55,6 +61,10 @@ const cloneObject = value => {
  * @param {T|undefined} value value or not
  * @param {function(T): R} fn nested handler
  * @returns {R|undefined} result value
+ */
+/**
+ * value = undefined  => undefined
+ * value != undefined => fn(value)
  */
 const optionalNestedConfig = (value, fn) =>
 	value === undefined ? undefined : fn(value);
@@ -117,8 +127,21 @@ const getNormalizedWebpackOptions = config => {
 	return {
 		amd: config.amd,
 		bail: config.bail,
+		/**
+		 * cache: {
+		 *   type: 'xxx',
+		 *   ...options
+		 * }
+		 */
 		cache: optionalNestedConfig(config.cache, cache => {
+			/**
+			 * cache: false
+			 */
 			if (cache === false) return false;
+			/**
+			 * cache: true
+			 * => cache: { type: 'memory', maxGenerations: undefined }
+			 */
 			if (cache === true) {
 				return {
 					type: "memory",
@@ -126,6 +149,9 @@ const getNormalizedWebpackOptions = config => {
 				};
 			}
 			switch (cache.type) {
+				/**
+				 * cache: { type: 'filesystem' }
+				 */
 				case "filesystem":
 					return {
 						type: "filesystem",
@@ -146,6 +172,10 @@ const getNormalizedWebpackOptions = config => {
 						version: cache.version
 					};
 				case undefined:
+				/**
+				 * cache: { type: 'memory' }
+				 * 
+				 */
 				case "memory":
 					return {
 						type: "memory",
@@ -162,8 +192,20 @@ const getNormalizedWebpackOptions = config => {
 			...devServer
 		})),
 		devtool: config.devtool,
+		/**
+		 * entry: {
+		 *   main: {
+		 *     import : ['xxx']
+		 *   },
+		 *   ...entry points
+		 * }
+		 */
 		entry:
 			config.entry === undefined
+				/**
+				 * entry = undefined
+				 * => entry = { main: {} }
+				 */
 				? { main: {} }
 				: typeof config.entry === "function"
 				? (
@@ -171,6 +213,13 @@ const getNormalizedWebpackOptions = config => {
 							Promise.resolve().then(fn).then(getNormalizedEntryStatic)
 				  )(config.entry)
 				: getNormalizedEntryStatic(config.entry),
+		/**
+		 * experiments: {
+		 *   buildHttp
+		 *   lazyCompilation
+		 *   css
+		 * }
+		 */
 		experiments: nestedConfig(config.experiments, experiments => ({
 			...experiments,
 			buildHttp: optionalNestedConfig(experiments.buildHttp, options =>
@@ -212,9 +261,24 @@ const getNormalizedWebpackOptions = config => {
 					};
 			  })
 			: undefined,
+		/**
+		 * infrastructureLogging: {}
+		 */
 		infrastructureLogging: cloneObject(config.infrastructureLogging),
 		loader: cloneObject(config.loader),
 		mode: config.mode,
+		/**
+		 * module: {
+		 *   noParse
+		 *   unsafeCache
+		 *   parser
+		 *   generator
+		 *   defaultRules
+		 *   rules: {
+		 *     ...
+		 *   }
+		 * }
+		 */
 		module: nestedConfig(config.module, module => ({
 			noParse: module.noParse,
 			unsafeCache: module.unsafeCache,
@@ -249,6 +313,17 @@ const getNormalizedWebpackOptions = config => {
 					...node
 				}
 		),
+		/**
+		 * optimization: {
+		 *   runtimeChunk
+		 *   splitChunks: {
+		 *     ...
+		 *     defaultSizeTypes
+		 *     cacheGroups
+		 *   }
+		 *   emitOnErrors
+		 * }
+		 */
 		optimization: nestedConfig(config.optimization, optimization => {
 			return {
 				...optimization,
@@ -275,16 +350,39 @@ const getNormalizedWebpackOptions = config => {
 						: optimization.emitOnErrors
 			};
 		}),
+		/**
+		 * output: {
+		 *   filename: '[name]-[hash].js'
+		 *   path: path.resolve(__dirname, 'dist')
+		 * 	 library: {
+		 *     type: 'umd',
+		 *     auxiliaryComment
+		 *     export
+		 *     name
+		 *     umdNamedDefine
+		 *   }
+		 * }
+		 */
 		output: nestedConfig(config.output, output => {
 			const { library } = output;
 			const libraryAsName = /** @type {LibraryName} */ (library);
+			/**
+			 * libraryBase = undefined
+			 * libraryBase = { type: 'umd' }
+			 * libraryBase = { name: 'name' }
+			 */
 			const libraryBase =
 				typeof library === "object" &&
 				library &&
 				!Array.isArray(library) &&
 				"type" in library
+					// { type: 'umd' }
 					? library
 					: libraryAsName || output.libraryTarget
+					/**
+					 * { library: 'name', libraryTarget: 'xxx' }
+					 * => { name: 'name' }
+					 */
 					? /** @type {LibraryOptions} */ ({
 							name: libraryAsName
 					  })
@@ -318,6 +416,9 @@ const getNormalizedWebpackOptions = config => {
 				enabledWasmLoadingTypes: output.enabledWasmLoadingTypes
 					? [...output.enabledWasmLoadingTypes]
 					: ["..."],
+				/**
+				 * filename = '[name]-[hash].js'
+				 */
 				filename: output.filename,
 				globalObject: output.globalObject,
 				hashDigest: output.hashDigest,
@@ -331,11 +432,20 @@ const getNormalizedWebpackOptions = config => {
 				importFunctionName: output.importFunctionName,
 				importMetaName: output.importMetaName,
 				scriptType: output.scriptType,
+				/**
+				 * library: {
+				 *   type: 'umd',
+				 *   auxiliaryComment
+				 *   export
+				 *   name
+				 *   umdNamedDefine
+				 * }
+				 */
 				library: libraryBase && {
 					type:
 						output.libraryTarget !== undefined
-							? output.libraryTarget
-							: libraryBase.type,
+							? output.libraryTarget // { libraryTarget: 'umd' }
+							: libraryBase.type, // { type: 'umd' }
 					auxiliaryComment:
 						output.auxiliaryComment !== undefined
 							? output.auxiliaryComment
@@ -351,6 +461,9 @@ const getNormalizedWebpackOptions = config => {
 							: libraryBase.umdNamedDefine
 				},
 				module: output.module,
+				/**
+				 * path = path.resolve(__dirname, 'dist')
+				 */
 				path: output.path,
 				pathinfo: output.pathinfo,
 				publicPath: output.publicPath,
@@ -381,6 +494,11 @@ const getNormalizedWebpackOptions = config => {
 				...performance
 			};
 		}),
+		/**
+		 * plugins: [
+		 *   ...plugins
+		 * ]
+		 */
 		plugins: nestedArray(config.plugins, p => [...p]),
 		profile: config.profile,
 		recordsInputPath:
@@ -453,6 +571,10 @@ const getNormalizedWebpackOptions = config => {
  * @returns {EntryStaticNormalized} normalized static entry options
  */
 const getNormalizedEntryStatic = entry => {
+	/**
+	 * entry = 'src/index.js'
+	 * => { main: { import: ['src/index.js'] } }
+	 */
 	if (typeof entry === "string") {
 		return {
 			main: {
@@ -460,6 +582,10 @@ const getNormalizedEntryStatic = entry => {
 			}
 		};
 	}
+	/**
+	 * entry = ['index.js', 'path.js']
+	 * => { main: { import: ['index.js', 'path.js'] } }
+	 */
 	if (Array.isArray(entry)) {
 		return {
 			main: {
@@ -467,11 +593,21 @@ const getNormalizedEntryStatic = entry => {
 			}
 		};
 	}
+	/**
+	 * entry = { main, vender }
+	 */
 	/** @type {EntryStaticNormalized} */
 	const result = {};
 	for (const key of Object.keys(entry)) {
 		const value = entry[key];
 		if (typeof value === "string") {
+			/**
+			 * entry = {
+			 *   main: {
+			 *     import: ['xxx']
+			 *   }
+			 * }
+			 */
 			result[key] = {
 				import: [value]
 			};

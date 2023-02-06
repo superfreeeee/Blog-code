@@ -11,6 +11,9 @@
  * @param {FunctionReturning<T>} fn memorized function
  * @returns {FunctionReturning<T>} new function
  */
+/**
+ * := once
+ */
 const memoize = fn => {
 	let cache = false;
 	/** @type {T} */

@@ -95,7 +95,9 @@ const createCompiler = rawOptions => {
  * @param {Callback<MultiStats>=} callback callback
  * @returns {MultiCompiler} the multi compiler object
  */
-
+/**
+ * re-create array
+ */
 const asArray = options =>
 	Array.isArray(options) ? Array.from(options) : [options];
 
@@ -107,6 +109,9 @@ const webpack = /** @type {WebpackFunctionSingle & WebpackFunctionMulti} */ (
 	 */
 	(options, callback) => {
 		const create = () => {
+			/**
+			 * Schema check
+			 */
 			if (!asArray(options).every(webpackOptionsSchemaCheck)) {
 				getValidateSchema()(webpackOptionsSchema, options);
 				util.deprecate(
@@ -115,12 +120,19 @@ const webpack = /** @type {WebpackFunctionSingle & WebpackFunctionMulti} */ (
 					"DEP_WEBPACK_PRE_COMPILED_SCHEMA_INVALID"
 				)();
 			}
+
+			/**
+			 * Create Compiler
+			 */
 			/** @type {MultiCompiler|Compiler} */
 			let compiler;
 			let watch = false;
 			/** @type {WatchOptions|WatchOptions[]} */
 			let watchOptions;
 			if (Array.isArray(options)) {
+				/**
+				 * 1. Multi-compilers
+				 */
 				/** @type {MultiCompiler} */
 				compiler = createMultiCompiler(
 					options,
@@ -129,6 +141,9 @@ const webpack = /** @type {WebpackFunctionSingle & WebpackFunctionMulti} */ (
 				watch = options.some(options => options.watch);
 				watchOptions = options.map(options => options.watchOptions || {});
 			} else {
+				/**
+				 * 2. Single Compiler
+				 */
 				const webpackOptions = /** @type {WebpackOptions} */ (options);
 				/** @type {Compiler} */
 				compiler = createCompiler(webpackOptions);
@@ -138,6 +153,9 @@ const webpack = /** @type {WebpackFunctionSingle & WebpackFunctionMulti} */ (
 			return { compiler, watch, watchOptions };
 		};
 		if (callback) {
+			/**
+			 * 1. with callback => create compiler & run immediately
+			 */
 			try {
 				const { compiler, watch, watchOptions } = create();
 				if (watch) {
@@ -155,6 +173,9 @@ const webpack = /** @type {WebpackFunctionSingle & WebpackFunctionMulti} */ (
 				return null;
 			}
 		} else {
+			/**
+			 * 2. with options only => create compiler & return
+			 */
 			const { compiler, watch } = create();
 			if (watch) {
 				util.deprecate(

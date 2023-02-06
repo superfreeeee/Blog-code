@@ -55,6 +55,7 @@ const NODE_MODULES_REGEXP = /[\\/]node_modules[\\/]/i;
  */
 const D = (obj, prop, value) => {
 	if (obj[prop] === undefined) {
+		// ! set default value, with constants
 		obj[prop] = value;
 	}
 };
@@ -70,6 +71,7 @@ const D = (obj, prop, value) => {
  */
 const F = (obj, prop, factory) => {
 	if (obj[prop] === undefined) {
+		// ! set default value, with factory
 		obj[prop] = factory();
 	}
 };
@@ -117,7 +119,18 @@ const A = (obj, prop, factory) => {
  * @param {WebpackOptions} options options to be modified
  * @returns {void}
  */
+/**
+ * options: {
+ *   context
+ *   infrastructureLogging: { ... }
+ * }
+ */
 const applyWebpackOptionsBaseDefaults = options => {
+	/**
+	 * options: {
+	 *   context: process.cwd()
+	 * }
+	 */
 	F(options, "context", () => process.cwd());
 	applyInfrastructureLoggingDefaults(options.infrastructureLogging);
 };
@@ -1310,7 +1323,19 @@ const getResolveLoaderDefaults = ({ cache }) => {
  * @param {InfrastructureLogging} infrastructureLogging options
  * @returns {void}
  */
+/**
+ * setup options.infrastructureLogging
+ */
 const applyInfrastructureLoggingDefaults = infrastructureLogging => {
+	/**
+	 * infrastructureLogging: {
+	 *   stream: process.stderr,
+	 *   level: 'info',
+	 *   debug: false,
+	 *   colors: false,
+	 *   appendOnly: false,
+	 * }
+	 */
 	F(infrastructureLogging, "stream", () => process.stderr);
 	const tty =
 		/** @type {any} */ (infrastructureLogging.stream).isTTY &&

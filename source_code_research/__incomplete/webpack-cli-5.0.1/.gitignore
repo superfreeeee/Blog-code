@@ -1,0 +1,68 @@
+# IDE folders
+.idea
+.vscode
+*.iml
+
+# IDE files
+*.code-workspace
+
+# Vim swap files
+.s[a-z][a-z]
+.*.s[a-z][a-z]
+
+# Mac OS X Finder
+.DS_Store
+
+# Node dependencies
+node_modules
+test/**/node_modules
+
+# Lock files
+test/**/yarn.lock
+test/**/package-json.lock
+!test/api/**/yarn.lock
+!test/api/**/package-lock.json
+
+# npm-debug log
+npm-debug.*
+
+# yarn log
+yarn-error.log
+
+# Jest Coverage
+coverage
+.nyc_output
+
+# lerna log
+lerna-debug.log
+
+# Yeoman file
+.yo-rc.json
+
+# package-lock file
+package-lock.json
+!test/api/**/package-lock.json
+
+junit.xml
+
+# typescript source maps
+packages/**/*.map
+*.tsbuildinfo
+
+# cache
+.eslintcache
+
+# build files
+packages/**/lib
+packages/**/yarn.lock
+
+# test output files
+test/js/*
+test/**/bin/
+test/**/**/bin/
+test/**/**/**/bin/
+test/**/**/binary/**
+test/**/dist
+test/**/**/dist
+test/**/**/**/dist
+test/**/stats.json
