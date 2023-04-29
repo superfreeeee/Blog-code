@@ -123,21 +123,40 @@ class Compiler {
 	 */
 	constructor(context, options = /** @type {WebpackOptions} */ ({})) {
 		this.hooks = Object.freeze({
+			/**
+			 * at the end of createCompiler
+			 */
 			/** @type {SyncHook<[]>} */
-			initialize: new SyncHook([]),
+			initialize: new SyncHook([]), // /lib/webpack.js:createCompiler, after internal plugins applied
 
+			/**
+			 * 【onCompiled】
+			 *   shouldEmit
+			 *   done
+			 *   afterDone
+			 */
 			/** @type {SyncBailHook<[Compilation], boolean>} */
 			shouldEmit: new SyncBailHook(["compilation"]),
 			/** @type {AsyncSeriesHook<[Stats]>} */
 			done: new AsyncSeriesHook(["stats"]),
 			/** @type {SyncHook<[Stats]>} */
 			afterDone: new SyncHook(["stats"]),
+
 			/** @type {AsyncSeriesHook<[]>} */
 			additionalPass: new AsyncSeriesHook([]),
+
+			/**
+			 * 【run】
+			 *   beforeRun
+			 *   run
+			 *   【readRecords】
+			 *   【compile】
+			 */
 			/** @type {AsyncSeriesHook<[Compiler]>} */
 			beforeRun: new AsyncSeriesHook(["compiler"]),
 			/** @type {AsyncSeriesHook<[Compiler]>} */
 			run: new AsyncSeriesHook(["compiler"]),
+
 			/** @type {AsyncSeriesHook<[Compilation]>} */
 			emit: new AsyncSeriesHook(["compilation"]),
 			/** @type {AsyncSeriesHook<[string, AssetEmittedInfo]>} */
@@ -145,19 +164,44 @@ class Compiler {
 			/** @type {AsyncSeriesHook<[Compilation]>} */
 			afterEmit: new AsyncSeriesHook(["compilation"]),
 
+			/**
+			 * Compilation created
+			 * 
+			 * 【newCompilation】
+			 *   thisCompilation
+			 *   compilation
+			 */
 			/** @type {SyncHook<[Compilation, CompilationParams]>} */
 			thisCompilation: new SyncHook(["compilation", "params"]),
 			/** @type {SyncHook<[Compilation, CompilationParams]>} */
-			compilation: new SyncHook(["compilation", "params"]),
+			compilation: new SyncHook(["compilation", "params"]), // compilation: Compilation
+
+			/**
+			 * CompilationParams created
+			 * 
+			 * 【newCompilationParams】
+			 *   normalModuleFactory
+			 *   contextModuleFactory
+			 */
 			/** @type {SyncHook<[NormalModuleFactory]>} */
 			normalModuleFactory: new SyncHook(["normalModuleFactory"]),
 			/** @type {SyncHook<[ContextModuleFactory]>}  */
 			contextModuleFactory: new SyncHook(["contextModuleFactory"]),
 
+			/**
+			 * 【compile】
+			 *   【newCompilationParams】
+			 *   beforeCompile
+			 *   compile
+			 *   【Compilation】
+			 *   make
+			 *   finishMake
+			 *   afterCompile
+			 */
 			/** @type {AsyncSeriesHook<[CompilationParams]>} */
 			beforeCompile: new AsyncSeriesHook(["params"]),
 			/** @type {SyncHook<[CompilationParams]>} */
-			compile: new SyncHook(["params"]),
+			compile: new SyncHook(["params"]), // { normalModuleFactory, contextModuleFactory }
 			/** @type {AsyncParallelHook<[Compilation]>} */
 			make: new AsyncParallelHook(["compilation"]),
 			/** @type {AsyncParallelHook<[Compilation]>} */
@@ -186,14 +230,29 @@ class Compiler {
 
 			// TODO the following hooks are weirdly located here
 			// TODO move them for webpack 5
+			/**
+			 * 【createCompiler】
+			 *   call  environment
+			 *   call  afterEnvironment
+			 *   call  initialize
+			 */
 			/** @type {SyncHook<[]>} */
-			environment: new SyncHook([]),
+			environment: new SyncHook([]), // /lib/webpack.js:createCompiler, after default value of options applied
 			/** @type {SyncHook<[]>} */
-			afterEnvironment: new SyncHook([]),
+			afterEnvironment: new SyncHook([]), // /lib/webpack.js:createCompiler, after default value of options applied
+			/**
+			 * 【WebpackOptionsApply.process】
+			 *   entryOption
+			 *   afterPlugins
+			 *   afterResolvers
+			 */
 			/** @type {SyncHook<[Compiler]>} */
 			afterPlugins: new SyncHook(["compiler"]),
 			/** @type {SyncHook<[Compiler]>} */
 			afterResolvers: new SyncHook(["compiler"]),
+			/**
+			 * EntryOptionPlugin tapped => call
+			 */
 			/** @type {SyncBailHook<[string, Entry], boolean>} */
 			entryOption: new SyncBailHook(["context", "entry"])
 		});
@@ -421,6 +480,12 @@ class Compiler {
 	 * @param {Callback<Stats>} callback signals when the call finishes
 	 * @returns {void}
 	 */
+	/**
+	 * 【run】
+	 *   run
+	 *   onCompiled
+	 *   finalCallback
+	 */
 	run(callback) {
 		if (this.running) {
 			return callback(new ConcurrentCompilationError());
@@ -428,6 +493,10 @@ class Compiler {
 
 		let logger;
 
+		/**
+		 * 【finalCallback】
+		 *   call  afterDone
+		 */
 		const finalCallback = (err, stats) => {
 			if (logger) logger.time("beginIdle");
 			this.idle = true;
@@ -446,6 +515,12 @@ class Compiler {
 
 		this.running = true;
 
+		/**
+		 * onCompiled:
+		 *   call       shouldEmit
+		 *   callAsync  done
+		 *   【finalCallback】
+		 */
 		const onCompiled = (err, compilation) => {
 			if (err) return finalCallback(err);
 
@@ -511,6 +586,13 @@ class Compiler {
 			});
 		};
 
+		/**
+		 * run:
+		 *   call beforeRun
+		 *   => callAsync run
+		 *   => 【readRecords】
+		 *   => 【compile】
+		 */
 		const run = () => {
 			this.hooks.beforeRun.callAsync(this, err => {
 				if (err) return finalCallback(err);
@@ -967,6 +1049,10 @@ ${other}`);
 	 * @param {Callback<void>} callback signals when the call finishes
 	 * @returns {void}
 	 */
+	/**
+	 * 【readRecords】
+	 *   callAsync  readRecords
+	 */
 	readRecords(callback) {
 		if (this.hooks.readRecords.isUsed()) {
 			if (this.recordsInputPath) {
@@ -1105,6 +1191,10 @@ ${other}`);
 		return !!this.parentCompilation;
 	}
 
+	/**
+	 * Create Compilation
+	 * this._lastCompilation = Compilation
+	 */
 	createCompilation(params) {
 		this._cleanupLastCompilation();
 		return (this._lastCompilation = new Compilation(this, params));
@@ -1113,6 +1203,12 @@ ${other}`);
 	/**
 	 * @param {CompilationParams} params the compilation parameters
 	 * @returns {Compilation} the created compilation
+	 */
+	/**
+	 * 【newCompilation】
+	 * Create createCompilation
+	 * call  thisCompilation
+	 * call  compilation
 	 */
 	newCompilation(params) {
 		const compilation = this.createCompilation(params);
@@ -1123,6 +1219,10 @@ ${other}`);
 		return compilation;
 	}
 
+	/**
+	 * Create normalModuleFactory
+	 * call  normalModuleFactory
+	 */
 	createNormalModuleFactory() {
 		this._cleanupLastNormalModuleFactory();
 		const normalModuleFactory = new NormalModuleFactory({
@@ -1138,12 +1238,19 @@ ${other}`);
 		return normalModuleFactory;
 	}
 
+	/**
+	 * Create contextModuleFactory
+	 * call  contextModuleFactory
+	 */
 	createContextModuleFactory() {
 		const contextModuleFactory = new ContextModuleFactory(this.resolverFactory);
 		this.hooks.contextModuleFactory.call(contextModuleFactory);
 		return contextModuleFactory;
 	}
 
+	/**
+	 * Create CompilationParams = { normalModuleFactory, contextModuleFactory }
+	 */
 	newCompilationParams() {
 		const params = {
 			normalModuleFactory: this.createNormalModuleFactory(),
@@ -1155,6 +1262,23 @@ ${other}`);
 	/**
 	 * @param {Callback<Compilation>} callback signals when the compilation finishes
 	 * @returns {void}
+	 */
+	/**
+	 * 【compile】
+	 *  【newCompilationParams】
+	 *   callAsync     beforeCompile
+	 *   => call       compile
+	 * 
+	 *   【newCompilation】
+	 * 
+	 *   => callAsync  make
+	 *   => callAsync  finishMake
+	 *
+	 *   => compilation.finish
+   *   => compilation.seal
+   *   => call       afterCompile
+   *
+   *   invoke callback  =>  【onCompiled】
 	 */
 	compile(callback) {
 		const params = this.newCompilationParams();
@@ -1177,6 +1301,10 @@ ${other}`);
 					logger.timeEnd("finish make hook");
 					if (err) return callback(err);
 
+					/**
+					 * after finishMake
+
+					 */
 					process.nextTick(() => {
 						logger.time("finish compilation");
 						compilation.finish(err => {

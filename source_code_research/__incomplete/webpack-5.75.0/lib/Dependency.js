@@ -320,6 +320,12 @@ Dependency.NO_EXPORTS_REFERENCED = [];
 /** @type {string[][]} */
 Dependency.EXPORTS_OBJECT_REFERENCED = [[]];
 
+/**
+ * Deprecated  =>  migrate to compilation.moduleGraph
+ * 
+ * Dependency.module
+ * Dependency.disconnect
+ */
 Object.defineProperty(Dependency.prototype, "module", {
 	/**
 	 * @deprecated

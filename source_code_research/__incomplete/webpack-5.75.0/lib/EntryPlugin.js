@@ -21,8 +21,8 @@ class EntryPlugin {
 	 */
 	constructor(context, entry, options) {
 		this.context = context;
-		this.entry = entry;
-		this.options = options || "";
+		this.entry = entry; // entry: { main: { import: ['xxx'] } }
+		this.options = options || ""; // at EntryOptionPlugin.entryDescriptionToOptions
 	}
 
 	/**
@@ -30,10 +30,18 @@ class EntryPlugin {
 	 * @param {Compiler} compiler the compiler instance
 	 * @returns {void}
 	 */
+	/**
+	 * tap     compiler.compilation
+	 * => tap  compilation.dependencyFactories
+	 * 
+	 * tap     compiler.make
+	 * => compilation.addEntry
+	 */
 	apply(compiler) {
 		compiler.hooks.compilation.tap(
 			"EntryPlugin",
 			(compilation, { normalModuleFactory }) => {
+				// bind normalModuleFactory with compilation
 				compilation.dependencyFactories.set(
 					EntryDependency,
 					normalModuleFactory
@@ -45,6 +53,7 @@ class EntryPlugin {
 		const dep = EntryPlugin.createDependency(entry, options);
 
 		compiler.hooks.make.tapAsync("EntryPlugin", (compilation, callback) => {
+			// addEntry(undefined, EntryDependency, options)
 			compilation.addEntry(context, dep, options, err => {
 				callback(err);
 			});
@@ -55,6 +64,11 @@ class EntryPlugin {
 	 * @param {string} entry entry request
 	 * @param {EntryOptions | string} options entry options (passing string is deprecated)
 	 * @returns {EntryDependency} the dependency
+	 */
+	/**
+	 * entry = { main: { import: ['xxx'] } }
+	 * =>
+	 * new EntryDependency(entry)
 	 */
 	static createDependency(entry, options) {
 		const dep = new EntryDependency(entry);

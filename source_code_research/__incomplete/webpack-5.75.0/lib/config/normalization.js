@@ -584,7 +584,12 @@ const getNormalizedEntryStatic = entry => {
 	}
 	/**
 	 * entry = ['index.js', 'path.js']
-	 * => { main: { import: ['index.js', 'path.js'] } }
+	 * =>
+	 * entry: {
+	 *   main: {
+	 *     import: ['index.js', 'path.js']
+	 *   }
+	 * }
 	 */
 	if (Array.isArray(entry)) {
 		return {

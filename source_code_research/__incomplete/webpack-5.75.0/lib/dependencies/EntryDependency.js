@@ -8,6 +8,12 @@
 const makeSerializable = require("../util/makeSerializable");
 const ModuleDependency = require("./ModuleDependency");
 
+/**
+ * {
+ *   type(): 'entry',
+ *   category(): 'esm'
+ * }
+ */
 class EntryDependency extends ModuleDependency {
 	/**
 	 * @param {string} request request path for entry

@@ -56,6 +56,7 @@ class ExternalModuleFactoryPlugin {
 	 */
 	apply(normalModuleFactory) {
 		const globalType = this.type;
+		// tap factorize on normalModuleFactory
 		normalModuleFactory.hooks.factorize.tapAsync(
 			"ExternalModuleFactoryPlugin",
 			(data, callback) => {

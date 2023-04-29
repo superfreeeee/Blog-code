@@ -59,12 +59,18 @@ const createMultiCompiler = (childOptions, options) => {
  * @returns {Compiler} a compiler
  */
 const createCompiler = rawOptions => {
+	// Normalize value of options
 	const options = getNormalizedWebpackOptions(rawOptions);
+	// Apply options.(context & infrastructureLogging)
 	applyWebpackOptionsBaseDefaults(options);
-	const compiler = new Compiler(options.context, options);
+	
+	const compiler = new Compiler(options.context, options); // Create compiler
+
+	// Apply fs & logger in Node environment
 	new NodeEnvironmentPlugin({
 		infrastructureLogging: options.infrastructureLogging
 	}).apply(compiler);
+	// Apply plugins
 	if (Array.isArray(options.plugins)) {
 		for (const plugin of options.plugins) {
 			if (typeof plugin === "function") {
@@ -74,11 +80,18 @@ const createCompiler = rawOptions => {
 			}
 		}
 	}
+	// Apply default value for options
 	applyWebpackOptionsDefaults(options);
+
+	// environment prepared => call hook
 	compiler.hooks.environment.call();
 	compiler.hooks.afterEnvironment.call();
+
+	// Inject webpack internal plugins based on options
 	new WebpackOptionsApply().process(options, compiler);
+
 	compiler.hooks.initialize.call();
+	
 	return compiler;
 };
 

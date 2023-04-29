@@ -14,6 +14,12 @@ const memoize = require("../util/memoize");
 
 const getRawModule = memoize(() => require("../RawModule"));
 
+/**
+ * Module dep
+ * 
+ * 【EntryDependency】
+ * request = entry = { main: { import: ['xxx'] } }
+ */
 class ModuleDependency extends Dependency {
 	/**
 	 * @param {string} request request path which needs resolving

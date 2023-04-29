@@ -97,6 +97,34 @@ class RuntimePlugin {
 	 * @returns {void}
 	 */
 	apply(compiler) {
+		/**
+		 * tap      compilation
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.definePropertyGetters]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.makeNamespaceObject]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.createFakeNamespaceObject]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.hasOwnProperty]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.compatGetDefaultExport]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.runtimeId]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.publicPath]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.global]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.asyncModule]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.systemContext]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.getChunkScriptFilename]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.getChunkCssFilename]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.getChunkUpdateScriptFilename]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.getUpdateManifestFilename]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.ensureChunk]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.ensureChunkIncludeEntries]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.shareScopeMap]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.loadScript]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.createScript]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.createScriptUrl]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.getTrustedTypesPolicy]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.relativeUrl]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.onChunksLoaded]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.baseURI]
+		 * => tap   runtimeRequirementInTree[RuntimeGlobals.scriptNonce]
+		 */
 		compiler.hooks.compilation.tap("RuntimePlugin", compilation => {
 			const globalChunkLoading = compilation.outputOptions.chunkLoading;
 			const isChunkLoadingDisabledForChunk = chunk => {
@@ -139,6 +167,10 @@ class RuntimePlugin {
 						for (const dep of deps) set.add(dep);
 					});
 			}
+			/**
+			 * 【addRuntimeModule】
+			 * compilation.addRuntimeModule
+			 */
 			compilation.hooks.runtimeRequirementInTree
 				.for(RuntimeGlobals.definePropertyGetters)
 				.tap("RuntimePlugin", chunk => {

@@ -1062,6 +1062,10 @@ If changing the source code is not an option there is also a resolve options cal
 	 * @param {{[k: string]: any}} parserOptions parser options
 	 * @returns {Parser} parser
 	 */
+	/**
+	 * call  createParser  =>  parser
+	 * call  parser
+	 */
 	createParser(type, parserOptions = {}) {
 		parserOptions = mergeGlobalOptions(
 			this._globalParserOptions,

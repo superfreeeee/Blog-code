@@ -92,6 +92,9 @@ class HookCodeFactory {
 		return fn;
 	}
 
+	/**
+	 * _x = taps.map(t => t.fn)
+	 */
 	setup(instance, options) {
 		instance._x = options.taps.map(t => t.fn);
 	}
@@ -180,6 +183,7 @@ class HookCodeFactory {
 	 * 
 	 * ```
 	 * var _context;
+	 * var _x = this._x  // tap functions
 	 * ```
 	 * 
 	 * > if (interceptors.length > 0)

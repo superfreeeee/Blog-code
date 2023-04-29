@@ -15,6 +15,9 @@ class EntryOptionPlugin {
 	 * @param {Compiler} compiler the compiler instance one is tapping into
 	 * @returns {void}
 	 */
+	/**
+	 * tap  entryOption
+	 */
 	apply(compiler) {
 		compiler.hooks.entryOption.tap("EntryOptionPlugin", (context, entry) => {
 			EntryOptionPlugin.applyEntryOption(compiler, context, entry);
@@ -28,13 +31,30 @@ class EntryOptionPlugin {
 	 * @param {Entry} entry request
 	 * @returns {void}
 	 */
+	/**
+	 * applyEntryOption(
+	 *   compiler,
+	 *   context  =  undefined,
+	 *   entry    =  { main: { import: ['xxx'] } }
+	 * )
+	 */
 	static applyEntryOption(compiler, context, entry) {
 		if (typeof entry === "function") {
+			/**
+			 * entry: () => {}
+			 */
 			const DynamicEntryPlugin = require("./DynamicEntryPlugin");
 			new DynamicEntryPlugin(context, entry).apply(compiler);
 		} else {
+			/**
+			 * entry: { main: { import: ['src/index.js'] } }
+			 */
 			const EntryPlugin = require("./EntryPlugin");
 			for (const name of Object.keys(entry)) {
+				/**
+				 * name: 'main'
+				 * desc: { import: ['xxx'] }
+				 */
 				const desc = entry[name];
 				const options = EntryOptionPlugin.entryDescriptionToOptions(
 					compiler,
@@ -53,6 +73,9 @@ class EntryOptionPlugin {
 	 * @param {string} name entry name
 	 * @param {EntryDescription} desc entry description
 	 * @returns {EntryOptions} options for the entry
+	 */
+	/**
+	 * entryDescriptionToOptions(compiler, 'main', { import: ['xxx'] })
 	 */
 	static entryDescriptionToOptions(compiler, name, desc) {
 		/** @type {EntryOptions} */

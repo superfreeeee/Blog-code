@@ -2102,6 +2102,21 @@ BREAKING CHANGE: Asset processing hooks in Compilation has been merged into a si
 	 * @param {ModuleCallback} callback callback function
 	 * @returns {void} returns
 	 */
+	/**
+	 * addEntry(
+	 *   context   =  undefined, 
+	 *   entry     =  EntryDependency, 
+	 *   options
+	 * )
+	 * =>
+	 * _addEntryItem(
+	 *   context   =  undefined,
+	 *   entry     =  EntryDependency,
+	 *   target    =  'dependencies',
+	 *   options,
+	 *   callback,
+	 * )
+	 */
 	addEntry(context, entry, optionsOrName, callback) {
 		// TODO webpack 6 remove
 		const options =
@@ -2138,10 +2153,16 @@ BREAKING CHANGE: Asset processing hooks in Compilation has been merged into a si
 	 * @returns {void} returns
 	 */
 	_addEntryItem(context, entry, target, options, callback) {
-		const { name } = options;
+		/**
+		 * entry = { main: { import: ['xxx'] } }
+		 * =>
+		 * name = 'main'
+		 */
+		const { name } = options; 
 		let entryData =
 			name !== undefined ? this.entries.get(name) : this.globalEntry;
 		if (entryData === undefined) {
+			// 1. new entry point
 			entryData = {
 				dependencies: [],
 				includeDependencies: [],
@@ -2151,8 +2172,17 @@ BREAKING CHANGE: Asset processing hooks in Compilation has been merged into a si
 				}
 			};
 			entryData[target].push(entry);
+			/**
+			 * entries: Map
+			 * 'main' => {
+			 *   dependencies: [EntryDependency],
+			 *   includeDependencies: [],
+			 *   options,
+			 * }
+			 */
 			this.entries.set(name, entryData);
 		} else {
+			// 2. entry point existed
 			entryData[target].push(entry);
 			for (const key of Object.keys(options)) {
 				if (options[key] === undefined) continue;

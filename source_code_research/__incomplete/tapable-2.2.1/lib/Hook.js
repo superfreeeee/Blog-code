@@ -29,7 +29,7 @@ class Hook {
 		this.taps = [];
 		this.interceptors = [];
 		this._call = CALL_DELEGATE;
-		this.call = CALL_DELEGATE;
+		this.call = CALL_DELEGATE; // publish => fire all tap.fn
 		this._callAsync = CALL_ASYNC_DELEGATE;
 		this.callAsync = CALL_ASYNC_DELEGATE;
 		this._promise = PROMISE_DELEGATE;
@@ -46,6 +46,9 @@ class Hook {
 		throw new Error("Abstract: should be overridden");
 	}
 
+	/**
+	 * const call = _createCall('sync')
+	 */
 	_createCall(type) {
 		return this.compile({
 			taps: this.taps,
@@ -55,6 +58,9 @@ class Hook {
 		});
 	}
 
+	/**
+	 * => _tap('sync', 'eventName', cb)
+	 */
 	_tap(type, options, fn) {
 		if (typeof options === "string") {
 			options = {
@@ -69,11 +75,16 @@ class Hook {
 		if (typeof options.context !== "undefined") {
 			deprecateContext();
 		}
+		// options = { type, fn, name }
 		options = Object.assign({ type, fn }, options);
 		options = this._runRegisterInterceptors(options);
 		this._insert(options);
 	}
 
+	/**
+	 * hook.tap('eventName', cb)
+	 * => _tap('sync', 'eventName', cb)
+	 */
 	tap(options, fn) {
 		this._tap("sync", options, fn);
 	}
@@ -133,6 +144,9 @@ class Hook {
 		this.promise = this._promise;
 	}
 
+	/**
+	 * _insert({ type, fn, name })
+	 */
 	_insert(item) {
 		this._resetCompilation();
 		let before;

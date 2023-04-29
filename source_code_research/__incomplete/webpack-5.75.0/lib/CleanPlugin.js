@@ -328,6 +328,9 @@ class CleanPlugin {
 		/** @type {undefined|Assets} */
 		let oldAssets;
 
+		/**
+		 * tap  compiler.emit
+		 */
 		compiler.hooks.emit.tapAsync(
 			{
 				name: "CleanPlugin",

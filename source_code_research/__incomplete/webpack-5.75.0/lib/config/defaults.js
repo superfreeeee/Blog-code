@@ -69,6 +69,7 @@ const D = (obj, prop, value) => {
  * @param {function(): T[P]} factory a default value factory for the property
  * @returns {void}
  */
+// Set factory() if is undefined
 const F = (obj, prop, factory) => {
 	if (obj[prop] === undefined) {
 		// ! set default value, with factory
@@ -157,6 +158,13 @@ const applyWebpackOptionsDefaults = options => {
 	const development = mode === "development";
 	const production = mode === "production" || !mode;
 
+	/**
+	 * entry: {
+	 * 	 main: {
+	 *     import: ['xxx']  // defaults = ['./src']
+	 *   }
+	 * }
+	 */
 	if (typeof options.entry !== "function") {
 		for (const key of Object.keys(options.entry)) {
 			F(

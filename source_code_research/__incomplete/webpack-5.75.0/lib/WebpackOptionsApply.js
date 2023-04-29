@@ -68,12 +68,30 @@ class WebpackOptionsApply extends OptionsApply {
 	 * @param {Compiler} compiler compiler object
 	 * @returns {WebpackOptions} options object
 	 */
+	/**
+	 * Apply plugins base on options
+	 */
 	process(options, compiler) {
+		/**
+		 * compiler.outputPath
+		 * compiler.recordsInputPath
+		 * compiler.recordsOutputPath
+		 * compiler.name
+		 */
 		compiler.outputPath = options.output.path;
 		compiler.recordsInputPath = options.recordsInputPath || null;
 		compiler.recordsOutputPath = options.recordsOutputPath || null;
 		compiler.name = options.name;
 
+		/**
+		 * options.externals: ['react']
+		 * options.externals: {
+		 *   react: 'react',
+		 *   reactDOM: 'react-dom'
+		 * }
+		 * 
+		 * => ExternalsPlugin
+		 */
 		if (options.externals) {
 			//@ts-expect-error https://github.com/microsoft/TypeScript/issues/41697
 			const ExternalsPlugin = require("./ExternalsPlugin");
@@ -82,6 +100,9 @@ class WebpackOptionsApply extends OptionsApply {
 			);
 		}
 
+		/**
+		 * options.externalsPresets
+		 */
 		if (options.externalsPresets.node) {
 			const NodeTargetPlugin = require("./node/NodeTargetPlugin");
 			new NodeTargetPlugin().apply(compiler);
@@ -186,6 +207,9 @@ class WebpackOptionsApply extends OptionsApply {
 
 		new ChunkPrefetchPreloadPlugin().apply(compiler);
 
+		/**
+		 * options.output
+		 */
 		if (typeof options.output.chunkFormat === "string") {
 			switch (options.output.chunkFormat) {
 				case "array-push": {
@@ -238,6 +262,11 @@ class WebpackOptionsApply extends OptionsApply {
 			);
 		}
 
+		/**
+		 * options.output.clean: true
+		 * 
+		 * => CleanPlugin
+		 */
 		if (options.output.clean) {
 			const CleanPlugin = require("./CleanPlugin");
 			new CleanPlugin(
@@ -245,6 +274,11 @@ class WebpackOptionsApply extends OptionsApply {
 			).apply(compiler);
 		}
 
+		/**
+		 * options.devtool: 'source-map'
+		 * 
+		 * => SourceMapDevToolPlugin
+		 */
 		if (options.devtool) {
 			if (options.devtool.includes("source-map")) {
 				const hidden = options.devtool.includes("hidden");
@@ -276,10 +310,14 @@ class WebpackOptionsApply extends OptionsApply {
 			}
 		}
 
+		// => JavascriptModulesPlugin
 		new JavascriptModulesPlugin().apply(compiler);
 		new JsonModulesPlugin().apply(compiler);
 		new AssetModulesPlugin().apply(compiler);
 
+		/**
+		 * options.experiments
+		 */
 		if (!options.experiments.outputModule) {
 			if (options.output.module) {
 				throw new Error(
@@ -349,6 +387,10 @@ class WebpackOptionsApply extends OptionsApply {
 			new HttpUriPlugin(httpOptions).apply(compiler);
 		}
 
+		/**
+		 * tap      entryOption
+		 * => call  entryOption
+		 */
 		new EntryOptionPlugin().apply(compiler);
 		compiler.hooks.entryOption.call(options.context, options.entry);
 
@@ -688,10 +730,19 @@ class WebpackOptionsApply extends OptionsApply {
 			new IgnoreWarningsPlugin(options.ignoreWarnings).apply(compiler);
 		}
 
+		/**
+		 * call  afterPlugins
+		 */
 		compiler.hooks.afterPlugins.call(compiler);
 		if (!compiler.inputFileSystem) {
 			throw new Error("No input filesystem provided");
 		}
+		/**
+		 * resolverFactory.tap
+		 *   resolveOptions.for('normal')
+		 *   resolveOptions.for('context')
+		 *   resolveOptions.for('loader')
+		 */
 		compiler.resolverFactory.hooks.resolveOptions
 			.for("normal")
 			.tap("WebpackOptionsApply", resolveOptions => {
@@ -714,6 +765,9 @@ class WebpackOptionsApply extends OptionsApply {
 				resolveOptions.fileSystem = compiler.inputFileSystem;
 				return resolveOptions;
 			});
+		/**
+		 * call  afterResolvers
+		 */
 		compiler.hooks.afterResolvers.call(compiler);
 		return options;
 	}

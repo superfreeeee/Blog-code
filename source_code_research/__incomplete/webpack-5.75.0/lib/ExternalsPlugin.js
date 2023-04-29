@@ -10,6 +10,11 @@ const ExternalModuleFactoryPlugin = require("./ExternalModuleFactoryPlugin");
 /** @typedef {import("../declarations/WebpackOptions").Externals} Externals */
 /** @typedef {import("./Compiler")} Compiler */
 
+/**
+ * tap  compiler.compile
+ * 
+ * => ExternalModuleFactoryPlugin
+ */
 class ExternalsPlugin {
 	/**
 	 * @param {string | undefined} type default external type
@@ -26,6 +31,9 @@ class ExternalsPlugin {
 	 * @returns {void}
 	 */
 	apply(compiler) {
+		/**
+		 * Apply ExternalModuleFactoryPlugin at compiler.compile
+		 */
 		compiler.hooks.compile.tap("ExternalsPlugin", ({ normalModuleFactory }) => {
 			new ExternalModuleFactoryPlugin(this.type, this.externals).apply(
 				normalModuleFactory

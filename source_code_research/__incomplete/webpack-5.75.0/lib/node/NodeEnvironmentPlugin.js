@@ -30,6 +30,14 @@ class NodeEnvironmentPlugin {
 	 */
 	apply(compiler) {
 		const { infrastructureLogging } = this.options;
+		/**
+		 * infrastructureLogger
+		 * inputFileSystem         = graceful-fs
+		 * outputFileSystem        = graceful-fs
+		 * intermediateFileSystem
+		 * watchFileSystem
+		 * fsStartTime             = Date.now() after beforeRun tap
+		 */
 		compiler.infrastructureLogger = createConsoleLogger({
 			level: infrastructureLogging.level || "info",
 			debug: infrastructureLogging.debug || false,

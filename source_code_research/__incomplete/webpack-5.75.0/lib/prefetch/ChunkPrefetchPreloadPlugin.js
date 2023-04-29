@@ -19,9 +19,18 @@ class ChunkPrefetchPreloadPlugin {
 	 * @returns {void}
 	 */
 	apply(compiler) {
+		/**
+		 * setup on compilation
+		 */
 		compiler.hooks.compilation.tap(
 			"ChunkPrefetchPreloadPlugin",
 			compilation => {
+				/**
+				 * tap  compilation.additionalChunkRuntimeRequirements
+				 * tap  compilation.additionalTreeRuntimeRequirements
+				 * tap  compilation.runtimeRequirementInTree
+				 * tap  compilation.runtimeRequirementInTree
+				 */
 				compilation.hooks.additionalChunkRuntimeRequirements.tap(
 					"ChunkPrefetchPreloadPlugin",
 					(chunk, set, { chunkGraph }) => {

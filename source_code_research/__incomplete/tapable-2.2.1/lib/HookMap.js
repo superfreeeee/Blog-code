@@ -8,12 +8,18 @@ const util = require("util");
 
 const defaultFactory = (key, hook) => hook;
 
+/**
+ * HookMap = { key: hook }
+ */
 class HookMap {
+	/**
+	 * factory: (key) => Hook
+	 */
 	constructor(factory, name = undefined) {
 		this._map = new Map();
 		this.name = name;
 		this._factory = factory;
-		this._interceptors = [];
+		this._interceptors = []; // Array<{ factory, interceptor }>
 	}
 
 	get(key) {

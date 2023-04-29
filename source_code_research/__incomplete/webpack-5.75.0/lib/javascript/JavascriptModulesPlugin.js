@@ -133,6 +133,9 @@ const printGeneratedCodeForStack = (module, code) => {
 /** @type {WeakMap<Compilation, CompilationHooks>} */
 const compilationHooksMap = new WeakMap();
 
+/**
+ * tap  compilation
+ */
 class JavascriptModulesPlugin {
 	/**
 	 * @param {Compilation} compilation the compilation
@@ -195,6 +198,9 @@ class JavascriptModulesPlugin {
 	 * @returns {void}
 	 */
 	apply(compiler) {
+		/**
+		 * tap compiler.compilation
+		 */
 		compiler.hooks.compilation.tap(
 			"JavascriptModulesPlugin",
 			(compilation, { normalModuleFactory }) => {
