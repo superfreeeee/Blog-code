@@ -1,30 +1,27 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 
 const IS_PROD = process.env.NODE_ENV === 'production';
 
+/**
+ * @type {import('webpack').Configuration}
+ */
 const config = {
-  // Start mode / environment
   mode: IS_PROD ? 'production' : 'development',
 
-  // Entry files
   entry: path.resolve(__dirname, 'src/index'),
 
-  // Output files and chunks
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name]-[chunkhash].js',
+    filename: '[name].js',
   },
 
-  // Resolve files configuration
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
   },
 
-  // Module/Loaders configuration
   module: {
     rules: [
       {
@@ -55,10 +52,8 @@ const config = {
     ],
   },
 
-  // Plugins
   plugins: [
     new WebpackBar(),
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, 'public/index.html'),
@@ -66,7 +61,6 @@ const config = {
     }),
   ],
 
-  // Webpack chunks optimization
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -81,13 +75,11 @@ const config = {
     },
   },
 
-  //
   performance: {
-    maxEntrypointSize: 512 * 1000,
-    maxAssetSize: 512 * 1000,
+    // maxEntrypointSize: 512 * 1000,
+    // maxAssetSize: 512 * 1000,
   },
 
-  // DevServer for development
   devServer: {
     port: 3000,
     historyApiFallback: true,
@@ -95,7 +87,7 @@ const config = {
   },
 
   // Generate source map
-  devtool: 'source-map',
+  devtool: IS_PROD ? 'source-map' : 'eval-source-map',
 };
 
 module.exports = config;
