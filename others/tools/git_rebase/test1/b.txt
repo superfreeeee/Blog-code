@@ -1,2 +1,0 @@
-b.txt by f1
-b.txt by master

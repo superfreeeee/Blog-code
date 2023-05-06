@@ -1,1 +1,0 @@
-# delegate Source Code Research

@@ -1,2 +1,0 @@
-import './cjs'
-import './esm'

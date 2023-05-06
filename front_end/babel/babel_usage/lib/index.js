@@ -1,1 +1,0 @@
-"use strict";var _other=require("./other");console.log("other msg: ".concat(_other.msg));

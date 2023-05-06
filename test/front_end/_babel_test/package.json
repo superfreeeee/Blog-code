@@ -1,9 +1,0 @@
-{
-  "name": "_babel_test",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/parser": "^7.16.4"
-  }
-}

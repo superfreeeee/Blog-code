@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "emitDeclarationOnly": true,
-    "declaration": true,
-    "declarationDir": "types"
-  }
-}

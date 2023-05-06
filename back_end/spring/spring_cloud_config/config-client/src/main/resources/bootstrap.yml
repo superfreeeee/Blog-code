@@ -1,8 +1,0 @@
-spring:
-  profiles:
-    active: dev # 透过运行参数覆盖
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8800/eureka/

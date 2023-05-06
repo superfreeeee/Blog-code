@@ -1,1 +1,0 @@
-content writing from rust program

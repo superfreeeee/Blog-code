@@ -1,1 +1,0 @@
-Successfully compiled 3 files with Babel (465ms).

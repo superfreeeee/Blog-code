@@ -1,7 +1,0 @@
-* text=auto
-test/statsCases/** eol=lf
-examples/* eol=lf
-bin/* eol=lf
-*.svg eol=lf
-*.css eol=lf
-**/*webpack.lock.data/** -text

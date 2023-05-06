@@ -1,9 +1,0 @@
-server:
-  port: 8800
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-  instance:
-    secure-port-enabled: false

@@ -1,5 +1,0 @@
-.DS_Store
-.idea/
-.vscode/
-**/*.log
-cmake-build-debug

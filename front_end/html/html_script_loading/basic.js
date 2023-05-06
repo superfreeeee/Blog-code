@@ -1,1 +1,0 @@
-console.log('loading script using basic')

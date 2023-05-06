@@ -1,8 +1,0 @@
-server:
-  port: 8802
-
-data:
-  env: dev
-  user:
-    username: dev123
-    password: dev123

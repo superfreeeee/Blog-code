@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "jsx": "react",
-    "module": "ES6",
-    "sourceMap": true
-  },
-  "exclude": ["node_modules", "dist"]
-}
